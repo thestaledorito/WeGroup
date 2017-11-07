@@ -18,9 +18,26 @@ public class Tcp_server_side {
 		{
 			System.out.println("Error creating server:" + e);
 		}
+		
+		m_run = true;
+		loop();
 	}
 	
+	private void loop()
+	{
+		if(m_run)
+		{
+			check_for_incoming_connection();
+			check_clients_alive();
+			// Call loop with a timer
+			// or just loop?
+			// is this going to be event based?
+		}
+	}
+	
+	
 	// Called in a loop to see if server has a new client
+	// multiple connections?
 	private void check_for_incoming_connection()
 	{
 		
@@ -28,8 +45,17 @@ public class Tcp_server_side {
 	
 	private void check_clients_alive()
 	{
-		
+		for(int i = 0; i < m_client_connections.size(); i++)
+		{
+			if(!m_client_connections.get(i).Is_connected())
+			{
+				// Close connection
+				// delete from list
+			}
+		}
 	}
+	
+	private boolean m_run;
 	
 	private ServerSocket m_server;
 	

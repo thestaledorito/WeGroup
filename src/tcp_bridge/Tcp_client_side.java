@@ -4,5 +4,7 @@ package tcp_bridge;
 // we need for the bridge
 public class Tcp_client_side extends Tcp_bridge {
 
+	// open connection
+	
 }
  
