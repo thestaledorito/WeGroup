@@ -29,9 +29,11 @@ public class Tcp_server_side {
 		{
 			check_for_incoming_connection();
 			check_clients_alive();
+			check_client_messages();
 			// Call loop with a timer
 			// or just loop?
 			// is this going to be event based?
+			//    -- probably should be for server messages
 		}
 	}
 	
@@ -54,6 +56,18 @@ public class Tcp_server_side {
 			}
 		}
 	}
+	
+	private void check_client_messages()
+	{
+		for(int i = 0; i < m_client_connections.size(); i++)
+		{
+			// Check for messages and pass to server
+			// emit a signal?
+		}
+	}
+	
+	
+	
 	
 	private boolean m_run;
 	
