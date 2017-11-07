@@ -6,5 +6,6 @@ public enum Tcp_message_type
 	Message,
 	List,
 	Poll,
+	Poll_vote,
 	Other
 }

@@ -1,5 +1,7 @@
 package tcp_bridge;
 
+import java.util.*;
+
 public class Message_transport extends Transport_base {
 	
 	public void Serialize_file(String filename)
@@ -17,6 +19,8 @@ public class Message_transport extends Transport_base {
 		
 		// copy bytes from m_file_contents into file
 	}
+	
+	public List<String> m_recipiants;
 	
 	// Message contents. Will be formatted in UTF8 to allow for emoji
 	// Simple formatting will be handled by using HTML tags in the string
