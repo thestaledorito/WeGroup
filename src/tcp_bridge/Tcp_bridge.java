@@ -3,6 +3,8 @@ package tcp_bridge;
 import java.io.*;
 import java.net.*;
 
+import data_types.Transport_base;
+
 // https://www.tutorialspoint.com/java/java_serialization.htm
 // how to serialize/ deserialize
 

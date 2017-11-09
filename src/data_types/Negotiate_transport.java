@@ -1,4 +1,5 @@
-package tcp_bridge;
+package data_types;
+
 
 public class Negotiate_transport extends Transport_base {
 	boolean m_accpted;
