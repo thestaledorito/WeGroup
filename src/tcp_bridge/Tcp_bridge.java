@@ -3,7 +3,7 @@ package tcp_bridge;
 import java.io.*;
 import java.net.*;
 
-import data_types.Transport_base;
+import data_types.Base_data;
 
 // https://www.tutorialspoint.com/java/java_serialization.htm
 // how to serialize/ deserialize
@@ -11,7 +11,7 @@ import data_types.Transport_base;
 public class Tcp_bridge {
 	
 	// Sends a constructed data message
-	public void Send_data(Transport_base data)
+	public void Send_data(Base_data data)
 	{
 		String message = serialize(data);
 		
@@ -25,16 +25,16 @@ public class Tcp_bridge {
 	}
 	
 	// Takes in a data class and returns it serialized
-	private String serialize(Transport_base data)
+	private String serialize(Base_data data)
 	{
 		
 		return "serialized output";
 	}
 	
 	// Takes in a serialized data class and returns the corresponding type
-	private Transport_base deserialize(String data)
+	private Base_data deserialize(String data)
 	{
-		Transport_base deserialized_data = null;
+		Base_data deserialized_data = null;
 		return deserialized_data;
 	}
 	
