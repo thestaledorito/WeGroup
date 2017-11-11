@@ -4,10 +4,13 @@ import java.net.*;
 import java.io.*;
 import java.util.*;
 
+import data_types.Base_data;
+
 //This will do any Client Specific actions we decide 
 //we need for the bridge
 public class Tcp_server_side {
 		
+	// Initialize the server
 	public void Init()
 	{
 		try
@@ -21,6 +24,12 @@ public class Tcp_server_side {
 		
 		m_run = true;
 		loop();
+	}
+	
+	// Send a data message
+	public void Send_data(Base_data data)
+	{
+		
 	}
 	
 	private void loop()
