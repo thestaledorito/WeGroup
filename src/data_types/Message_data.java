@@ -5,15 +5,20 @@ import java.util.*;
 
 public class Message_data extends Base_data {
 	
+	// Required for Serializable
+	private static final long serialVersionUID = 1L;
+	
+	// This should probably go into UI
 	public void Serialize_file(String filename)
 	{
-		// trim filename and assing to m_filename
+		// trim filename and assign to m_filename
 		
 		// read byte contents of the file and assign to m_file_contents
 		
-		// If we are sucsessful set m_have_attachement = true;
+		// If we are successful set m_have_attachement = true;
 	}
 	
+	// This should probably go into the UI
 	public void Deserialize_file(String path)
 	{
 		// create file with m_filename at path
@@ -21,6 +26,7 @@ public class Message_data extends Base_data {
 		// copy bytes from m_file_contents into file
 	}
 	
+	// Who is receiving this message
 	public List<String> m_recipiants;
 	
 	// Message contents. Will be formatted in UTF8 to allow for emoji

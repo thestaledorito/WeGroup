@@ -9,6 +9,13 @@ package data_types;
 // If it's not too hard look into it
 
 public class Negotiate_data extends Base_data {
-	boolean m_accpted;
-	int m_port_number;
+	
+	// Required for Serializable
+	private static final long serialVersionUID = 1L;
+	
+	// Was login accepted
+	public boolean m_accpted;
+	
+	// What port to start talking on
+	public int m_port_number;
 }
