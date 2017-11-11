@@ -4,6 +4,8 @@ import java.net.*;
 import java.io.*;
 import java.util.*;
 
+import server.Database_manager;
+
 import data_types.Base_data;
 
 //This will do any Client Specific actions we decide 
@@ -24,6 +26,12 @@ public class Tcp_server_side {
 		
 		m_run = true;
 		loop();
+	}
+	
+	// Register a class to receive all the data that comes from the server
+	public void Register_reciver(Database_manager callback)
+	{
+		m_callback_class = callback;
 	}
 	
 	// Send a data message
@@ -84,4 +92,6 @@ public class Tcp_server_side {
 	
 	private List<Tcp_bridge> m_client_connections;
 
+	// Sends messages to this class with Data_received(Base_data data)
+	private Database_manager m_callback_class;
 }

@@ -29,6 +29,9 @@ public class Message_data extends Base_data {
 	// Who is receiving this message
 	public List<String> m_recipiants;
 	
+	// Who sent the message in question
+	public String m_sender;
+	
 	// Message contents. Will be formatted in UTF8 to allow for emoji
 	// Simple formatting will be handled by using HTML tags in the string
 	// https://stackoverflow.com/questions/4769076/how-to-make-font-bold-in-java-dialogue-box
