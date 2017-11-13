@@ -1,5 +1,6 @@
 package client;
 
-public class Poll_vote {
+public class Poll_vote 
+{
 
 }

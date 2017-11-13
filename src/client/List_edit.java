@@ -1,5 +1,6 @@
 package client;
 
-public class List_edit {
+public class List_edit 
+{
 
 }

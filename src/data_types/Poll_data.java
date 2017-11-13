@@ -2,7 +2,8 @@ package data_types;
 
 import java.util.*;
 
-public class Poll_data extends Base_data {
+public class Poll_data extends Base_data 
+{
 	
 	// Required for Serializable
 	private static final long serialVersionUID = 1L;

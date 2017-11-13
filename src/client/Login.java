@@ -1,5 +1,6 @@
 package client;
 
-public class Login {
+public class Login 
+{
 
 }

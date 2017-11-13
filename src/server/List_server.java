@@ -1,5 +1,6 @@
 package server;
 
-public class List_server {
+public class List_server 
+{
 
 }

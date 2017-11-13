@@ -3,7 +3,8 @@ package client;
 import data_types.*;
 import tcp_bridge.Tcp_client_side;
 
-public class Main_page {
+public class Main_page 
+{
 
 	// Initialize this class
 	public void Init()

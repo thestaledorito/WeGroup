@@ -10,7 +10,8 @@ import data_types.Base_data;
 
 //This will do any Client Specific actions we decide 
 //we need for the bridge
-public class Tcp_server_side {
+public class Tcp_server_side 
+{
 		
 	// Initialize the server
 	public void Init()

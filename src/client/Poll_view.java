@@ -1,5 +1,6 @@
 package client;
 
-public class Poll_view {
+public class Poll_view 
+{
 
 }

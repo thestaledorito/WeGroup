@@ -3,7 +3,8 @@ package server;
 import tcp_bridge.Tcp_server_side;
 import data_types.*;
 
-public class Database_manager {
+public class Database_manager 
+{
 	
 	// Initialize this class
 	public void Init()

@@ -1,7 +1,8 @@
 package data_types;
 
 
-public class Base_data implements java.io.Serializable {
+public class Base_data implements java.io.Serializable 
+{
 
 	// Required for Serializable
 	private static final long serialVersionUID = 1L;

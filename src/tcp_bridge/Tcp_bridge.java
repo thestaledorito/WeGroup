@@ -8,7 +8,8 @@ import data_types.Base_data;
 // https://www.tutorialspoint.com/java/java_serialization.htm
 // how to serialize/ deserialize
 
-public class Tcp_bridge {
+public class Tcp_bridge 
+{
 	
 	// Sends a constructed data message
 	public void Send_data(Base_data data)
