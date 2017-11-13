@@ -1,13 +1,16 @@
 package testing;
 
-import server.Database_manager;
+import data_types.*;
 
-public class Server_side extends Database_manager 
+public class Server_side
 {
 
 	public static void main(String[] args) 
 	{
-
+		Server_receiver receiver = new Server_receiver();
+		receiver.Init();
+		
+		
 	}
 
 }
