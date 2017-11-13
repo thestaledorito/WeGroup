@@ -4,6 +4,16 @@ import java.util.*;
 
 public class List_data extends Base_data 
 {
+	// Default constructor
+	public List_data()
+	{
+		super();
+		m_type = Tcp_message_type.List;
+		
+		m_list_id = new UUID(0,0);
+		m_users = new Vector<String>();
+		m_contents = new Vector<String>();
+	}
 	
 	// Required for Serializable
 	private static final long serialVersionUID = 1L;

@@ -4,6 +4,18 @@ import java.util.*;
 
 public class Poll_data extends Base_data 
 {
+	// Default constructor
+	public Poll_data()
+	{
+		super();
+		m_type = Tcp_message_type.Poll;
+		
+		m_poll_id = new UUID(0,0);
+		m_creator = "";
+		m_poll_question = "";
+		m_poll_options = new Vector<String>();
+		m_poll_votes = new Vector<Integer>();
+	}
 	
 	// Required for Serializable
 	private static final long serialVersionUID = 1L;

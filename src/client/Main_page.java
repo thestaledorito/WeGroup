@@ -21,5 +21,5 @@ public class Main_page
 	}
 	
 	// Class to send TCP
-	private Tcp_client_side m_tcp;
+	protected Tcp_client_side m_tcp;
 }

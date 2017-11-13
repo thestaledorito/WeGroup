@@ -10,6 +10,15 @@ package data_types;
 
 public class Login_response_data extends Base_data 
 {
+	// Default constructor
+	public Login_response_data()
+	{
+		super();
+		m_type = Tcp_message_type.Login_response;
+		
+		m_accpted = false;
+		m_port_number = 0;
+	}
 	
 	// Required for Serializable
 	private static final long serialVersionUID = 1L;

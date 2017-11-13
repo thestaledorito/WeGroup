@@ -21,5 +21,5 @@ public class Database_manager
 	}
 
 	// Class to send TCP
-	private Tcp_server_side m_tcp;
+	protected Tcp_server_side m_tcp;
 }

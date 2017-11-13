@@ -1,9 +1,20 @@
 package data_types;
 
+
 // Login needs to take a different path and message structure than everything else
 
 public class Login_data extends Base_data 
 {
+	// Default constructor
+	public Login_data()
+	{
+		super();
+		m_type = Tcp_message_type.Login;
+		
+		m_user_name = "";
+		m_group_name = "";
+		m_password = "";
+	}
 	
 	// Required for Serializable
 	private static final long serialVersionUID = 1L;
