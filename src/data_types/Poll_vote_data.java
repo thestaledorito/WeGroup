@@ -22,6 +22,16 @@ public class Poll_vote_data extends Base_data
 	
 	// What poll option the user wants
 	public int m_vote;
-	
-	// TODO toString
+
+	// Prints out the contents of the poll vote
+	// TODO Test this
+	public String toString()
+	{
+		String rep = super.toString();
+		
+		rep += "\n  Poll ID: " + m_poll_id.toString();
+		rep += "\n  Vote: " + m_vote;
+		
+		return rep;
+	}
 }

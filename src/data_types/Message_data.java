@@ -64,7 +64,7 @@ public class Message_data extends Base_data
 	{
 		String rep = super.toString();
 		
-		rep += ":\n  To:";
+		rep += "\n  To:";
 		
 		Iterator<String> it = m_recipiants.iterator();
 		while(it.hasNext())

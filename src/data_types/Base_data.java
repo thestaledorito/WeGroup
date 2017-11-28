@@ -20,4 +20,15 @@ public class Base_data implements java.io.Serializable
 	// This field is used to communicate with the server
 	// UI can ignore this field
 	public transient String m_user_id;
+	
+	// Prints out the contents of the message
+	public String toString()
+	{
+		String rep = super.toString();
+		
+		rep += ":\n  Type: " + m_type.toString();
+		rep += " \n  id: " + m_user_id;
+		
+		return rep;
+	}
 }

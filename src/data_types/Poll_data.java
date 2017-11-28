@@ -35,5 +35,28 @@ public class Poll_data extends Base_data
 	// List of the current poll votes
 	public List<Integer> m_poll_votes;
 	
-	// TODO toString
+	// Prints out the contents of the poll data
+	// TODO Test this
+	public String toString()
+	{
+		String rep = super.toString();
+		
+		rep += "\n  Poll ID: " + m_poll_id.toString();
+		rep += "\n  Creator: " + m_creator;
+		rep += "\n  Question: " + m_poll_question;
+		rep += "\n  Options:";
+		
+		Iterator<String> it = m_poll_options.iterator();
+		Iterator<Integer> vote_it = m_poll_votes.iterator();
+		while(it.hasNext())
+		{
+			rep += "\n    " + it.next();
+			if(vote_it.hasNext())
+			{
+				rep += " votes: " + vote_it.next();
+			}
+		}
+		
+		return rep;
+	}
 }

@@ -1,5 +1,7 @@
 package data_types;
 
+import java.util.Iterator;
+
 
 // Login needs to take a different path and message structure than everything else
 
@@ -29,5 +31,16 @@ public class Login_data extends Base_data
 	// Do we need to bother hashing?
 	public String m_password;
 	
-	// TODO toString
+	// Prints out the contents of the login message
+	// TODO Test this
+	public String toString()
+	{
+		String rep = super.toString();
+		
+		rep += "\n  User Name: " + m_user_name;
+		rep += "\n  Group Name: " + m_group_name;
+		rep += "\n  Password: " + m_password;
+	
+		return rep;
+	}
 }

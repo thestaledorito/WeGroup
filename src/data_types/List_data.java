@@ -26,6 +26,30 @@ public class List_data extends Base_data
 	
 	// List of items are in the list
 	public List<String> m_contents;
+
+	// Prints out the contents of the list
+	// TODO Test this
+	public String toString()
+	{
+		String rep = super.toString();
+		
+		rep += "\n  List ID: " + m_list_id.toString();
+		rep += "\n  List users:";
+		
+		Iterator<String> it = m_users.iterator();
+		while(it.hasNext())
+		{
+			rep += "\n    " + it.next();
+		}
+		
+		rep += "\n  List contents:";
+		
+		it = m_contents.iterator();
+		while(it.hasNext())
+		{
+			rep += "\n    " + it.next();
+		}
 	
-	// TODO toString
+		return rep;
+	}
 }

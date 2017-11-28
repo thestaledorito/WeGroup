@@ -1,5 +1,7 @@
 package data_types;
 
+import java.util.Iterator;
+
 
 // Do we need this?
 // Will only be necessary if all users need to talk on
@@ -30,5 +32,21 @@ public class Login_response_data extends Base_data
 	// This should be ignored by the UI
 	public int m_port_number;
 	
-	// TODO toString
+	// Prints out the contents of the login response message
+	// TODO Test this
+	public String toString()
+	{
+		String rep = super.toString();
+		
+		if(m_accpted)
+		{
+			rep += "\n  Login Accpted on port: " + m_port_number;
+		}
+		else
+		{
+			rep += "\n  Login Rejected";
+		}
+	
+		return rep;
+	}
 }
