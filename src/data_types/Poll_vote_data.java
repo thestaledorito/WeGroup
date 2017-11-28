@@ -22,4 +22,6 @@ public class Poll_vote_data extends Base_data
 	
 	// What poll option the user wants
 	public int m_vote;
+	
+	// TODO toString
 }

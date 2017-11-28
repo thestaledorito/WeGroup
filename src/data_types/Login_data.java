@@ -28,4 +28,6 @@ public class Login_data extends Base_data
 	// Password that the user needs
 	// Do we need to bother hashing?
 	public String m_password;
+	
+	// TODO toString
 }

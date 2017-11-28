@@ -12,8 +12,9 @@ public class Client_side
 		mess.m_recipiants.add("Fred");
 		mess.m_recipiants.add("George");
 		mess.m_sender = "John";
+		mess.m_message = "Hello World";
 		mess.m_have_attachment = false;
-		mess.m_filename = "";
+		mess.m_filename = "file";
 		mess.m_file_contents = "";
 				
 		return mess;

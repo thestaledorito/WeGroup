@@ -26,4 +26,6 @@ public class List_data extends Base_data
 	
 	// List of items are in the list
 	public List<String> m_contents;
+	
+	// TODO toString
 }

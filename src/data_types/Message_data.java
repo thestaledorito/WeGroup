@@ -58,4 +58,29 @@ public class Message_data extends Base_data
 		// create file with m_filename at path
 		// copy bytes from m_file_contents into file
 	}
+	
+	// Prints out the contents of the message
+	public String toString()
+	{
+		String rep = super.toString();
+		
+		rep += ":\n  To:";
+		
+		Iterator<String> it = m_recipiants.iterator();
+		while(it.hasNext())
+		{
+			rep += "\n    " + it.next();
+		}
+		
+		rep += "\n  From: " + m_sender;
+		rep += "\n  Message: " + m_message;
+		
+		if(m_have_attachment)
+		{
+			rep += "\n  Attachment: " + m_filename;
+			// Do we want contents?
+		}
+
+		return rep;
+	}
 }

@@ -34,4 +34,6 @@ public class Poll_data extends Base_data
 	
 	// List of the current poll votes
 	public List<Integer> m_poll_votes;
+	
+	// TODO toString
 }
