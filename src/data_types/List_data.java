@@ -16,7 +16,7 @@ public class List_data extends Base_data
 	}
 	
 	// Required for Serializable
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 31L;
 	
 	// What list are we talking about
 	public UUID m_list_id;

@@ -18,7 +18,7 @@ public class Poll_data extends Base_data
 	}
 	
 	// Required for Serializable
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 41L;
 	
 	// ID of the poll
 	public UUID m_poll_id;

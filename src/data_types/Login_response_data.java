@@ -23,7 +23,7 @@ public class Login_response_data extends Base_data
 	}
 	
 	// Required for Serializable
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 12L;
 	
 	// Was login accepted
 	public boolean m_accpted;

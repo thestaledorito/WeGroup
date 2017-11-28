@@ -19,7 +19,7 @@ public class Login_data extends Base_data
 	}
 	
 	// Required for Serializable
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 11L;
 	
 	// Name of the user
 	public String m_user_name;

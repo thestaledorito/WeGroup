@@ -20,7 +20,7 @@ public class Message_data extends Base_data
 	}
 	
 	// Required for Serializable
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 21L;
 	
 	// Who is receiving this message
 	public List<String> m_recipiants;
