@@ -10,12 +10,47 @@ import data_types.Base_data;
 
 public class Tcp_bridge 
 {
+	// Close existing connection
+	protected boolean close_connection()
+	{
+		try
+		{
+			m_socket.close();
+			return true;
+		}
+		catch(IOException e)
+		{
+			return false;
+		}
+	}
+	
+	// Open a new connection
+	protected boolean open_connection(String host, int port)
+	{
+		if(!close_connection())
+			return false;
+		
+		try
+		{
+			m_socket = new Socket("192.168.1.108", 1129);
+			return true;
+		}
+		catch(UnknownHostException e)
+		{
+			return false;
+		}
+		catch(IOException e)
+		{
+			return false;
+		}
+	}
 	
 	// Sends a constructed data message
 	public void Send_data(Base_data data)
 	{
 		String message = serialize(data);
 		
+		// Check if connected
 		// use m_socket to send
 	}
 	
