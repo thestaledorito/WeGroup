@@ -118,6 +118,33 @@ public class Main_page extends JPanel //implements  ActionListener
 		
 	}
 	*/
+	
+	
+	
+	// You will need this block of code to talk through the bridge
+	//////////////////////////////////////////////////////////////
+
+	// Initialize this class
+	public void Init()
+	{
+		m_tcp = new Tcp_client_side();
+		m_tcp.Init();
+		m_tcp.Register_reciver(this);
+	}
+	
+	// Data received from TCP
+	public void Data_received(Base_data data)
+	{
+		
+	}
+	
+	// Class to send TCP
+	protected Tcp_client_side m_tcp;
+	
+	/////////////////////////////////////////////////////////////
+	
+	
+	
 	private static void GUI()
 	{
 		JFrame frame = new JFrame("WeGroup *group name*");

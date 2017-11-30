@@ -11,7 +11,7 @@ public class Tcp_client_side extends Tcp_bridge
 	// Initialize the client
 	public void Init()
 	{
-		if(open_connection("192.168.1.108", 1129))
+		if(open_connection("192.168.1.5", 1129))
 		{
 			// TODO: this should probably be in bridge
 			DataOutputStream os = null;

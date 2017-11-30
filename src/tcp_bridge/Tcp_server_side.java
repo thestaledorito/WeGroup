@@ -39,6 +39,10 @@ public class Tcp_server_side
 				System.out.print(line);
 			}
 		}
+		catch(BindException e)
+		{
+			System.out.print("error binding");
+		}
 		catch(IOException e)
 		{
 			System.out.print("IO error");
