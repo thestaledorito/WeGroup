@@ -133,9 +133,12 @@ public class Main_page extends JPanel //implements  ActionListener
 	}
 	
 	// Data received from TCP
+	// This can go elsewhere if needed
 	public void Data_received(Base_data data)
 	{
-		
+		// This is where all the data will come in
+		// This function will need to send data to the rest of the UI
+		// Probably want a switch here to distribute the data
 	}
 	
 	// Class to send TCP
