@@ -30,9 +30,11 @@ public class Tcp_client_side extends Tcp_bridge
 			
 			try
 			{
-				Base_data data = new Base_data();
-				data.m_user_id = "Test";
-				os.writeObject(data);
+				//Base_data data = new Base_data();
+				//data.m_user_id = "Test";
+				//os.writeObject(data);
+				String str = "Test String";
+				os.writeObject(str);
 			}
 			catch(IOException e)
 			{
