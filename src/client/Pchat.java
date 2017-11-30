@@ -12,8 +12,6 @@ public class Pchat extends JPanel implements  ActionListener
 	private JTextArea groupfield = new JTextArea();
 	private JButton btnSend = new JButton("Send");
 	private JButton btnemote = new JButton("Emote");
-	private JScrollPane scroll1 = new JScrollPane();
-	private JScrollPane scroll2 = new JScrollPane();
 	//private String clname = "";
 	
 	public Pchat() 
@@ -37,12 +35,8 @@ public class Pchat extends JPanel implements  ActionListener
 		gbc_Groupfield.fill = GridBagConstraints.BOTH;
 		gbc_Groupfield.gridx = 0;
 		gbc_Groupfield.gridy = 0;
-		panel.add(scroll1, gbc_Groupfield);
+		panel.add(groupfield, gbc_Groupfield);
 		groupfield.setEditable(false);
-		scroll1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		scroll1.setViewportView(groupfield);
-		groupfield.setLineWrap(true);
-		groupfield.setWrapStyleWord(true);
 		
 		
 		GridBagConstraints gbc_btnemote = new GridBagConstraints();
@@ -53,15 +47,12 @@ public class Pchat extends JPanel implements  ActionListener
 		
 		
 		GridBagConstraints gbc_message = new GridBagConstraints();
-		gbc_message.fill = GridBagConstraints.BOTH;
 		gbc_message.insets = new Insets(0, 0, 0, 5);
+		gbc_message.fill = GridBagConstraints.BOTH;
 		gbc_message.gridx = 0;
 		gbc_message.gridy = 3;
-		panel.add(scroll2, gbc_message);
-		scroll2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		scroll2.setViewportView(message);
-		message.setLineWrap(true);
-		message.setWrapStyleWord(true);
+		panel.add(message, gbc_message);
+		
 		
 		GridBagConstraints gbc_btnSend = new GridBagConstraints();
 		gbc_btnSend.fill = GridBagConstraints.BOTH;
@@ -97,12 +88,6 @@ public class Pchat extends JPanel implements  ActionListener
 		frame.pack();
 		frame.setLocationByPlatform(true);
 		frame.setVisible(true);
-	}
-	
-	public void msgrec(String msgrec)
-	{
-		msgrec = "\n" + msgrec;
-		groupfield.append(msgrec);
 	}
 	
 	public static void main (String[] args)
