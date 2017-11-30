@@ -2,6 +2,7 @@ package tcp_bridge;
 
 import client.Main_page;
 import java.io.*;
+import data_types.*;
 
 // This will do any Client Specific actions we decide 
 // we need for the bridge
@@ -14,12 +15,12 @@ public class Tcp_client_side extends Tcp_bridge
 		if(open_connection("192.168.1.5", 1129))
 		{
 			// TODO: this should probably be in bridge
-			DataOutputStream os = null;
-			DataInputStream is = null;
+			ObjectOutputStream os = null;
+			//DataInputStream is = null;
 			try
 			{
-				os = new DataOutputStream(m_socket.getOutputStream());
-				is = new DataInputStream(m_socket.getInputStream());
+				os = new ObjectOutputStream(m_socket.getOutputStream());
+				//is = new DataInputStream(m_socket.getInputStream());
 			}
 			catch(IOException e)
 			{
@@ -29,7 +30,9 @@ public class Tcp_client_side extends Tcp_bridge
 			
 			try
 			{
-				os.writeBytes("Hello World\n");
+				Base_data data = new Base_data();
+				data.m_user_id = "Test";
+				os.writeObject(data);
 			}
 			catch(IOException e)
 			{

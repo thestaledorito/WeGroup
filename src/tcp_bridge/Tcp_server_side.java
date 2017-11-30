@@ -26,17 +26,24 @@ public class Tcp_server_side
 		}
 		
 		Socket client_socket = null;
-		DataInputStream is;
-		String line;
+		ObjectInputStream is;
+		Base_data data;
 		
 		try
 		{
 			client_socket = m_server.accept();
-			is = new DataInputStream(client_socket.getInputStream());
+			is = new ObjectInputStream(client_socket.getInputStream());
 			while(true)
 			{
-				line = is.readLine();
-				System.out.print(line);
+				try
+				{
+					data = (Base_data)is.readObject();
+					System.out.print(data);
+				}
+				catch(ClassNotFoundException e)
+				{
+					System.out.println("class not found" + e);
+				}
 			}
 		}
 		catch(BindException e)
