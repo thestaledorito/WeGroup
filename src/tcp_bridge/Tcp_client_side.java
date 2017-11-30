@@ -32,6 +32,7 @@ public class Tcp_client_side extends Tcp_bridge
 			{
 				Base_data data = new Base_data();
 				data.m_user_id = "Test";
+				System.out.println(data);
 				os.writeObject(data);
 				//String str = "Test String";
 				//os.writeObject(str);
