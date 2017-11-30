@@ -27,8 +27,8 @@ public class Tcp_server_side
 		
 		Socket client_socket = null;
 		ObjectInputStream is;
-		//Base_data data;
-		String str;
+		Base_data data;
+		//String str;
 		
 		try
 		{
@@ -38,10 +38,10 @@ public class Tcp_server_side
 			{
 				try
 				{
-					//data = (Base_data)is.readObject();
-					//System.out.println(data);
-					str = (String)is.readObject();
-					System.out.println(str);
+					data = (Base_data)is.readObject();
+					System.out.println(data);
+					//str = (String)is.readObject();
+					//System.out.println(str);
 				}
 				catch(ClassNotFoundException e)
 				{
