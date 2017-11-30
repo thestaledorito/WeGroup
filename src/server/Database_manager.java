@@ -28,7 +28,40 @@ public class Database_manager
 	
 	
 	
-	// Riker's Stuff
+// Riker's Stuff
+	
+	
+	//TODO: implement
+	public void update() {
+		
+	}
+	
+// THE FOLLOWING IS HANDLING FOR POLLS
+	public List<Poll_server> storedPolls;
+	
+	/**
+	 * Creates a new Poll with name and adds to the database
+	 * @param name	the name for the poll
+	 */
+	public void newPoll(String name) {
+		Poll_server poll = new Poll_server(name);
+		storedPolls.add(poll);
+	}
+	
+// THE FOLLOWING IS HANDLING FOR LISTS
+	public List<List_server> storedLists;
+	
+	/**
+	 * Creates a new list with name and adds to the database
+	 * @param name	the name for the list
+	 */
+	public void newList(String name) {
+		List_server list = new List_server(name);
+		storedLists.add(list);
+	}
+	
+	
+// THE FOLLOWING IS HANDLING FOR MESSAGES
 	
 	public List<Message_server> storedMessages;
 	
@@ -49,7 +82,7 @@ public class Database_manager
 	 * @param messageData	the message being checked
 	 * @param user			the user being checked
 	 */
-	public void updateMessage(Message_server messageData, String user) {
+	public void checkMessage(Message_server messageData, String user) {
 		if(messageData.userAsTarget(user)) {
 			messageData.getMessage();
 			messageData.isPvt();
@@ -58,20 +91,14 @@ public class Database_manager
 	}
 	
 	/**
-	 * Removes the message from the stored messages if there are no users left to recieve
+	 * Removes the message from the stored messages if there are no users left to receive
 	 * @param messageData	the message being checked
 	 */
-	public void checkMessage(Message_server messageData) {
+	public void checkRecipMessage(Message_server messageData) {
 		if(messageData.recipEmpty()) {
 			storedMessages.remove(messageData);
 		}
 	}
 	
-	
-	
-	public void update() {
-		
-	}
-	
-	
+
 }
