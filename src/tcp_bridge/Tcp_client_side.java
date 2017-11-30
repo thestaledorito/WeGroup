@@ -31,9 +31,11 @@ public class Tcp_client_side extends Tcp_bridge
 			try
 			{
 				Base_data data = new Base_data();
+				data.m_type = Tcp_message_type.Update;
 				data.m_user_id = "Test";
 				System.out.println(data);
 				os.writeObject(data);
+				os.flush();
 				//String str = "Test String";
 				//os.writeObject(str);
 			}
