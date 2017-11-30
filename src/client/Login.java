@@ -1,19 +1,17 @@
 package client;
 
-import java.awt.*;
 import java.awt.event.*;
-import java.awt.Window.*;
 import javax.swing.*;
 
 public class Login extends JPanel implements  ActionListener
 {
 	private static final long serialVersionUID = 1L;
-	private final static String newline = "\n";
 	private JTextField groupname;
 	private JTextField username;
 	private JTextField pwd;
 	private JButton btnOk = new JButton("OK");
 	private JButton btnCancel = new JButton("Cancel");
+	private String[] data;
 	
 	public Login() 
 	{
@@ -71,13 +69,16 @@ public class Login extends JPanel implements  ActionListener
 	{
 		if(evt.getSource() == btnOk)
 		{
-			String data=groupname.getText().trim() + " " + username.getText().trim() + " " + pwd.getText().trim(); //read contents of text area  into data
-			if(!data.equals("")) //verify their is anything to send
+			String grp = groupname.getText().trim();
+			String usr = username.getText().trim();
+			String pass = pwd.getText().trim();
+			String [] data = {grp, usr, pass}; //read contents of text area  into data
+			if(!data.equals(null)) //verify their is anything to send
 			{
-			//Tcp_client_side.auth(data); //This would send the data to the appropriate method for authenticating client	
-			groupname.setText(""); //clears out the field area
-			username.setText("");
-			pwd.setText("");
+				//Tcp_client_side.auth(data); //This would send the data to the appropriate method for authenticating client	
+				groupname.setText(""); //clears out the field area
+				username.setText("");
+				pwd.setText("");
 			}
 		}
 		else if (evt.getSource() == btnCancel)
@@ -86,6 +87,14 @@ public class Login extends JPanel implements  ActionListener
 		}
 	}
 	
+	public void recauth(String reply)
+	{
+		if(reply == "true")
+		{
+			data[2]="tl;dr"; //change the password element of array so it doesn't enter main_page
+			Main_page.main(data);
+		}
+	}
 	private static void GUI()
 	{
 		JFrame frame = new JFrame("WeGroup Login");
