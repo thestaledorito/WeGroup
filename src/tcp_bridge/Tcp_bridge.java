@@ -23,6 +23,7 @@ public class Tcp_bridge
 		}
 		catch(IOException e)
 		{
+			System.out.println("IO exception closing connection");
 			return false;
 		}
 	}
@@ -43,12 +44,15 @@ public class Tcp_bridge
 		}
 		catch(UnknownHostException e)
 		{
-			System.out.print("bad host name");
+			System.out.print("bad host name ");
+			System.out.println(host);
 			return false;
 		}
 		catch(IOException e)
 		{
-			System.out.print("couldn't get I/O connection");
+			System.out.println("couldn't get I/O connection for:");
+			System.out.println(host);
+			System.out.println(port);
 			return false;
 		}
 	}

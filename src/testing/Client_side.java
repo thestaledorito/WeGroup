@@ -26,7 +26,7 @@ public class Client_side
 		receiver.Init();
 
 		Message_data mess = populate_message();
-		System.out.print(mess.toString());
+		System.out.println(mess.toString());
 	}
 
 }

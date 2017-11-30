@@ -41,11 +41,11 @@ public class Tcp_server_side
 		}
 		catch(BindException e)
 		{
-			System.out.print("error binding");
+			System.out.println("error binding");
 		}
 		catch(IOException e)
 		{
-			System.out.print("IO error");
+			System.out.println("IO error");
 		}
 		
 		//m_run = true;

@@ -23,7 +23,7 @@ public class Tcp_client_side extends Tcp_bridge
 			}
 			catch(IOException e)
 			{
-				System.out.print("io exception on stream open");
+				System.out.println("io exception on stream open");
 				return;
 			}
 			
@@ -33,7 +33,7 @@ public class Tcp_client_side extends Tcp_bridge
 			}
 			catch(IOException e)
 			{
-				System.out.print("problem sending message");
+				System.out.println("problem sending message");
 			}
 		}
 	}

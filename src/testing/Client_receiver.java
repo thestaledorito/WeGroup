@@ -8,8 +8,7 @@ public class Client_receiver extends Main_page
 	
 	public void Data_received(Base_data data)
 	{
-		// TODO: we may need to implement to string
-		System.out.print(data.toString());
+		System.out.println(data.toString());
 	}
 	
 	public void Send_data(Base_data data)
