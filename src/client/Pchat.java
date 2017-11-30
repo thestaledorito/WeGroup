@@ -2,9 +2,7 @@ package client;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.Window.*;
 import javax.swing.*;
-import net.miginfocom.swing.MigLayout;
 
 public class Pchat extends JPanel implements  ActionListener
 {
@@ -14,9 +12,9 @@ public class Pchat extends JPanel implements  ActionListener
 	private JTextArea groupfield = new JTextArea();
 	private JButton btnSend = new JButton("Send");
 	private JButton btnemote = new JButton("Emote");
-	private String clname = "";
+	//private String clname = "";
 	
-	public Pchat(String uname) //when pchat is first called it gets sent the client name of the current user
+	public Pchat() 
 	{
 		setLayout(new BorderLayout(0, 0));
 		
@@ -63,10 +61,6 @@ public class Pchat extends JPanel implements  ActionListener
 		panel.add(btnSend, gbc_btnSend);
 		btnSend.addActionListener(this);
 		
-		if (!uname.equals(""))
-		{
-			clname = uname;
-		}
 	}
 	public void actionPerformed(ActionEvent evt)
 	{
