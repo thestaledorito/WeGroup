@@ -19,7 +19,23 @@ public class Database_manager
 	{
 		
 	}
-
+	
 	// Class to send TCP
 	protected Tcp_server_side m_tcp;
+	
+	
+	
+	
+	// Riker's Methods
+	public void updateMessage(Message_server message, String user) {
+		if(message.userAsTarget(user)) {
+			message.getMessage();
+			message.removeRecip(user);
+		}
+	}
+	
+	
+	
+	
+	
 }
