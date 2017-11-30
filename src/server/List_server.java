@@ -11,18 +11,30 @@ public class List_server
 	String list_id; 
 	List<String> list_contents;
 	
-	// Creates an empty list, with a name
+	
+	/**
+	 * Creates an empty list with a name
+	 * @param name	the id/name/title of the list
+	 */
 	public List_server(String name) {
 		this.list_id = name;
 		this.list_contents = new ArrayList<String>();
 	}
 	
-	// Adds an item into the list
+	
+	/**
+	 * Adds an item onto the list
+	 * @param item	the item to be added on the list
+	 */
 	public void add_item(String item) {
 		list_contents.add(item);
 	}
 	
-	// Removes an item from the list
+	
+	/**
+	 * removes an item from the list
+	 * @param item	the item being removed
+	 */
 	public void remove_item(String item) {
 		int index = 0;
 		for(String element : list_contents) {
@@ -35,13 +47,20 @@ public class List_server
 			list_contents.remove(index);
 	}
 	
-	// Returns the name/id for the list
+	
+	/**
+	 * gets the name of the list
+	 * @return	the id/name/title of the list
+	 */
 	public String getID() {
 		return list_id;
 	}
 	
-	// Returns a list of Strings
-	// Each string is an element on the list.
+
+	/**
+	 * gets the elements in the list
+	 * @return	a list of all the elements on the list.
+	 */
 	public List<String> getContent() {
 		return list_contents;
 	}
