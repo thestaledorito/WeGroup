@@ -34,6 +34,17 @@ public class Poll_server
 			}
 		}
 	}
+	
+	// Returns the name/id for the poll
+	public String getID() {
+		return poll_id;
+	}
+	
+	// Returns a list of poll_elements. 
+	// Poll_elements have a getItem and getVotes
+	public List<Poll_element> getContent() {
+		return poll_contents;
+	}
 
 	
 }

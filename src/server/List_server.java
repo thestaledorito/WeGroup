@@ -35,5 +35,17 @@ public class List_server
 			list_contents.remove(index);
 	}
 	
+	// Returns the name/id for the list
+	public String getID() {
+		return list_id;
+	}
+	
+	// Returns a list of Strings
+	// Each string is an element on the list.
+	public List<String> getContent() {
+		return list_contents;
+	}
+	
+	
 	
 }
