@@ -18,15 +18,34 @@ public class Tcp_server_side
 	{
 		try
 		{
-			m_server = new ServerSocket(6969);
+			m_server = new ServerSocket(1129);
 		}
 		catch(IOException e)
 		{
 			System.out.println("Error creating server:" + e);
 		}
 		
-		m_run = true;
-		loop();
+		Socket client_socket = null;
+		DataInputStream is;
+		String line;
+		
+		try
+		{
+			client_socket = m_server.accept();
+			is = new DataInputStream(client_socket.getInputStream());
+			while(true)
+			{
+				line = is.readLine();
+				System.out.print(line);
+			}
+		}
+		catch(IOException e)
+		{
+			System.out.print("IO error");
+		}
+		
+		//m_run = true;
+		//loop();
 	}
 	
 	// Register a class to receive all the data that comes from the server

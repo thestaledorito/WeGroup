@@ -32,15 +32,17 @@ public class Tcp_bridge
 		
 		try
 		{
-			m_socket = new Socket("192.168.1.108", 1129);
+			m_socket = new Socket(host, port);
 			return true;
 		}
 		catch(UnknownHostException e)
 		{
+			System.out.print("bad host name");
 			return false;
 		}
 		catch(IOException e)
 		{
+			System.out.print("couldn't get I/O connection");
 			return false;
 		}
 	}
@@ -51,6 +53,7 @@ public class Tcp_bridge
 		String message = serialize(data);
 		
 		// Check if connected
+		// Looks like we need to use streams
 		// use m_socket to send
 	}
 	
