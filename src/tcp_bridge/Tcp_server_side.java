@@ -6,7 +6,7 @@ import java.util.*;
 
 import server.Database_manager;
 
-import data_types.Base_data;
+import data_types.*;
 
 //This will do any Client Specific actions we decide 
 //we need for the bridge
@@ -40,6 +40,8 @@ public class Tcp_server_side
 				{
 					data = (Base_data)is.readObject();
 					System.out.println(data);
+					Message_data mess = (Message_data)data;
+					System.out.println(mess);
 					//str = (String)is.readObject();
 					//System.out.println(str);
 				}
