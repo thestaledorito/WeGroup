@@ -13,6 +13,9 @@ public class Tcp_bridge
 	// Close existing connection
 	protected boolean close_connection()
 	{
+		if(m_socket == null)
+			return true;
+		
 		try
 		{
 			m_socket.close();
@@ -27,8 +30,11 @@ public class Tcp_bridge
 	// Open a new connection
 	protected boolean open_connection(String host, int port)
 	{
-		if(!close_connection())
-			return false;
+		if(m_socket == null)
+		{
+			if(!close_connection())
+				return false;
+		}
 		
 		try
 		{
@@ -60,6 +66,9 @@ public class Tcp_bridge
 	// returns if we have a active connection
 	public boolean Is_connected()
 	{
+		if(m_socket == null)
+			return false;
+		
 		return m_socket.isConnected();
 	}
 	
