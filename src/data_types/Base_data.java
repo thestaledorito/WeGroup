@@ -21,6 +21,11 @@ public class Base_data implements java.io.Serializable
 	// UI can ignore this field
 	public transient String m_user_id;
 	
+	// What group are we in
+	// This field is used to communicate with the server
+	// UI can ignore this field
+	public transient String m_group_id;
+	
 	// Prints out the contents of the message
 	public String toString()
 	{
