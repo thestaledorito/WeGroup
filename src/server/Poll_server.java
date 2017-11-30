@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 // NEW -RB
-// TO DO: 
-//		1 - Add a list of users who already voted. Have poll_element keep track of who voted for that element
-// 			then if the user votes again, remove the old vote and cast a new vote. 
-//		2 - Add a creator role, which that creator can remove elements and the poll.
+// TO DO: 	
+//		
 //		3 - Add a timer for ending poll
 //	
 public class Poll_server 
@@ -15,14 +13,18 @@ public class Poll_server
 		
 	String poll_id;
 	List<Poll_element> poll_contents;
+	List<String> votedUsers;
+	String createrId;
 	
 	/**
 	 * Creates a Poll with a name, and creates an empty content list.
 	 * @param name	the id/name/title of the Poll
 	 */
-	public Poll_server(String name) {
+	public Poll_server(String name,String createrId) {
 		this.poll_id = name;
 		this.poll_contents = new ArrayList<Poll_element>();
+		this.votedUsers = new List<String>;
+		this.createrId = createrId;
 	}
 	
 	/**
@@ -34,15 +36,30 @@ public class Poll_server
 		Poll_element element = new Poll_element(item);
 		this.poll_contents.add(element);
 	}
+	public void remove_item(String item, String user)
+	{
+	if(user == createrId)
+		{
+		this.poll_contents.remove(element);
+		}
+	}
+
 	
 	/**
 	 * Casts a vote to the item being voted on
 	 * @param item	the item a vote is being added to
 	 */
-	public void add_vote(String item) {
+	public void add_vote(String item, String userId) {
+			if(checkUserVoted(userId))
+			{
+				element.removeVote();
+				removeUserVoted(userId);
+			}
 		for(Poll_element element : poll_contents) {
+			
 			if(item == element.getItem()) {
 				element.addVote();
+				addUserVoted(userId);
 				break;
 			}
 		}
@@ -66,5 +83,17 @@ public class Poll_server
 		return poll_contents;
 	}
 
-	
-}
+
+
+
+	public void addUserVoted(string user){
+		votedUsers.add(user)
+
+	{
+	public boolean checkUserVoted(string user){
+		return if(votedUsers.contains(user));
+	}
+	public void removeUserVoted(string user){
+		votedUsers.remove(new String(user));
+
+	}
