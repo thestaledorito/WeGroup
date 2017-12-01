@@ -22,6 +22,16 @@ public class Database_manager
 	{
 		//enum type = data.Tcp_message_type(); //this line
 		Tcp_message_type type = data.getm_Type();
+		String user = data.getm_User_Id();
+		String group = data.getm_Group_Id();
+		switch (type) {
+			case Message:
+				break;
+			case Poll:
+				break;
+			case List:
+				break;
+		}
 	}
 	
 	// Class to send TCP
@@ -30,7 +40,6 @@ public class Database_manager
 	
 	
 // Riker's Stuff
-	
 	
 	//TODO: implement
 	public void update(String user) {
@@ -44,6 +53,28 @@ public class Database_manager
 		    	// Worrying about that later -Riker
 	}
 	
+	
+	
+// THE FOLL
+	public List<Group_element> storedGroups;
+	
+	public void addGroup(String group) {
+		Group_element newGroup = new Group_element(group);
+		storedGroups.add(newGroup);
+	}
+	
+	public void addUserToGroup(String user, Group_element group) {
+		group.addUser(user);
+	}
+	
+	
+	
+
+	
+	
+	
+	
+	
 // THE FOLLOWING IS HANDLING FOR POLLS
 	public List<Poll_server> storedPolls;
 	
@@ -51,10 +82,26 @@ public class Database_manager
 	 * Creates a new Poll with name and adds to the database
 	 * @param name	the name for the poll
 	 */
-	public void newPoll(String name, String userID) {
-		Poll_server poll = new Poll_server(name, userID);
-		storedPolls.add(poll);
+	public void newPoll(String name, String userID, Group_element group) {
+		if(group.containsUser(userID)) {
+			Poll_server poll = new Poll_server(name, userID);
+			storedPolls.add(poll);
+		}
 	}
+	
+	/**
+	 * Checks if poll exists
+	 * @param name	the name of the poll.
+	 */
+	public void checkPoll(String name) {
+		
+	}
+	
+	
+	
+	
+	
+	
 	
 // THE FOLLOWING IS HANDLING FOR LISTS
 	public List<List_server> storedLists;
@@ -67,6 +114,14 @@ public class Database_manager
 		List_server list = new List_server(name);
 		storedLists.add(list);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 // THE FOLLOWING IS HANDLING FOR MESSAGES
