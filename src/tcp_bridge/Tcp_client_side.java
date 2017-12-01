@@ -16,6 +16,8 @@ public class Tcp_client_side extends Tcp_bridge
 		System.out.println("opening connection");
 		if(open_connection("192.168.1.5", 1129))
 		{
+			System.out.println("connection opened");
+			
 			Message_data data = new Message_data();
 			data.m_message = "hello world";
 			System.out.println(data);
