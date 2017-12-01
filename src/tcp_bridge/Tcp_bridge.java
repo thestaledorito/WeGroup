@@ -30,6 +30,8 @@ public class Tcp_bridge
 	// Close existing connection
 	protected boolean close_connection()
 	{
+		System.out.println("closing connection");
+		
 		if(m_socket == null)
 			return true;
 		
@@ -99,7 +101,10 @@ public class Tcp_bridge
 	public boolean Send_data(Base_data data)
 	{
 		if(!Is_connected())
+		{
+			System.out.println("socket not connectd");
 			return false;
+		}
 		
 		try
 		{
