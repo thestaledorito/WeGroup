@@ -85,8 +85,11 @@ public class Tcp_bridge
 		
 		try
 		{
+			System.out.println("open input stream");
 			m_is = new ObjectInputStream(m_socket.getInputStream());
-			m_os = new ObjectOutputStream(m_socket.getOutputStream());			
+			System.out.println("open output stream");
+			m_os = new ObjectOutputStream(m_socket.getOutputStream());	
+			System.out.println("both streams opened");
 			return true;
 		}
 		catch(IOException e)
