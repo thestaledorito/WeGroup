@@ -32,8 +32,14 @@ public class Database_manager
 	
 	
 	//TODO: implement
-	public void update() {
-		
+	public void update(String user) {
+		// Check if user has messages to be sent. -Trevor
+		for(int i=0; i < storedMessages.length(); i++{
+			checkMessage(storedMessages[i],user);
+		}
+		    
+		//Need some functionality to update Polls and Lists back to the user -Trevor    
+		    
 	}
 	
 // THE FOLLOWING IS HANDLING FOR POLLS
