@@ -26,6 +26,7 @@ public class Tcp_server_side
 		}
 		
 		Socket client_socket = null;
+		ObjectOutputStream os;
 		ObjectInputStream is;
 		Base_data data;
 		//String str;
