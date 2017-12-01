@@ -85,8 +85,8 @@ public class Tcp_bridge
 		
 		try
 		{
-			m_os = new ObjectOutputStream(m_socket.getOutputStream());
 			m_is = new ObjectInputStream(m_socket.getInputStream());
+			m_os = new ObjectOutputStream(m_socket.getOutputStream());			
 			return true;
 		}
 		catch(IOException e)
