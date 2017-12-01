@@ -34,12 +34,18 @@ public class Tcp_server_side
 		try
 		{
 			client_socket = m_server.accept();
+			
+			System.out.println("open input stream");
+			is = new ObjectInputStream(client_socket.getInputStream());
+			
+			System.out.println("open output stream");
 			os = new ObjectOutputStream(client_socket.getOutputStream());
 			
-			os.defaultWriteObject();
-			os.flush();
+			//os.defaultWriteObject();
+			//os.flush();
 			
-			is = new ObjectInputStream(client_socket.getInputStream());
+			System.out.println("both streams opened");
+			
 			while(true)
 			{
 				try
