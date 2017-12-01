@@ -36,4 +36,18 @@ public class Base_data implements java.io.Serializable
 		
 		return rep;
 	}
+	
+	// Returns the type of the data -Riker
+	public Tcp_message_type getm_Type() {
+		return m_type;
+	}
+	
+	public String getm_User_Id() {
+		return m_user_id;
+	}
+	
+	public String getm_Group_Id() {
+		return m_group_id;
+	}
+	
 }

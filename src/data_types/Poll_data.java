@@ -59,4 +59,9 @@ public class Poll_data extends Base_data
 		
 		return rep;
 	}
+	
+	public String getm_Poll_question() {
+		return m_poll_question;
+	}
+	
 }

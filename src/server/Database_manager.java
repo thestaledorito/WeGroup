@@ -21,6 +21,7 @@ public class Database_manager
 	public void Data_received(Base_data data)
 	{
 		//enum type = data.Tcp_message_type(); //this line
+		Tcp_message_type type = data.getm_Type();
 	}
 	
 	// Class to send TCP
@@ -34,10 +35,10 @@ public class Database_manager
 	//TODO: implement
 	public void update(String user) {
 		// Check if user has messages to be sent. -Trevor
-			// Can also can be: for(Message_server i : storedMessages)		*I think this runs better?  -Riker
-		/*for(int i=0; i < storedMessages.length(); i++){
-			checkMessage(storedMessages[i],user);
-		}*/
+			// Arraylists are handled slightly different than standard arrays.
+		for(int i=0; i < storedMessages.size(); i++){
+			checkMessage(storedMessages.get(i),user);
+		}
 		   
 		//Need some functionality to update Polls and Lists back to the user -Trevor    
 		    	// Worrying about that later -Riker
