@@ -5,11 +5,12 @@ import java.util.List;
 
 // NEW -RB
 // TO DO:
-// 		1 - Add a list of users who can interact with the list
+// 		1 - Add a list of users who can interact with the list -Done by Trevor
 public class List_server 
 {
 	String list_id; 
 	List<String> list_contents;
+	List<String> list_users;
 	
 	
 	/**
@@ -19,6 +20,7 @@ public class List_server
 	public List_server(String name) {
 		this.list_id = name;
 		this.list_contents = new ArrayList<String>();
+		this.list_users = new ArrayList<String>();
 	}
 	
 	
@@ -65,6 +67,8 @@ public class List_server
 		return list_contents;
 	}
 	
-	
+	public void add_user(String name) {
+		list_users.add(name);
+	}
 	
 }
