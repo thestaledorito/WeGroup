@@ -8,13 +8,12 @@ import data_types.*;
 // we need for the bridge
 public class Tcp_client_side extends Tcp_bridge 
 {
-
 	// Initialize the client
 	public void Init()
 	{
 		super.Init();
-		Clear();
-		
+
+		System.out.println("opening connection");
 		if(open_connection("192.168.1.5", 1129))
 		{
 			Message_data data = new Message_data();

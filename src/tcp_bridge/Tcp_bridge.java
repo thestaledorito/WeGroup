@@ -79,6 +79,8 @@ public class Tcp_bridge
 	// Open the streams for our new connection;
 	private boolean open_streams()
 	{
+		System.out.println("opening streams");
+		
 		try
 		{
 			m_os = new ObjectOutputStream(m_socket.getOutputStream());
