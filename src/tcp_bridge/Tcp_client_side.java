@@ -12,9 +12,21 @@ public class Tcp_client_side extends Tcp_bridge
 	// Initialize the client
 	public void Init()
 	{
+		Clear();
+		
 		if(open_connection("192.168.1.5", 1129))
 		{
-			// TODO: this should probably be in bridge
+			Message_data data = new Message_data();
+			data.m_message = "hello world";
+			System.out.println(data);
+			
+			if(!Send_data(data))
+			{
+				System.out.println("data failed to send");
+			}
+			
+			
+			/*// TODO: this should probably be in bridge
 			ObjectOutputStream os = null;
 			//DataInputStream is = null;
 			try
@@ -41,7 +53,11 @@ public class Tcp_client_side extends Tcp_bridge
 			catch(IOException e)
 			{
 				System.out.println("problem sending message");
-			}
+			}*/
+		}
+		else
+		{
+			System.out.println("connection failed to open");
 		}
 	}
 

@@ -11,6 +11,16 @@ import data_types.Base_data;
 
 public class Tcp_bridge 
 {
+	// Clear the class data
+	public void Clear()
+	{
+		m_socket = null;
+		m_os = null;
+		m_is = null;
+		m_new_data = false;
+		m_incoming_data.clear();
+	}
+	
 	// Close existing connection
 	protected boolean close_connection()
 	{
@@ -20,6 +30,7 @@ public class Tcp_bridge
 		try
 		{
 			m_socket.close();
+			Clear();
 			return true;
 		}
 		catch(IOException e)
@@ -41,7 +52,6 @@ public class Tcp_bridge
 		try
 		{
 			m_socket = new Socket(host, port);
-			return true;
 		}
 		catch(UnknownHostException e)
 		{
@@ -56,16 +66,43 @@ public class Tcp_bridge
 			System.out.println(port);
 			return false;
 		}
+		
+		return open_streams();
+	}
+	
+	// Open the streams for our new connection;
+	private boolean open_streams()
+	{
+		try
+		{
+			m_os = new ObjectOutputStream(m_socket.getOutputStream());
+			m_is = new ObjectInputStream(m_socket.getInputStream());
+			return true;
+		}
+		catch(IOException e)
+		{
+			System.out.println("io exception on stream open");
+			return false;
+		}
 	}
 	
 	// Sends a constructed data message
-	public void Send_data(Base_data data)
+	// Returns whether the message sent
+	public boolean Send_data(Base_data data)
 	{
-		String message = serialize(data);
+		if(!Is_connected())
+			return false;
 		
-		// Check if connected
-		// Looks like we need to use streams
-		// use m_socket to send
+		try
+		{
+			m_os.writeObject(data);
+			return true;
+		}
+		catch(IOException e)
+		{
+			System.out.println("problem sending message");
+			return false;
+		}
 	}
 	
 	// returns if we have a active connection
@@ -77,34 +114,72 @@ public class Tcp_bridge
 		return m_socket.isConnected();
 	}
 	
-	// Takes in a data class and returns it serialized
-	private String serialize(Base_data data)
+	// Check if we have data
+	protected void check_data()
 	{
+		if(m_new_data)
+		{
+			synchronized(this)
+			{
+				while(!m_incoming_data.empty())
+				{
+					Base_data data = m_incoming_data.pop();
+					// TODO: Send data
+				}
+				m_new_data = false;
+			}
+		}
+	}
+	
+	// Wrapper around readObject in its own thread
+	class receiver implements Runnable
+	{
+		public void run() {
+			m_running = true;
+			
+			while(m_running)
+			{
+				Base_data data = null;
+				try
+				{
+					data = (Base_data)m_is.readObject();
+				}
+				catch(ClassNotFoundException e)
+				{
+					System.out.println("class not found" + e);
+				}
+				catch(IOException e)
+				{
+					System.out.println("IO exception reading object");
+				}
+				
+				if(data != null)
+				{
+					synchronized(Tcp_bridge.this)
+					{
+						m_new_data = true;
+						m_incoming_data.push(data);
+					}
+				}
+				
+				try
+				{
+					Thread.sleep(100);
+				}
+				catch(InterruptedException e)
+				{
+					m_running = false;
+				}
+			}
+		}
 		
-		return "serialized output";
+		public void Stop()
+		{
+			m_running = false;
+		}
+		
+		private boolean m_running;
 	}
-	
-	// Takes in a serialized data class and returns the corresponding type
-	private Base_data deserialize(String data)
-	{
-		Base_data deserialized_data = null;
-		return deserialized_data;
-	}
-	
-	
-	// TODO: have a runnable that does readObject
-	// When we get a object use synchronized (or a
-	// mutex) to lock when writing the data (pushing
-	// onto the stack. Flag when we have new data. 
-	// Loop and when we see new data we pop off all
-	// items on the stack and pass them along.
-	
-	// TBD if we will need to have a new class for 
-	// readObject or if it can be a has as relationship.
-	// If it needs to be its own separate class then
-	// we will need to share m_os, m_new_data, and
-	// m_incoming_data
-	
 	
 	// This will be meaningless for client
 	// May not actually need
