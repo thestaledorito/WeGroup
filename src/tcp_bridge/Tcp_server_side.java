@@ -34,6 +34,11 @@ public class Tcp_server_side
 		try
 		{
 			client_socket = m_server.accept();
+			os = new ObjectOutputStream(client_socket.getOutputStream());
+			
+			os.defaultWriteObject();
+			os.flush();
+			
 			is = new ObjectInputStream(client_socket.getInputStream());
 			while(true)
 			{
