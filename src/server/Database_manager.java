@@ -44,7 +44,10 @@ public class Database_manager
 	 * @param name	the name for the poll
 	 */
 	public void newPoll(String name) {
-		Poll_server poll = new Poll_server(name);
+		// TODO: Poll_server requires 2 args
+		String making_it_build_string = new String();
+
+		Poll_server poll = new Poll_server(name, making_it_build_string);
 		storedPolls.add(poll);
 	}
 	

@@ -1,7 +1,7 @@
 #!/bin/bash
 # build all items for WeGroup
 
-javac datat_ypes/*.java
+javac data_types/*.java
 javac server/*.java
 javac client/*.java
 javac tcp_bridge/*.java

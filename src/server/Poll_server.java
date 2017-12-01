@@ -20,10 +20,11 @@ public class Poll_server
 	 * Creates a Poll with a name, and creates an empty content list.
 	 * @param name	the id/name/title of the Poll
 	 */
-	public Poll_server(String name,String createrId) {
+	public Poll_server(String name,String createrId) 
+	{
 		this.poll_id = name;
 		this.poll_contents = new ArrayList<Poll_element>();
-		this.votedUsers = new List<String>;
+		this.votedUsers = new ArrayList<String>();
 		this.createrId = createrId;
 	}
 	
@@ -32,15 +33,18 @@ public class Poll_server
 	 * 		Will create a poll element to keep track of votes for the item
 	 * @param item	the item being added to the poll
 	 */
-	public void add_item(String item) {
+	public void add_item(String item) 
+	{
 		Poll_element element = new Poll_element(item);
 		this.poll_contents.add(element);
 	}
+
 	public void remove_item(String item, String user)
 	{
-	if(user == createrId)
+		if(user == createrId)
 		{
-		this.poll_contents.remove(element);
+			Poll_element element = new Poll_element(item);
+			this.poll_contents.remove(element);
 		}
 	}
 
@@ -49,15 +53,20 @@ public class Poll_server
 	 * Casts a vote to the item being voted on
 	 * @param item	the item a vote is being added to
 	 */
-	public void add_vote(String item, String userId) {
-			if(checkUserVoted(userId))
-			{
-				element.removeVote();
-				removeUserVoted(userId);
-			}
-		for(Poll_element element : poll_contents) {
+	public void add_vote(String item, String userId) 
+	{
+		if(checkUserVoted(userId))
+		{
+			Poll_element element = new Poll_element(item);
+			element.removeVote();
+			removeUserVoted(userId);
+		}
+		
+		for(Poll_element element : poll_contents) 
+		{
 			
-			if(item == element.getItem()) {
+			if(item == element.getItem()) 
+			{
 				element.addVote();
 				addUserVoted(userId);
 				break;
@@ -70,7 +79,8 @@ public class Poll_server
 	 * Gets the id/name/title of the poll
 	 * @return	the id/name/title of the poll
 	 */
-	public String getID() {
+	public String getID() 
+	{
 		return poll_id;
 	}
 	
@@ -79,21 +89,26 @@ public class Poll_server
 	 * Gets the list of all the elements of the poll. 
 	 * @return	the list of poll elements, as poll_element
 	 */
-	public List<Poll_element> getContent() {
+	public List<Poll_element> getContent() 
+	{
 		return poll_contents;
 	}
 
 
 
 
-	public void addUserVoted(string user){
-		votedUsers.add(user)
-
+	public void addUserVoted(String user)
 	{
-	public boolean checkUserVoted(string user){
-		return if(votedUsers.contains(user));
+		votedUsers.add(user);
 	}
-	public void removeUserVoted(string user){
-		votedUsers.remove(new String(user));
 
+	public boolean checkUserVoted(String user)
+	{
+		return (votedUsers.contains(user));
 	}
+
+	public void removeUserVoted(String user)
+	{
+		votedUsers.remove(new String(user));
+	}
+}
