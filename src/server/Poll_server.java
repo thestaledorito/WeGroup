@@ -7,7 +7,9 @@ import java.util.List;
 // TO DO: 	
 //		
 //		3 - Add a timer for ending poll
-//	
+
+//	Current Implementation will allow for only one vote per user. Should support a user revoting/changing vote.
+//			how to? add a user list<String> field in poll element, and keep the users who voted for that in there
 public class Poll_server 
 {
 		
@@ -20,7 +22,7 @@ public class Poll_server
 	 * Creates a Poll with a name, and creates an empty content list.
 	 * @param name	the id/name/title of the Poll
 	 */
-	public Poll_server(String name,String createrId) 
+	public Poll_server(String name, String createrId) 
 	{
 		this.poll_id = name;
 		this.poll_contents = new ArrayList<Poll_element>();

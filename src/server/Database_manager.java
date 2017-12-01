@@ -34,12 +34,13 @@ public class Database_manager
 	//TODO: implement
 	public void update(String user) {
 		// Check if user has messages to be sent. -Trevor
-		for(int i=0; i < storedMessages.length(); i++{
+			// Can also can be: for(Message_server i : storedMessages)		*I think this runs better?  -Riker
+		for(int i=0; i < storedMessages.length(); i++){
 			checkMessage(storedMessages[i],user);
 		}
 		    
 		//Need some functionality to update Polls and Lists back to the user -Trevor    
-		    
+		    	// Worrying about that later -Riker
 	}
 	
 // THE FOLLOWING IS HANDLING FOR POLLS
@@ -49,11 +50,8 @@ public class Database_manager
 	 * Creates a new Poll with name and adds to the database
 	 * @param name	the name for the poll
 	 */
-	public void newPoll(String name) {
-		// TODO: Poll_server requires 2 args
-		String making_it_build_string = new String();
-
-		Poll_server poll = new Poll_server(name, making_it_build_string);
+	public void newPoll(String name, String userID) {
+		Poll_server poll = new Poll_server(name, userID);
 		storedPolls.add(poll);
 	}
 	
@@ -71,7 +69,6 @@ public class Database_manager
 	
 	
 // THE FOLLOWING IS HANDLING FOR MESSAGES
-	
 	public List<Message_server> storedMessages;
 	
 	/**
