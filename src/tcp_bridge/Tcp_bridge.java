@@ -11,6 +11,12 @@ import data_types.Base_data;
 
 public class Tcp_bridge 
 {
+	public void Init()
+	{
+		m_incoming_data = new Stack<Base_data>();
+		Clear();
+	}
+	
 	// Clear the class data
 	public void Clear()
 	{

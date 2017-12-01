@@ -12,6 +12,7 @@ public class Tcp_client_side extends Tcp_bridge
 	// Initialize the client
 	public void Init()
 	{
+		super.Init();
 		Clear();
 		
 		if(open_connection("192.168.1.5", 1129))
