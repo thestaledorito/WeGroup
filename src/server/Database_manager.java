@@ -20,7 +20,7 @@ public class Database_manager
 	// Data received from TCP
 	public void Data_received(Base_data data)
 	{
-		
+		enum type = data.Tcp_message_type(); //this line
 	}
 	
 	// Class to send TCP
@@ -38,7 +38,7 @@ public class Database_manager
 		for(int i=0; i < storedMessages.length(); i++){
 			checkMessage(storedMessages[i],user);
 		}
-		    
+		   
 		//Need some functionality to update Polls and Lists back to the user -Trevor    
 		    	// Worrying about that later -Riker
 	}
@@ -106,5 +106,9 @@ public class Database_manager
 		}
 	}
 	
+	/*
+	public static void main(String[] args) {
+		
+	}*/
 
 }
