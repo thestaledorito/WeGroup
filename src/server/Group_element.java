@@ -22,6 +22,15 @@ public class Group_element {
 		storedLists.add(list);
 	}
 	
+	public boolean listExists(String name) {
+		for(List_server list : storedLists) {
+			if(list.getID() == name) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	
 	public void addPoll(String name, String userID) {
 		if(users.contains(userID)) {
