@@ -1,7 +1,7 @@
 package client;
 
-import data_types.*;
-import tcp_bridge.Tcp_client_side;
+//import data_types.*;
+//import tcp_bridge.Tcp_client_side;
 /*
 public class Main_page 
 {
@@ -29,124 +29,93 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class Main_page extends JPanel //implements  ActionListener
+public class Main_page extends JPanel implements  ActionListener
 {
 	private static final long serialVersionUID = 3L;
-//	private final static String newline = "\n";
+	private JPanel panel = new JPanel();
+	private JList<String> lists = new JList<String>();
+	private JList<String> polls = new JList<String>();
+	private JList<String> members = new JList<String>();
+	private JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+	private JScrollPane scrollPane = new JScrollPane();
+	private JScrollPane scrollPane_1 = new JScrollPane();
+	private JTextArea textArea = new JTextArea();
+	private JTextArea textArea_1 = new JTextArea();
+	private final JButton btnSend = new JButton("Send");
+	private final JButton btnEmote = new JButton("emote");
 	
 	public Main_page() 
 	{
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{209, 294, 87, 0};
-		gridBagLayout.rowHeights = new int[]{27, 316, 29, 40, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, 1.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
-		setLayout(gridBagLayout);
+		setLayout(new BorderLayout(0, 0));
 		
-		JMenuBar menuBar = new JMenuBar();
-		GridBagConstraints gbc_menuBar = new GridBagConstraints();
-		gbc_menuBar.fill = GridBagConstraints.HORIZONTAL;
-		gbc_menuBar.anchor = GridBagConstraints.NORTH;
-		gbc_menuBar.insets = new Insets(0, 0, 5, 0);
-		gbc_menuBar.gridwidth = 3;
-		gbc_menuBar.gridx = 0;
-		gbc_menuBar.gridy = 0;
-		add(menuBar, gbc_menuBar);
 		
-		JMenuItem Filemenu = new JMenuItem("File");
-		menuBar.add(Filemenu);
+		add(panel, BorderLayout.CENTER);
+		GridBagLayout gbl_panel = new GridBagLayout();
+		gbl_panel.columnWidths = new int[]{216, 351, 69, 0};
+		gbl_panel.rowHeights = new int[]{308, 58, 0, 0};
+		gbl_panel.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
+		panel.setLayout(gbl_panel);
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		
 		GridBagConstraints gbc_tabbedPane = new GridBagConstraints();
-		gbc_tabbedPane.fill = GridBagConstraints.BOTH;
-		gbc_tabbedPane.insets = new Insets(0, 0, 0, 5);
 		gbc_tabbedPane.gridheight = 3;
+		gbc_tabbedPane.insets = new Insets(0, 0, 0, 5);
+		gbc_tabbedPane.fill = GridBagConstraints.BOTH;
 		gbc_tabbedPane.gridx = 0;
-		gbc_tabbedPane.gridy = 1;
-		add(tabbedPane, gbc_tabbedPane);
+		gbc_tabbedPane.gridy = 0;
+		panel.add(tabbedPane, gbc_tabbedPane);
 		
-		JList members = new JList();
-		tabbedPane.addTab("Members", null, members, null);
 		
-		JList lists = new JList();
-		tabbedPane.addTab("Lists", null, lists, null);
+		tabbedPane.addTab("New tab", null, members, null);
 		
-		JList polls = new JList();
-		tabbedPane.addTab("Polls", null, polls, null);
 		
-		JTextArea msgcenter = new JTextArea();
-		GridBagConstraints gbc_msgcenter = new GridBagConstraints();
-		gbc_msgcenter.fill = GridBagConstraints.BOTH;
-		gbc_msgcenter.insets = new Insets(0, 0, 5, 0);
-		gbc_msgcenter.gridwidth = 2;
-		gbc_msgcenter.gridx = 1;
-		gbc_msgcenter.gridy = 1;
-		add(msgcenter, gbc_msgcenter);
+		tabbedPane.addTab("New tab", null, lists, null);
 		
-		JTextArea typemsg = new JTextArea();
-		GridBagConstraints gbc_typemsg = new GridBagConstraints();
-		gbc_typemsg.fill = GridBagConstraints.BOTH;
-		gbc_typemsg.insets = new Insets(0, 0, 0, 5);
-		gbc_typemsg.gridheight = 2;
-		gbc_typemsg.gridx = 1;
-		gbc_typemsg.gridy = 2;
-		add(typemsg, gbc_typemsg);
 		
-		JButton btnemote = new JButton("Emote");
-		btnemote.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		GridBagConstraints gbc_btnemote = new GridBagConstraints();
-		gbc_btnemote.fill = GridBagConstraints.VERTICAL;
-		gbc_btnemote.insets = new Insets(0, 0, 5, 0);
-		gbc_btnemote.gridx = 2;
-		gbc_btnemote.gridy = 2;
-		add(btnemote, gbc_btnemote);
+		tabbedPane.addTab("New tab", null, polls, null);
 		
-		JButton btnSend = new JButton("Send");
+		
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridwidth = 2;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 1;
+		gbc_scrollPane.gridy = 0;
+		panel.add(scrollPane, gbc_scrollPane);
+		
+		
+		scrollPane.setViewportView(textArea);
+		
+		
+		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
+		gbc_scrollPane_1.gridheight = 2;
+		gbc_scrollPane_1.insets = new Insets(0, 0, 0, 5);
+		gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane_1.gridx = 1;
+		gbc_scrollPane_1.gridy = 1;
+		panel.add(scrollPane_1, gbc_scrollPane_1);
+		
+		
+		scrollPane_1.setViewportView(textArea_1);
+		
+		GridBagConstraints gbc_btnEmote = new GridBagConstraints();
+		gbc_btnEmote.insets = new Insets(0, 0, 5, 0);
+		gbc_btnEmote.gridx = 2;
+		gbc_btnEmote.gridy = 1;
+		panel.add(btnEmote, gbc_btnEmote);
+		
 		GridBagConstraints gbc_btnSend = new GridBagConstraints();
-		gbc_btnSend.fill = GridBagConstraints.VERTICAL;
 		gbc_btnSend.gridx = 2;
-		gbc_btnSend.gridy = 3;
-		add(btnSend, gbc_btnSend);
+		gbc_btnSend.gridy = 2;
+		panel.add(btnSend, gbc_btnSend);
 	
 	}
 	
-	/*public void actionPerformed(ActionEvent evt)
+	public void actionPerformed(ActionEvent evt)
 	{
 		
 	}
-	*/
-	
-	
-	
-	// You will need this block of code to talk through the bridge
-	//////////////////////////////////////////////////////////////
-
-	// Initialize this class
-	public void Init()
-	{
-		m_tcp = new Tcp_client_side();
-		m_tcp.Init();
-		m_tcp.Register_reciver(this);
-	}
-	
-	// Data received from TCP
-	// This can go elsewhere if needed
-	public void Data_received(Base_data data)
-	{
-		// This is where all the data will come in
-		// This function will need to send data to the rest of the UI
-		// Probably want a switch here to distribute the data
-	}
-	
-	// Class to send TCP
-	protected Tcp_client_side m_tcp;
-	
-	/////////////////////////////////////////////////////////////
-	
-	
 	
 	private static void GUI()
 	{
