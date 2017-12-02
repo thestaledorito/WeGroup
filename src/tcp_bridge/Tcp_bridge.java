@@ -9,7 +9,7 @@ import data_types.Base_data;
 // https://www.tutorialspoint.com/java/java_serialization.htm
 // how to serialize/ deserialize
 
-public class Tcp_bridge 
+public abstract class Tcp_bridge 
 {
 	public void Init()
 	{
@@ -48,62 +48,6 @@ public class Tcp_bridge
 		}
 	}
 	
-	// Open a new connection
-	protected boolean open_connection(String host, int port)
-	{
-		if(m_socket == null)
-		{
-			if(!close_connection())
-				return false;
-		}
-		
-		try
-		{
-			m_socket = new Socket(host, port);
-		}
-		catch(UnknownHostException e)
-		{
-			System.out.print("bad host name ");
-			System.out.println(host);
-			return false;
-		}
-		catch(IOException e)
-		{
-			System.out.println("couldn't get I/O connection for:");
-			System.out.println(host);
-			System.out.println(port);
-			return false;
-		}
-		
-		return open_streams();
-	}
-	
-	// Open the streams for our new connection;
-	private boolean open_streams()
-	{
-		System.out.println("opening streams");
-		
-		try
-		{
-			System.out.println("open output stream");
-			m_os = new ObjectOutputStream(m_socket.getOutputStream());
-			
-			//m_os.defaultWriteObject();
-			//m_os.flush();
-			
-			System.out.println("open input stream");
-			m_is = new ObjectInputStream(m_socket.getInputStream());	
-			
-			System.out.println("both streams opened");
-			return true;
-		}
-		catch(IOException e)
-		{
-			System.out.println("io exception on stream open");
-			return false;
-		}
-	}
-	
 	// Sends a constructed data message
 	// Returns whether the message sent
 	public boolean Send_data(Base_data data)
@@ -135,6 +79,8 @@ public class Tcp_bridge
 		return m_socket.isConnected();
 	}
 	
+	// TODO: loop to to see if we have anything
+	
 	// Check if we have data
 	protected void check_data()
 	{
@@ -145,12 +91,15 @@ public class Tcp_bridge
 				while(!m_incoming_data.empty())
 				{
 					Base_data data = m_incoming_data.pop();
-					// TODO: Send data
+					Distribute_data(data);
 				}
 				m_new_data = false;
 			}
 		}
 	}
+	
+	// Send data to listener
+	abstract void Distribute_data(Base_data data);
 	
 	// Wrapper around readObject in its own thread
 	class receiver implements Runnable
@@ -201,10 +150,6 @@ public class Tcp_bridge
 		
 		private boolean m_running;
 	}
-	
-	// This will be meaningless for client
-	// May not actually need
-	protected String m_id;
 	
 	protected Socket m_socket;
 	

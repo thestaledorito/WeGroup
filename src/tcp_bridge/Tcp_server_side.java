@@ -88,6 +88,7 @@ public class Tcp_server_side
 		
 	}
 	
+	// Do we need this?
 	private void loop()
 	{
 		if(m_run)
@@ -138,7 +139,7 @@ public class Tcp_server_side
 	
 	private ServerSocket m_server;
 	
-	private List<Tcp_bridge> m_client_connections;
+	private List<Tcp_server_connection> m_client_connections;
 
 	// Sends messages to this class with Data_received(Base_data data)
 	private Database_manager m_callback_class;
