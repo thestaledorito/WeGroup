@@ -49,12 +49,21 @@ public class Group_element {
 		return false;
 	}
 	
+	public Poll_server getPoll(String name) {
+		for(Poll_server poll : storedPolls) {
+			if (poll.getID() == name) {
+				return poll;
+			}
+		}
+		return null;
+	}
+	
+	
 	
 	
 	public void addUser(String user) {
 		users.add(user);
 	}
-	
 	
 	
 	public String getGroupName() {

@@ -49,6 +49,16 @@ public class Poll_server
 			this.poll_contents.remove(element);
 		}
 	}
+	
+	public Poll_element get_element(String name) {
+		for(Poll_element ele : poll_contents) {
+			if(ele.getItem() == name)
+				return ele;
+		}
+		add_item(name);		// if it doesnt exist, add it
+		get_element(name);	// recursive call to get the new element
+		return null;		// shouldnt ever reach this state.
+	}
 
 	
 	/**

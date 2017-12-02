@@ -27,7 +27,7 @@ public class Database_manager
 		String groupName = data.getm_Group_Id();
 		
 		// get the actual groupType based off string being passed in.
-		Group_element group;
+		Group_element group = null;			// ONLY NULL TEMPORARY
 		for (Group_element name : storedGroups) {
 			if (name.getGroupName() == groupName) {
 				group = name;
@@ -36,13 +36,25 @@ public class Database_manager
 
 		
 		switch (type) {
-			case Message:
+			case Message:	// MESSAGE CASE
 				break;
-			case Poll:
+				
+			case Poll:		// POLL CASE
+				Poll_data pollData;
+				if(data instanceof Poll_data) {
+					pollData = (Poll_data)data;
+					String question = pollData.getm_Poll_Question();
+					String creator = pollData.getm_Poll_Creator();
+					List<String> options = pollData.getm_Poll_Options();
+					List<Integer> votes = pollData.getm_Poll_Votes();
+					managePoll(question, creator, options, votes, group, user);
+				}
 				break;
-			case List:
+				
+			case List:		// LIST CASE
 				break;
-			default:
+				
+			default:		// OTHER/DEFAULT CASE
 				break;
 		}
 	}
@@ -96,7 +108,23 @@ public class Database_manager
 	public void newPoll(String name, String userID, Group_element group) {
 		group.addPoll(name, userID);
 	}
-
+	
+	public void managePoll(String question, String creator, List<String> options, List<Integer> votes, Group_element groupName, String user) {
+		if(groupName.pollExists(question)) {
+			Poll_server poll = groupName.getPoll(question);
+			int votePlace = 0;
+			for(String op : options) {
+				Poll_element ele = poll.get_element(op);
+				
+				for(int j = 0; j <= votes.get(votePlace); j++)
+					ele.addVote();
+				votePlace++;
+			}
+		}
+		else {
+			groupName.addPoll(question, user);
+		}
+	}
 	
 	
 // THE FOLLOWING IS HANDLING FOR LISTS

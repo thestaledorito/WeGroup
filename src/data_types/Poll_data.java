@@ -60,8 +60,19 @@ public class Poll_data extends Base_data
 		return rep;
 	}
 	
-	public String getm_Poll_question() {
+	public String getm_Poll_Question() {
 		return m_poll_question;
 	}
 	
+	public String getm_Poll_Creator() {
+		return m_creator;
+	}
+	
+	public List<String> getm_Poll_Options(){
+		return m_poll_options;
+	}
+
+	public List<Integer> getm_Poll_Votes(){
+		return m_poll_votes;
+	}
 }

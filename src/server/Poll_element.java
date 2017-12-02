@@ -37,6 +37,7 @@ public class Poll_element {
 	public void addVote() {
 		votes++;
 	}
+	
 	public void removeVote(){
 		votes--;
 	}
