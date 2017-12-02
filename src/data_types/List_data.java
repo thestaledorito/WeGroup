@@ -13,6 +13,8 @@ public class List_data extends Base_data
 		m_list_id = new UUID(0,0);
 		m_users = new Vector<String>();
 		m_contents = new Vector<String>();
+		
+		m_title = ""; 	// added this -Riker
 	}
 	
 	// Required for Serializable
@@ -26,6 +28,9 @@ public class List_data extends Base_data
 	
 	// List of items are in the list
 	public List<String> m_contents;
+
+	// The title of the list -Riker
+	public String m_title;
 
 	// Prints out the contents of the list
 	// TODO Test this
@@ -51,5 +56,18 @@ public class List_data extends Base_data
 		}
 	
 		return rep;
+	}
+	
+	
+	public String getm_List_Title() {
+		return m_title;
+	}
+	
+	public List<String> getm_List_Contents() {
+		return m_contents;
+	}
+	
+	public List<String> getm_List_Users(){
+		return m_users;
 	}
 }

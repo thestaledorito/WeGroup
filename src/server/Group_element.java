@@ -17,6 +17,7 @@ public class Group_element {
 	}
 	
 	
+// LIST STUFF
 	public void addList(String name) {
 		List_server list = new List_server(name);
 		storedLists.add(list);
@@ -31,7 +32,16 @@ public class Group_element {
 		return false;
 	}
 	
+	public List_server getList(String name) {
+		for(List_server list : storedLists) {
+			if(list.getID() == name) {
+				return list;
+			}
+		}
+		return null;
+	}
 	
+// POLL STUFF
 	public void addPoll(String name, String userID) {
 		if(users.contains(userID)) {
 			Poll_server poll = new Poll_server(name, userID);

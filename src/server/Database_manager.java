@@ -47,11 +47,22 @@ public class Database_manager
 					String creator = pollData.getm_Poll_Creator();
 					List<String> options = pollData.getm_Poll_Options();
 					List<Integer> votes = pollData.getm_Poll_Votes();
-					managePoll(question, creator, options, votes, group, user);
+					
+					managePoll(question, options, votes, creator, group, user);
 				}
 				break;
 				
 			case List:		// LIST CASE
+				List_data listData;
+				if(data instanceof List_data) {
+					listData = (List_data)data;
+					String title = listData.getm_List_Title();
+					List<String> contents = listData.getm_List_Contents();
+					List<String> users = listData.getm_List_Users();
+					
+					manageList(title, contents, users, group, user);
+				}
+				
 				break;
 				
 			default:		// OTHER/DEFAULT CASE
@@ -102,27 +113,40 @@ public class Database_manager
 // THE FOLLOWING IS HANDLING FOR POLLS
 
 	/**
-	 * Creates a new Poll with name and adds to the database
+	 * Creates a new Poll with name and adds to the database			may be unused
 	 * @param name	the name for the poll
 	 */
 	public void newPoll(String name, String userID, Group_element group) {
 		group.addPoll(name, userID);
 	}
 	
-	public void managePoll(String question, String creator, List<String> options, List<Integer> votes, Group_element groupName, String user) {
+	/**
+	 * 		COULD USE A LOT OF OPTIMIZATION, but would require a rewrite of poll_server
+	 * 
+	 * 	Will check a poll, and make sure it is up to date.  Will create a new poll if need be. 
+	 * 	for now, a UUID is not implemented. 
+	 * @param question	The question/title of the poll
+	 * @param creator	The creator of the poll (currently unused)
+	 * @param options	A list of all the options
+	 * @param votes		A list of the votes... votes[i] matches with options[i]
+	 * @param groupName	The name of the group
+	 * @param user		The name of the user acting (current unused. would be used if creator was used)
+	 */
+	public void managePoll(String question, List<String> options, List<Integer> votes, String creator, Group_element groupName, String user) {
 		if(groupName.pollExists(question)) {
 			Poll_server poll = groupName.getPoll(question);
-			int votePlace = 0;
+			int votesIndex = 0;		// used for getting index of List, Votes.
 			for(String op : options) {
 				Poll_element ele = poll.get_element(op);
 				
-				for(int j = 0; j <= votes.get(votePlace); j++)
+				for(int j = 0; j <= votes.get(votesIndex); j++)	// add a vote for however big votes says
 					ele.addVote();
-				votePlace++;
+				votesIndex++;		// increment the index of votes
 			}
 		}
 		else {
 			groupName.addPoll(question, user);
+			managePoll(question, options, votes, creator, groupName, user);	// recursive call to manage with new poll;
 		}
 	}
 	
@@ -130,13 +154,41 @@ public class Database_manager
 // THE FOLLOWING IS HANDLING FOR LISTS
 	
 	/**
-	 * Creates a new list with name and adds to the Group database
+	 * Creates a new list with name and adds to the Group database			may be unused
 	 * @param name	the name for the list
 	 */
 	public void newList(String name, Group_element group) {
 		group.addList(name);
 	}
 	
+	/**
+	 * 	Will check a list, and make sure its up to date.  Will create a new list if need be
+	 * 	For now, UUID is not implemented.
+	 * @param title		The title of the list
+	 * @param contents	The contents to the list
+	 * @param users		The users able to view the list
+	 * @param groupName	The name of the group
+	 * @param user		The user acting (unused. not needed if client side handles properly. Could put in a check that user is in list.users)
+	 */
+	public void manageList(String title, List<String> contents, List<String> users, Group_element groupName, String user) {
+		if(groupName.listExists(title)){
+			List_server list = groupName.getList(title);
+			for(String usr : users) {
+				if(!list.userExists(usr)) {
+					list.add_user(usr);
+				}
+			}
+			for(String con : contents) {
+				if(!list.elementExists(con)) {
+					list.add_item(con);
+				}
+			}
+		}
+		else {
+			groupName.addList(title);
+			manageList(title, contents, users, groupName, user);
+		}
+	}
 	
 	
 	

@@ -67,6 +67,24 @@ public class List_server
 		return list_contents;
 	}
 	
+	public boolean elementExists(String name) {
+		for (String ele : list_contents) {
+			if(ele == name)
+				return true;
+		}
+		return false;
+	}
+	
+	public boolean userExists(String name) {
+		for (String usr : list_users) {
+			if(usr == name) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
 	public void add_user(String name) {
 		list_users.add(name);
 	}
