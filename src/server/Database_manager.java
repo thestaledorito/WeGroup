@@ -3,6 +3,7 @@ package server;
 import tcp_bridge.Tcp_server_side;
 
 import java.util.List;
+import java.util.Timer;
 
 import data_types.*;
 
@@ -150,9 +151,25 @@ public class Database_manager
 		}
 	}
 	
-	/*
+	
+	
+	
+	
+	
+	// Testing for update on a timer.
+	public static void printsomething() {
+		System.out.println("hello");
+	}
+	
 	public static void main(String[] args) {
-		
-	}*/
+		while (true) {
+			printsomething();
+			try {
+				Thread.sleep(5000);		// NOT THE BEST WAY TO DO A TIMER LOOP
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 }
