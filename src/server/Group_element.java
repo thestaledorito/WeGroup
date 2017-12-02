@@ -22,11 +22,22 @@ public class Group_element {
 		storedLists.add(list);
 	}
 	
+	
 	public void addPoll(String name, String userID) {
 		if(users.contains(userID)) {
 			Poll_server poll = new Poll_server(name, userID);
 			storedPolls.add(poll);
 		}
+	}
+	
+	
+	public boolean pollExists(String name) {
+		for(Poll_server poll : storedPolls) {
+			if (poll.getID() == name) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	

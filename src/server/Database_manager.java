@@ -3,6 +3,7 @@ package server;
 import tcp_bridge.Tcp_server_side;
 
 import java.util.List;
+import java.util.Timer;
 
 import data_types.*;
 
@@ -23,13 +24,25 @@ public class Database_manager
 		//enum type = data.Tcp_message_type(); //this line
 		Tcp_message_type type = data.getm_Type();
 		String user = data.getm_User_Id();
-		String group = data.getm_Group_Id();
+		String groupName = data.getm_Group_Id();
+		
+		// get the actual groupType based off string being passed in.
+		Group_element group;
+		for (Group_element name : storedGroups) {
+			if (name.getGroupName() == groupName) {
+				group = name;
+			}
+		}
+
+		
 		switch (type) {
 			case Message:
 				break;
 			case Poll:
 				break;
 			case List:
+				break;
+			default:
 				break;
 		}
 	}
@@ -55,7 +68,8 @@ public class Database_manager
 	
 	
 	
-// THE FOLL
+// THE FOLLOWING IS HANDLING FOR GROUPS
+	
 	public List<Group_element> storedGroups;
 	
 	public void addGroup(String group) {
@@ -67,8 +81,6 @@ public class Database_manager
 		group.addUser(user);
 	}
 	
-	
-	
 
 	
 	
@@ -76,49 +88,26 @@ public class Database_manager
 	
 	
 // THE FOLLOWING IS HANDLING FOR POLLS
-	public List<Poll_server> storedPolls;
-	
+
 	/**
 	 * Creates a new Poll with name and adds to the database
 	 * @param name	the name for the poll
 	 */
 	public void newPoll(String name, String userID, Group_element group) {
-		if(group.containsUser(userID)) {
-			Poll_server poll = new Poll_server(name, userID);
-			storedPolls.add(poll);
-		}
+		group.addPoll(name, userID);
 	}
-	
-	/**
-	 * Checks if poll exists
-	 * @param name	the name of the poll.
-	 */
-	public void checkPoll(String name) {
-		
-	}
-	
-	
-	
-	
-	
+
 	
 	
 // THE FOLLOWING IS HANDLING FOR LISTS
-	public List<List_server> storedLists;
 	
 	/**
-	 * Creates a new list with name and adds to the database
+	 * Creates a new list with name and adds to the Group database
 	 * @param name	the name for the list
 	 */
-	public void newList(String name) {
-		List_server list = new List_server(name);
-		storedLists.add(list);
+	public void newList(String name, Group_element group) {
+		group.addList(name);
 	}
-	
-	
-	
-	
-	
 	
 	
 	
@@ -162,9 +151,25 @@ public class Database_manager
 		}
 	}
 	
-	/*
+	
+	
+	
+	
+	
+	// Testing for update on a timer.
+	public static void printsomething() {
+		System.out.println("hello");
+	}
+	
 	public static void main(String[] args) {
-		
-	}*/
+		while (true) {
+			printsomething();
+			try {
+				Thread.sleep(5000);		// NOT THE BEST WAY TO DO A TIMER LOOP
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 }
