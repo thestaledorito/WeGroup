@@ -76,16 +76,16 @@ public class Tcp_client_side extends Tcp_bridge
 		
 		try
 		{
-			//System.out.println("open output stream");
+			System.out.println("open output stream");
 			m_os = new ObjectOutputStream(m_socket.getOutputStream());
 			
 			//m_os.defaultWriteObject();
 			//m_os.flush();
 			
-			//System.out.println("open input stream");
+			System.out.println("open input stream");
 			m_is = new ObjectInputStream(m_socket.getInputStream());	
 			
-			//System.out.println("both streams opened");
+			System.out.println("both streams opened");
 			return true;
 		}
 		catch(IOException e)

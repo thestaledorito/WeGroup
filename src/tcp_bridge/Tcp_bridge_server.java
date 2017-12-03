@@ -18,6 +18,7 @@ public class Tcp_bridge_server extends Tcp_bridge
 		m_check_connected_timer = null;
 	}
 	
+	// Send out the data we have received
 	protected void Distribute_data(Base_data data) 
 	{
 		System.out.println("Server received data:");
@@ -77,6 +78,8 @@ public class Tcp_bridge_server extends Tcp_bridge
 	// Check if we have accepted a connection
 	protected void check_connected()
 	{
+		System.out.println("checking if connected");
+		
 		if(m_connected)
 		{
 			m_check_connected_timer = null;
@@ -109,8 +112,11 @@ public class Tcp_bridge_server extends Tcp_bridge
 			
 			try
 			{
+				System.out.println("server open input stream");
 				m_is = new ObjectInputStream(m_socket.getInputStream());
+				System.out.println("server open output stream");
 				m_os = new ObjectOutputStream(m_socket.getOutputStream());
+				System.out.println("server streams opened");
 			}
 			catch(IOException e)
 			{

@@ -20,7 +20,9 @@ public class Tcp_server_side
 		m_server = new Tcp_bridge_server();
 		m_server.Init();
 		
-		m_server.Open_server(1129);
+		System.out.println("opening server");
+		m_server.Open_server(1129); // This has a return
+		System.out.println("starting checking");
 		m_server.Start_checking_connected();
 		
 		//m_run = true;
