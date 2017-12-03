@@ -16,61 +16,10 @@ public class Tcp_server_side
 	// Initialize the server
 	public void Init()
 	{
-		try
-		{
-			m_server = new ServerSocket(1129);
-		}
-		catch(IOException e)
-		{
-			System.out.println("Error creating server:" + e);
-		}
+		m_server.Init();
 		
-		Socket client_socket = null;
-		ObjectOutputStream os;
-		ObjectInputStream is;
-		Base_data data;
-		//String str;
-		
-		try
-		{
-			client_socket = m_server.accept();
-			
-			System.out.println("open input stream");
-			is = new ObjectInputStream(client_socket.getInputStream());
-			
-			System.out.println("open output stream");
-			os = new ObjectOutputStream(client_socket.getOutputStream());
-			
-			//os.defaultWriteObject();
-			//os.flush();
-			
-			System.out.println("both streams opened");
-			
-			while(true)
-			{
-				try
-				{
-					data = (Base_data)is.readObject();
-					System.out.println(data);
-					Message_data mess = (Message_data)data;
-					System.out.println(mess);
-					//str = (String)is.readObject();
-					//System.out.println(str);
-				}
-				catch(ClassNotFoundException e)
-				{
-					System.out.println("class not found" + e);
-				}
-			}
-		}
-		catch(BindException e)
-		{
-			System.out.println("error binding");
-		}
-		catch(IOException e)
-		{
-			System.out.println("IO error");
-		}
+		m_server.Open_server(1129);
+		m_server.Start_checking_connected();
 		
 		//m_run = true;
 		//loop();
@@ -132,12 +81,11 @@ public class Tcp_server_side
 		}
 	}
 	
-	
+	// This is just for testing, will eventually want a subclass
+	private Tcp_bridge_server m_server;
 	
 	
 	private boolean m_run;
-	
-	private ServerSocket m_server;
 	
 	private List<Tcp_server_connection> m_client_connections;
 

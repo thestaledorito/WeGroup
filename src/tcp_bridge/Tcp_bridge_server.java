@@ -1,6 +1,6 @@
 package tcp_bridge;
 
-import data_types.Base_data;
+import data_types.*;
 import java.util.*;
 import java.net.*;
 import java.io.*;
@@ -20,7 +20,22 @@ public class Tcp_bridge_server extends Tcp_bridge
 	
 	protected void Distribute_data(Base_data data) 
 	{
+		System.out.println("Server received data:");
+		System.out.println(data.toString());
 		// TODO Pass up data to send to the server
+		
+		
+		// The following is just here for testing
+		Poll_data poll_data = new Poll_data();
+		poll_data.m_poll_question = "What is the anwser";
+		poll_data.m_poll_options.add("42");
+		poll_data.m_poll_options.add("not 42");
+		System.out.println(poll_data);
+		
+		if(!Send_data(poll_data))
+		{
+			System.out.println("poll data failed to send");
+		}
 	}
 	
 	// Open up port to receive client connection

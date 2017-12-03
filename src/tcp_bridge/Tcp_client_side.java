@@ -21,6 +21,9 @@ public class Tcp_client_side extends Tcp_bridge
 		{
 			System.out.println("connection opened");
 			
+			Start_checking_data();
+			System.out.println("starting to listen for data");
+			
 			Message_data data = new Message_data();
 			data.m_message = "hello world";
 			System.out.println(data);
@@ -101,6 +104,8 @@ public class Tcp_client_side extends Tcp_bridge
 	// Send Data to listener
 	protected void Distribute_data(Base_data data)
 	{
+		System.out.println("Client received data:");
+		System.out.println(data.toString());
 		m_callback_class.Data_received(data);
 	}
 	
