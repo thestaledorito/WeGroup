@@ -117,9 +117,9 @@ public class Group_element {
 		return false;
 	}
 	
-	public Message_server getMessage(String name) {
+	public Message_server getMessage(String message) {
 		for(Message_server mess : storedGM) {
-			if(mess.getMessage() == name){
+			if(mess.getMessage() == message){
 				return mess;
 			}
 		}

@@ -50,7 +50,7 @@ public class Database_manager
 						addPrivateMessage(message, recip, sender);
 					}
 					else if(!pvtMsg) {
-						manageGroupMessage(message, recip, sender, groupName);
+						manageGroupMessage(message, recip, sender, group);
 					}
 				}
 				
@@ -170,6 +170,7 @@ public class Database_manager
 	}
 	
 	
+	
 // THE FOLLOWING IS HANDLING FOR LISTS
 	
 	/**
@@ -209,6 +210,9 @@ public class Database_manager
 		}
 	}
 	
+	
+	
+	
 // THE FOLLOWING IS HANDLING FOR MESSAGES
 	public List<Message_server> storedPrivateMessages;
 	
@@ -236,13 +240,11 @@ public class Database_manager
 	}
 	
 
-	public void manageGroupMessage(String message, List<String> recip, String sender, String groupName) {
-		//if(groupName.groupMessageExists(message))) {
-			
-		//}
+	public void manageGroupMessage(String message, List<String> recip, String sender, Group_element groupName) {
+		if(!groupName.groupMessageExists(message)) {
+			groupName.addMessage(message, recip, sender);	
+		}
 	}
-	
-	
 	
 	
 	

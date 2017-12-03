@@ -47,6 +47,8 @@ public class Message_server
 		recipients.remove(target);
 	}
 	
+	
+	
 	/**
 	 * returns the message as a string
 	 * @return	The message
@@ -86,5 +88,14 @@ public class Message_server
 			return false;
 	}
 	
+	
+	public boolean userExists(String name) {
+		for (String usr : recipients) {
+			if(usr == name) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 }
