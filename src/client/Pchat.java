@@ -3,14 +3,16 @@ package client;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import java.util.*;
-//import data_types.Message_data;
+import data_types.*;
+import server.Group_element;
 
 public class Pchat extends JPanel implements  ActionListener
 {
+	private static String name = Login.usrname; //will grab name of user from login at startup
+	private static String target;
+	private static JFrame frame = new JFrame("WeGroup");
 	private static final long serialVersionUID = 1L;
 	private JPanel panel;
-	String name;
 	private JTextArea message = new JTextArea();
 	private static JTextArea groupfield = new JTextArea();
 	private JButton btnSend = new JButton("Send");
@@ -71,11 +73,14 @@ public class Pchat extends JPanel implements  ActionListener
 			String data=message.getText().trim(); //read contents of text area  into data
 			if(!data.equals("")) //verify their is anything to send
 				{
-					name = "john";
-					ArrayList<String> send = new ArrayList<String>();
+					/*ArrayList<String> send = new ArrayList<String>();
 					send.add(name);
 					send.add(data);
-					data = name + ": " + data;
+					*/data = name + ": " + data;
+					Message_data.inputSender(name);
+					Message_data.inputSender(data);
+					Message_data.inputprivate(true);
+					Message_data.recipient(target);
 					message.setText(""); //clears out the message area	
 					data = "\n" + data + "\n";
 					groupfield.append(data);
@@ -84,15 +89,18 @@ public class Pchat extends JPanel implements  ActionListener
 		}
 	}
 	
-	public static void msgrec(ArrayList<String> msg)
+	public static void msgrec(Message_data receive)
 	{
-		String data = msg.get(0) + ": " + msg.get(1);
+		String user = receive.getSender();
+		String msg = receive.getMessage();
+		String data = user + ": " + msg;
 		groupfield.append(data);	
+		frame.setTitle(name + "(" + target + ")");
 	}
 	
 	private static void GUI()
 	{
-		JFrame frame = new JFrame("WeGroup *group*");
+		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().add(new Pchat());
 		frame.pack();
