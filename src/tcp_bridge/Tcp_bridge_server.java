@@ -16,6 +16,7 @@ public class Tcp_bridge_server extends Tcp_bridge
 		
 		m_connected = false;
 		m_check_connected_timer = null;
+		m_accept_thread = null;
 	}
 	
 	// Send out the data we have received
@@ -53,6 +54,9 @@ public class Tcp_bridge_server extends Tcp_bridge
 			return false;
 		}
 		
+		m_accept_thread = new Thread(new accepter());
+		m_accept_thread.start();
+		
 		return true;
 	}
 	
@@ -89,11 +93,12 @@ public class Tcp_bridge_server extends Tcp_bridge
 	
 	
 	// Wrapper around accept in its own thread
-	class receiver implements Runnable
+	class accepter implements Runnable
 	{
 		public void run() 
 		{
 			m_connected = false;
+			System.out.println("waiting to accept");
 			
 			try
 			{
@@ -124,6 +129,7 @@ public class Tcp_bridge_server extends Tcp_bridge
 				return;
 			}
 			
+			System.out.println("server accepted connection");
 			m_connected = true;
 		}
 	}
@@ -131,6 +137,8 @@ public class Tcp_bridge_server extends Tcp_bridge
 	protected ServerSocket m_server;
 	
 	protected Timer m_check_connected_timer;
+	
+	protected Thread m_accept_thread;
 	
 	protected boolean m_connected;
 }
