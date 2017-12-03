@@ -1,6 +1,7 @@
 package tcp_bridge;
 
 import data_types.Base_data;
+import java.util.*;
 import java.net.*;
 import java.io.*;
 
@@ -14,6 +15,7 @@ public class Tcp_bridge_server extends Tcp_bridge
 		super.Init();
 		
 		m_connected = false;
+		m_check_connected_timer = null;
 	}
 	
 	protected void Distribute_data(Base_data data) 
@@ -38,9 +40,34 @@ public class Tcp_bridge_server extends Tcp_bridge
 		return true;
 	}
 	
+	// Starts our timer to check if we are connected
+	public void Start_checking_connected()
+	{
+		if(m_check_connected_timer != null)
+			m_check_connected_timer = null;
+		
+		m_check_connected_timer = new java.util.Timer();
+		m_check_connected_timer.schedule
+		(
+			new java.util.TimerTask()
+			{
+				public void run()
+				{
+					check_connected();
+				}
+			}, 100, 100
+		);
+	}
 	
-	// TODO: need a loop to check if we have a connection
-	// When we do we need to kick off the bridges monitoring thread
+	// Check if we have accepted a connection
+	protected void check_connected()
+	{
+		if(m_connected)
+		{
+			m_check_connected_timer = null;
+			Start_checking_data();
+		}
+	}
 	
 	
 	// Wrapper around accept in its own thread
@@ -81,6 +108,8 @@ public class Tcp_bridge_server extends Tcp_bridge
 	}
 
 	protected ServerSocket m_server;
+	
+	protected Timer m_check_connected_timer;
 	
 	protected boolean m_connected;
 }

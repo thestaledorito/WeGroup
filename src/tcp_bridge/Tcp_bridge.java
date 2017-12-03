@@ -24,6 +24,8 @@ public abstract class Tcp_bridge
 		m_os = null;
 		m_is = null;
 		m_new_data = false;
+		m_check_data_timer = null;
+		m_data_in_thread = null;
 		m_incoming_data.clear();
 	}
 	
@@ -79,7 +81,27 @@ public abstract class Tcp_bridge
 		return m_socket.isConnected();
 	}
 	
-	// TODO: loop to to see if we have anything
+	// Starts our receiver thread and timer to check if we have data
+	public void Start_checking_data()
+	{
+		m_data_in_thread = new Thread(new receiver());
+		m_data_in_thread.start();
+		
+		if(m_check_data_timer != null)
+			m_check_data_timer = null;
+		
+		m_check_data_timer = new java.util.Timer();
+		m_check_data_timer.schedule
+		(
+			new java.util.TimerTask()
+			{
+				public void run()
+				{
+					check_data();
+				}
+			}, 0, 100
+		);
+	}
 	
 	// Check if we have data
 	protected void check_data()
@@ -156,6 +178,10 @@ public abstract class Tcp_bridge
 	protected ObjectOutputStream m_os;
 	
 	protected ObjectInputStream m_is;
+	
+	protected Timer m_check_data_timer;
+	
+	protected Thread m_data_in_thread;
 	
 	protected boolean m_new_data;
 	
