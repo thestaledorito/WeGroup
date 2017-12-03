@@ -12,8 +12,6 @@ public class List_create extends JPanel implements  ActionListener, ListSelectio
 	private JPanel panel;
 	private DefaultListModel<String> listmod = new DefaultListModel<String>();
 	private JScrollPane scroll1 = new JScrollPane();
-	private JScrollPane scroll2 = new JScrollPane();
-	private final JTextField additemf = new JTextField();
 	private final JLabel lblAddItem = new JLabel("add item:");
 	private final JButton btnAdd = new JButton("add");
 	private final JTextField titlef = new JTextField();
@@ -22,13 +20,16 @@ public class List_create extends JPanel implements  ActionListener, ListSelectio
 	private final JButton btnCancel = new JButton("Cancel");
 	private final JButton btnCreate = new JButton("Create");
 	ArrayList<String> list2 = new ArrayList<String>();
+	private final JTextField additemf = new JTextField();
 	
 	public List_create() 
 	{
+		additemf.setColumns(10);
+		setLayout(new BorderLayout(0, 0));
 		titlef.setColumns(10);
 		
 		panel = new JPanel();
-		add(panel, BorderLayout.CENTER);
+		add(panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{91, 212, 61, 0};
 		gbl_panel.rowHeights = new int[]{0, 0, 0, 189, 21, 51, 0};
@@ -68,18 +69,13 @@ public class List_create extends JPanel implements  ActionListener, ListSelectio
 		gbc_lblAddItem.gridx = 0;
 		gbc_lblAddItem.gridy = 4;
 		panel.add(lblAddItem, gbc_lblAddItem);
-		additemf.setColumns(10);
 		
-		
-		GridBagConstraints gbc_message = new GridBagConstraints();
-		gbc_message.fill = GridBagConstraints.HORIZONTAL;
-		gbc_message.insets = new Insets(0, 0, 5, 5);
-		gbc_message.gridx = 1;
-		gbc_message.gridy = 4;
-		panel.add(scroll2, gbc_message);
-		scroll2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		
-		scroll2.setViewportView(additemf);
+		GridBagConstraints gbc_additemf = new GridBagConstraints();
+		gbc_additemf.insets = new Insets(0, 0, 5, 5);
+		gbc_additemf.fill = GridBagConstraints.HORIZONTAL;
+		gbc_additemf.gridx = 1;
+		gbc_additemf.gridy = 4;
+		panel.add(additemf, gbc_additemf);
 		
 		GridBagConstraints gbc_btnAdd = new GridBagConstraints();
 		gbc_btnAdd.insets = new Insets(0, 0, 5, 0);

@@ -3,16 +3,18 @@ package client;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.util.*;
+//import data_types.Message_data;
 
 public class Pchat extends JPanel implements  ActionListener
 {
 	private static final long serialVersionUID = 1L;
 	private JPanel panel;
+	String name;
 	private JTextArea message = new JTextArea();
-	private JTextArea groupfield = new JTextArea();
+	private static JTextArea groupfield = new JTextArea();
 	private JButton btnSend = new JButton("Send");
 	private JButton btnemote = new JButton("Emote");
-	//private String clname = "";
 	
 	public Pchat() 
 	{
@@ -69,22 +71,30 @@ public class Pchat extends JPanel implements  ActionListener
 			String data=message.getText().trim(); //read contents of text area  into data
 			if(!data.equals("")) //verify their is anything to send
 				{
-				//data = clname + ": " + data; //uname would be the users name
-				//Tcp_client_side.send(data); //This would send the data to the appropriate method for sending to client	
-				message.setText(""); //clears out the message area	
-				data = "\n" + data;
-				groupfield.append(data);
+					name = "john";
+					ArrayList<String> send = new ArrayList<String>();
+					send.add(name);
+					send.add(data);
+					data = name + ": " + data;
+					message.setText(""); //clears out the message area	
+					data = "\n" + data + "\n";
+					groupfield.append(data);
+					//test Gatherer.pchatmsg(send); //sends the data to the class that handles sending it off the tcp_client	
 				}
 		}
 	}
-
+	
+	public static void msgrec(ArrayList<String> msg)
+	{
+		String data = msg.get(0) + ": " + msg.get(1);
+		groupfield.append(data);	
+	}
+	
 	private static void GUI()
 	{
 		JFrame frame = new JFrame("WeGroup *group*");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
 		frame.getContentPane().add(new Pchat());
-		
 		frame.pack();
 		frame.setLocationByPlatform(true);
 		frame.setVisible(true);

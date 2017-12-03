@@ -2,6 +2,8 @@ package client;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 public class Poll_vote extends JPanel implements  ActionListener
@@ -11,7 +13,8 @@ public class Poll_vote extends JPanel implements  ActionListener
 	private final JLabel lblTitle = new JLabel("*Poll Title*");
 	private final JButton btnCancel = new JButton("Cancel");
 	private final JButton btnVote = new JButton("Vote");
-	private final JComboBox<String> comboBox = new JComboBox<String>();
+	private DefaultComboBoxModel<String> boxmod = new DefaultComboBoxModel<String>();
+	private final JComboBox<String> comboBox = new JComboBox<String>(boxmod);
 	
 	public Poll_vote() 
 	{
@@ -55,10 +58,23 @@ public class Poll_vote extends JPanel implements  ActionListener
 	{
 		if (evt.getSource() == btnVote)
 		{	
-			
+			//send data for update to server
+		}
+		else if (evt.getSource() == btnCancel)
+		{
+			System.exit(0);
 		}
 	}
-
+	
+	public void pollvote(ArrayList<String> data)
+	{
+		int index = data.size() - 1;
+		for(int i=0; i<index; i++)
+		{
+			boxmod.addElement(data.get(i));
+		}
+	}
+	
 	private static void GUI()
 	{
 		JFrame frame = new JFrame("Poll Vote");
