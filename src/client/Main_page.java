@@ -52,7 +52,9 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 	private final JButton btnSend = new JButton("Send");
 	private final JButton btnEmote = new JButton("emote");
 	private JPopupMenu menu = new JPopupMenu();
-	private JMenuItem item = new JMenuItem("Private chat");
+	private JMenuItem item = new JMenuItem();
+	private JMenuItem item2 = new JMenuItem();
+	private JMenuItem item3 = new JMenuItem();
 	
 	public Main_page() 
 	{
@@ -161,8 +163,42 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 		}
 		else if (evt.getSource() == item)
 		{
-			Pchat.main(setup);
-			menu.setVisible(false);
+			if(members.isFocusOwner())
+			{	
+				Pchat.main(setup);
+				menu.setVisible(false);
+			}
+			else if (lists.isFocusOwner())
+			{
+				List_create.main(setup);
+				menu.setVisible(false);
+			}
+			else if (polls.isFocusOwner())
+			{
+				Poll_create.main(setup);
+				menu.setVisible(false);
+			}
+		}
+		else if (evt.getSource() == item2)
+		{
+			if (lists.isFocusOwner())
+			{
+				List_edit.main(setup);
+				menu.setVisible(false);
+			}
+			else if (polls.isFocusOwner())
+			{
+				Poll_view.main(setup);
+				menu.setVisible(false);
+			}
+		}
+		else if (evt.getSource() == item3)
+		{
+			if (polls.isFocusOwner())
+			{
+				Poll_vote.main(setup);
+				menu.setVisible(false);
+			}
 		}
 		else if (evt.getSource() == btnEmote)
 		{
@@ -174,9 +210,51 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 	{
 		if(members.isFocusOwner() == true)
 		{
+			item = new JMenuItem("Private chat");
 			index = members.getSelectedIndex();
 			item.addActionListener(this);
 			menu.add(item);
+			
+			//get mouse location and set pop-up menu to location 
+			double dy = MouseInfo.getPointerInfo().getLocation().getY();
+			double dx = MouseInfo.getPointerInfo().getLocation().getX();
+			int y = (int) dy;
+			int x = (int) dx;
+			menu.setLocation(x, y);
+			
+			menu.setVisible(true);
+		}
+		else if(lists.isFocusOwner() == true)
+		{
+			item = new JMenuItem("create list");
+			item2 = new JMenuItem("open list");
+			index = lists.getSelectedIndex();
+			item.addActionListener(this);
+			item2.addActionListener(this);
+			menu.add(item);
+			menu.add(item2);
+			
+			//get mouse location and set pop-up menu to location 
+			double dy = MouseInfo.getPointerInfo().getLocation().getY();
+			double dx = MouseInfo.getPointerInfo().getLocation().getX();
+			int y = (int) dy;
+			int x = (int) dx;
+			menu.setLocation(x, y);
+			
+			menu.setVisible(true);
+		}
+		else if(polls.isFocusOwner() == true)
+		{
+			item = new JMenuItem("create poll");
+			item2 = new JMenuItem("open poll");
+			item3 = new JMenuItem("vote poll");
+			index = lists.getSelectedIndex();
+			item.addActionListener(this);
+			item2.addActionListener(this);
+			item3.addActionListener(this);
+			menu.add(item);
+			menu.add(item2);
+			menu.add(item3);
 			
 			//get mouse location and set pop-up menu to location 
 			double dy = MouseInfo.getPointerInfo().getLocation().getY();
