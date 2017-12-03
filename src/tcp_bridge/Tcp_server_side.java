@@ -16,6 +16,8 @@ public class Tcp_server_side
 	// Initialize the server
 	public void Init()
 	{
+		// Server will need to become one of its subclasses
+		m_server = new Tcp_bridge_server();
 		m_server.Init();
 		
 		m_server.Open_server(1129);
