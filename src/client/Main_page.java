@@ -29,12 +29,16 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
+import java.util.List;
+
 import javax.swing.event.*;
 
 public class Main_page extends JPanel implements  ActionListener, ListSelectionListener
 {
 	private static final long serialVersionUID = 9L;
+	private static JFrame frame = new JFrame("WeGroup");
 	private String name;
+	public String target;
 	private int index;
 	private String[] setup;
 	private DefaultListModel<String> membermod = new DefaultListModel<String>();
@@ -48,7 +52,7 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 	private JScrollPane scrollPane = new JScrollPane();
 	private JScrollPane scrollPane_1 = new JScrollPane();
 	private JTextArea groupfield = new JTextArea();
-	private JTextArea message = new JTextArea();
+	private JTextArea messages = new JTextArea();
 	private final JButton btnSend = new JButton("Send");
 	private final JButton btnEmote = new JButton("emote");
 	private JPopupMenu menu = new JPopupMenu();
@@ -109,7 +113,7 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 		panel.add(scrollPane_1, gbc_scrollPane_1);
 		
 		
-		scrollPane_1.setViewportView(message);
+		scrollPane_1.setViewportView(messages);
 		
 		GridBagConstraints gbc_btnEmote = new GridBagConstraints();
 		gbc_btnEmote.insets = new Insets(0, 0, 5, 0);
@@ -141,21 +145,21 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 		polls.setVisibleRowCount(10);
 		polls.addListSelectionListener(this);
 		pollmod.addElement("Johnny");
+		
+	
 	}
 	
 	public void actionPerformed(ActionEvent evt)
 	{
 		if (evt.getSource() == btnSend)
 		{	
-			String data=message.getText().trim(); //read contents of text area  into data
+			String data=messages.getText().trim(); //read contents of text area  into data
 			if(!data.equals("")) //verify their is anything to send
 				{
-					//name = "john";
-					ArrayList<String> send = new ArrayList<String>();
-					send.add(name);
-					send.add(data);
-					data = name + ": " + data;
-					message.setText(""); //clears out the message area	
+					name = "john";
+					messages.setText(""); //clears out the message area	
+					Message_data.inputSender(name);
+					Message_data.inputSender(data);
 					data = "\n" + data + "\n";
 					groupfield.append(data);
 					//test Gatherer.pchatmsg(send); //sends the data to the class that handles sending it off the tcp_client	
@@ -212,6 +216,7 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 		{
 			item = new JMenuItem("Private chat");
 			index = members.getSelectedIndex();
+			target = membermod.get(index);
 			item.addActionListener(this);
 			menu.add(item);
 			
@@ -266,10 +271,11 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 			menu.setVisible(true);
 		}
 	}
-	
+	public String thetarget() {
+		return target;
+	}
 	private static void GUI()
 	{
-		JFrame frame = new JFrame("WeGroup *group name*");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		frame.getContentPane().add(new Main_page());
@@ -292,7 +298,28 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 	// Data received from TCP
 	public void Data_received(Base_data data)
 	{
+		Tcp_message_type type = data.getm_Type();
+		String user = data.getm_User_Id();
+		String groupName = data.getm_Group_Id();
+		frame.setTitle("WeGroup: " + groupName + "(" + user +")");
 		
+		switch (type) 
+		{
+			case Message:	// MESSAGE CASE
+				Message_data messData;
+				if(data instanceof Message_data)
+				{
+					messData = (Message_data)data;
+					boolean pvtMsg = messData.getPrivate();
+					if (pvtMsg)
+					{
+						Pchat.msgrec(messData);
+					}	
+				}
+			break;
+			default:
+				JOptionPane.showMessageDialog(null, "Missing a title");
+		}
 	}
 	
 	// Class to send TCP
