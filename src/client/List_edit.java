@@ -3,28 +3,33 @@ package client;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.util.*;
+import javax.swing.event.*;
 
-public class List_edit extends JPanel implements  ActionListener
+public class List_edit extends JPanel implements  ActionListener, ListSelectionListener
 {
-	private static final long serialVersionUID = 4L;
+	private static final long serialVersionUID = 6L;
 	private JPanel panel;
+	private int index;
+	private DefaultListModel<String> listmod = new DefaultListModel<String>();
 	private JScrollPane scroll1 = new JScrollPane();
-	private JScrollPane scroll2 = new JScrollPane();
-	private final JTextField additemf = new JTextField();
 	private final JLabel lblAddItem = new JLabel("add item:");
 	private final JButton btnAdd = new JButton("add");
-	private final JTextField textField_1 = new JTextField();
+	private final JTextField titlef = new JTextField();
 	private final JLabel lblTitle = new JLabel("Title:");
-	private final JList<String> list = new JList<String>();
+	private final JList<String> list = new JList<String>(listmod);
 	private final JButton btnCancel = new JButton("Cancel");
 	private final JButton btnAccept = new JButton("Accept");
 	private final JLabel lbldeleteitem = new JLabel("Delete item:");
-	private final JTextField textField = new JTextField();
+	private final JTextField deletef = new JTextField();
 	private final JButton btnDelete = new JButton("Delete");
+	private final JTextField additemf = new JTextField();
+	ArrayList<String> list2 = new ArrayList<String>();
 	
 	public List_edit() 
 	{
-		textField_1.setColumns(10);
+		additemf.setColumns(10);
+		titlef.setColumns(10);
 		setLayout(new BorderLayout(0, 0));
 		
 		panel = new JPanel();
@@ -43,12 +48,12 @@ public class List_edit extends JPanel implements  ActionListener
 		gbc_lblTitle.gridy = 1;
 		panel.add(lblTitle, gbc_lblTitle);
 		
-		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_1.gridx = 1;
-		gbc_textField_1.gridy = 1;
-		panel.add(textField_1, gbc_textField_1);
+		GridBagConstraints gbc_titlef = new GridBagConstraints();
+		gbc_titlef.insets = new Insets(0, 0, 5, 5);
+		gbc_titlef.fill = GridBagConstraints.HORIZONTAL;
+		gbc_titlef.gridx = 1;
+		gbc_titlef.gridy = 1;
+		panel.add(titlef, gbc_titlef);
 		
 		
 		GridBagConstraints gbc_Groupfield = new GridBagConstraints();
@@ -70,71 +75,128 @@ public class List_edit extends JPanel implements  ActionListener
 		gbc_lbldeleteitem.gridy = 4;
 		panel.add(lbldeleteitem, gbc_lbldeleteitem);
 		
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 1;
-		gbc_textField.gridy = 4;
-		textField.setColumns(10);
-		panel.add(textField, gbc_textField);
+		GridBagConstraints gbc_deletef = new GridBagConstraints();
+		gbc_deletef.insets = new Insets(0, 0, 5, 5);
+		gbc_deletef.fill = GridBagConstraints.HORIZONTAL;
+		gbc_deletef.gridx = 1;
+		gbc_deletef.gridy = 4;
+		deletef.setColumns(10);
+		panel.add(deletef, gbc_deletef);
 		
 		GridBagConstraints gbc_btnDelete = new GridBagConstraints();
 		gbc_btnDelete.insets = new Insets(0, 0, 5, 0);
 		gbc_btnDelete.gridx = 2;
 		gbc_btnDelete.gridy = 4;
 		panel.add(btnDelete, gbc_btnDelete);
+		btnDelete.addActionListener(this);
+		
 		GridBagConstraints gbc_lblAddItem = new GridBagConstraints();
 		gbc_lblAddItem.anchor = GridBagConstraints.EAST;
 		gbc_lblAddItem.insets = new Insets(0, 0, 5, 5);
 		gbc_lblAddItem.gridx = 0;
 		gbc_lblAddItem.gridy = 5;
 		panel.add(lblAddItem, gbc_lblAddItem);
-		additemf.setColumns(10);
 		
-		
-		GridBagConstraints gbc_message = new GridBagConstraints();
-		gbc_message.fill = GridBagConstraints.HORIZONTAL;
-		gbc_message.insets = new Insets(0, 0, 5, 5);
-		gbc_message.gridx = 1;
-		gbc_message.gridy = 5;
-		panel.add(scroll2, gbc_message);
-		scroll2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		
-		scroll2.setViewportView(additemf);
+		GridBagConstraints gbc_additemf = new GridBagConstraints();
+		gbc_additemf.insets = new Insets(0, 0, 5, 5);
+		gbc_additemf.fill = GridBagConstraints.HORIZONTAL;
+		gbc_additemf.gridx = 1;
+		gbc_additemf.gridy = 5;
+		panel.add(additemf, gbc_additemf);
 		
 		GridBagConstraints gbc_btnAdd = new GridBagConstraints();
 		gbc_btnAdd.insets = new Insets(0, 0, 5, 0);
 		gbc_btnAdd.gridx = 2;
 		gbc_btnAdd.gridy = 5;
 		panel.add(btnAdd, gbc_btnAdd);
+		btnAdd.addActionListener(this);
 		
 		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
 		gbc_btnCancel.insets = new Insets(0, 0, 0, 5);
 		gbc_btnCancel.gridx = 0;
 		gbc_btnCancel.gridy = 6;
 		panel.add(btnCancel, gbc_btnCancel);
+		btnCancel.addActionListener(this);
 		
 		GridBagConstraints gbc_btnAccept = new GridBagConstraints();
 		gbc_btnAccept.gridx = 2;
 		gbc_btnAccept.gridy = 6;
-		btnAccept.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
+		btnAccept.addActionListener(this);
 		panel.add(btnAccept, gbc_btnAccept);
+		
+		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		list.setSelectedIndex(0);
+		list.setVisibleRowCount(10);
+		list.addListSelectionListener(this);
 		
 	}
 	public void actionPerformed(ActionEvent evt)
 	{
-		if (evt.getSource() == btnAccept)
-		{	
+		if (evt.getSource() == btnAdd)
+		{
+			if(additemf != null) //verifies the additemf text field is not empty
+			{
+				listmod.addElement(additemf.getText());
+				list2.add(additemf.getText());
+				
+				//make the new list item show on UI
+				int index = list2.size() - 1;
+				list.setSelectedIndex(index);
+				list.ensureIndexIsVisible(index);
+				
+				//empty the text field
+				additemf.requestFocusInWindow(); 
+				additemf.setText("");
+			}	
+		}
+		else if (evt.getSource() == btnDelete)
+		{
 			
+			listmod.removeElementAt(index);
+			deletef.requestFocusInWindow();
+			deletef.setText("");
+		}
+		else if (evt.getSource() == btnAccept)
+		{	
+			if(!titlef.getText().equals(""))
+			{
+				list2.add(titlef.getText());
+				//send list2 to server for update
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(null, "Missing a title");
+			}
+		}
+		else if (evt.getSource() == btnCancel)
+		{
+			System.exit(0);
+		}
+	}
+	public void valueChanged(ListSelectionEvent e)
+	{
+		//sets the value to the edit field
+		index = list.getSelectedIndex();
+		deletef.setText(list.getSelectedValue());
+	}
+	
+	public void recdata(ArrayList<String> data)
+	{
+		int index = data.size() -1; 
+		titlef.setText(data.get(index));
+		data.remove(index);
+		for(int i=0; i < index; i++)
+		{
+			listmod.addElement(data.get(i));
+			list2.add(data.get(i));
+			list.setSelectedIndex(i);
+			list.ensureIndexIsVisible(i);
 		}
 	}
 
 	private static void GUI()
 	{
-		JFrame frame = new JFrame("Edit *list*");
+		JFrame frame = new JFrame("Edit list");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().add(new List_edit());
 		frame.pack();
