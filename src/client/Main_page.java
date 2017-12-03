@@ -28,21 +28,31 @@ public class Main_page
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.util.*;
+import javax.swing.event.*;
 
-public class Main_page extends JPanel implements  ActionListener
+public class Main_page extends JPanel implements  ActionListener, ListSelectionListener
 {
-	private static final long serialVersionUID = 3L;
+	private static final long serialVersionUID = 9L;
+	private String name;
+	private int index;
+	private String[] setup;
+	private DefaultListModel<String> membermod = new DefaultListModel<String>();
+	private DefaultListModel<String> listmod = new DefaultListModel<String>();
+	private DefaultListModel<String> pollmod = new DefaultListModel<String>();
 	private JPanel panel = new JPanel();
-	private JList<String> lists = new JList<String>();
-	private JList<String> polls = new JList<String>();
-	private JList<String> members = new JList<String>();
+	private JList<String> lists = new JList<String>(listmod);
+	private JList<String> polls = new JList<String>(pollmod);
+	private JList<String> members = new JList<String>(membermod);
 	private JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 	private JScrollPane scrollPane = new JScrollPane();
 	private JScrollPane scrollPane_1 = new JScrollPane();
-	private JTextArea textArea = new JTextArea();
-	private JTextArea textArea_1 = new JTextArea();
+	private JTextArea groupfield = new JTextArea();
+	private JTextArea message = new JTextArea();
 	private final JButton btnSend = new JButton("Send");
 	private final JButton btnEmote = new JButton("emote");
+	private JPopupMenu menu = new JPopupMenu();
+	private JMenuItem item = new JMenuItem("Private chat");
 	
 	public Main_page() 
 	{
@@ -67,13 +77,13 @@ public class Main_page extends JPanel implements  ActionListener
 		panel.add(tabbedPane, gbc_tabbedPane);
 		
 		
-		tabbedPane.addTab("New tab", null, members, null);
+		tabbedPane.addTab("Members", null, members, null);
 		
 		
-		tabbedPane.addTab("New tab", null, lists, null);
+		tabbedPane.addTab("Lists", null, lists, null);
 		
 		
-		tabbedPane.addTab("New tab", null, polls, null);
+		tabbedPane.addTab("Polls", null, polls, null);
 		
 		
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
@@ -85,7 +95,7 @@ public class Main_page extends JPanel implements  ActionListener
 		panel.add(scrollPane, gbc_scrollPane);
 		
 		
-		scrollPane.setViewportView(textArea);
+		scrollPane.setViewportView(groupfield);
 		
 		
 		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
@@ -97,24 +107,86 @@ public class Main_page extends JPanel implements  ActionListener
 		panel.add(scrollPane_1, gbc_scrollPane_1);
 		
 		
-		scrollPane_1.setViewportView(textArea_1);
+		scrollPane_1.setViewportView(message);
 		
 		GridBagConstraints gbc_btnEmote = new GridBagConstraints();
 		gbc_btnEmote.insets = new Insets(0, 0, 5, 0);
 		gbc_btnEmote.gridx = 2;
 		gbc_btnEmote.gridy = 1;
 		panel.add(btnEmote, gbc_btnEmote);
+		btnEmote.addActionListener(this);
 		
 		GridBagConstraints gbc_btnSend = new GridBagConstraints();
 		gbc_btnSend.gridx = 2;
 		gbc_btnSend.gridy = 2;
 		panel.add(btnSend, gbc_btnSend);
-	
+		btnSend.addActionListener(this);
+		
+		lists.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		lists.setSelectedIndex(0);
+		lists.setVisibleRowCount(10);
+		lists.addListSelectionListener(this);
+		listmod.addElement("Johnny");
+		
+		members.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		members.setSelectedIndex(0);
+		members.setVisibleRowCount(10);
+		members.addListSelectionListener(this);
+		membermod.addElement("Johnny");
+		
+		polls.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		polls.setSelectedIndex(0);
+		polls.setVisibleRowCount(10);
+		polls.addListSelectionListener(this);
+		pollmod.addElement("Johnny");
 	}
 	
 	public void actionPerformed(ActionEvent evt)
 	{
-		
+		if (evt.getSource() == btnSend)
+		{	
+			String data=message.getText().trim(); //read contents of text area  into data
+			if(!data.equals("")) //verify their is anything to send
+				{
+					//name = "john";
+					ArrayList<String> send = new ArrayList<String>();
+					send.add(name);
+					send.add(data);
+					data = name + ": " + data;
+					message.setText(""); //clears out the message area	
+					data = "\n" + data + "\n";
+					groupfield.append(data);
+					//test Gatherer.pchatmsg(send); //sends the data to the class that handles sending it off the tcp_client	
+				}
+		}
+		else if (evt.getSource() == item)
+		{
+			Pchat.main(setup);
+			menu.setVisible(false);
+		}
+		else if (evt.getSource() == btnEmote)
+		{
+			
+		}
+	}
+	
+	public void valueChanged(ListSelectionEvent e)
+	{
+		if(members.isFocusOwner() == true)
+		{
+			index = members.getSelectedIndex();
+			item.addActionListener(this);
+			menu.add(item);
+			
+			//get mouse location and set pop-up menu to location 
+			double dy = MouseInfo.getPointerInfo().getLocation().getY();
+			double dx = MouseInfo.getPointerInfo().getLocation().getX();
+			int y = (int) dy;
+			int x = (int) dx;
+			menu.setLocation(x, y);
+			
+			menu.setVisible(true);
+		}
 	}
 	
 	private static void GUI()
