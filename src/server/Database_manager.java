@@ -37,6 +37,24 @@ public class Database_manager
 		
 		switch (type) {
 			case Message:	// MESSAGE CASE
+				Message_data messData;
+				if(data instanceof Message_data) {
+					messData = (Message_data)data;
+					boolean pvtMsg = messData.getPrivate();
+					String sender = messData.getSender();
+					String message = messData.getMessage();
+					List<String> recip = messData.getRecipients();
+					
+					if(pvtMsg) {
+						//String message, List<String> target, String user
+						addPrivateMessage(message, recip, sender);
+					}
+					else if(!pvtMsg) {
+						manageGroupMessage(message, recip, sender, groupName);
+					}
+				}
+				
+				
 				break;
 				
 			case Poll:		// POLL CASE
@@ -76,7 +94,7 @@ public class Database_manager
 	
 	
 // Riker's Stuff
-	
+	/*
 	//TODO: implement
 	public void update(String user) {
 		// Check if user has messages to be sent. -Trevor
@@ -88,7 +106,7 @@ public class Database_manager
 		//Need some functionality to update Polls and Lists back to the user -Trevor    
 		    	// Worrying about that later -Riker
 	}
-	
+	*/
 	
 	
 // THE FOLLOWING IS HANDLING FOR GROUPS
@@ -102,6 +120,7 @@ public class Database_manager
 	
 	public void addUserToGroup(String user, Group_element group) {
 		group.addUser(user);
+		
 	}
 	
 
@@ -190,11 +209,8 @@ public class Database_manager
 		}
 	}
 	
-	
-	
-	
 // THE FOLLOWING IS HANDLING FOR MESSAGES
-	public List<Message_server> storedMessages;
+	public List<Message_server> storedPrivateMessages;
 	
 	/**
 	 * Creates a new message type based of the message, target, and if private.  Will be added to stored messages
@@ -203,32 +219,27 @@ public class Database_manager
 	 * @param target	list of recipients 
 	 * @param pvt		tag to check if it is a private message or not
 	 */
-	public void newMessage(String message, List<String> target, boolean pvt) {
-		Message_server msg = new Message_server(message, target, pvt);
-		storedMessages.add(msg);
+	public void addPrivateMessage(String message, List<String> target, String user) {
+		Message_server msg = new Message_server(message, target, user);
+		storedPrivateMessages.add(msg);
 	}
 	
-	/**
-	 * Checks if the message has the user as a recipient
-	 * @param messageData	the message being checked
-	 * @param user			the user being checked
-	 */
-	public void checkMessage(Message_server messageData, String user) {
-		if(messageData.userAsTarget(user)) {
-			messageData.getMessage();
-			messageData.isPvt();
-			messageData.removeRecip(user);
+	
+	public Message_server getPrivateMessage(Message_server msg, String recip, String sender) {
+		for(Message_server mess : storedPrivateMessages) {
+			if(mess.isPvtRecip(recip)) {
+				storedPrivateMessages.remove(mess);
+				return mess;
+			}
 		}
+		return null;
 	}
 	
-	/**
-	 * Removes the message from the stored messages if there are no users left to receive
-	 * @param messageData	the message being checked
-	 */
-	public void checkRecipMessage(Message_server messageData) {
-		if(messageData.recipEmpty()) {
-			storedMessages.remove(messageData);
-		}
+
+	public void manageGroupMessage(String message, List<String> recip, String sender, String groupName) {
+		//if(groupName.groupMessageExists(message))) {
+			
+		//}
 	}
 	
 	

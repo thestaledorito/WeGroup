@@ -9,12 +9,40 @@ public class Group_element {
 	
 	public List<Poll_server> storedPolls;
 	public List<List_server> storedLists;
+	public List<Message_server> storedGM;
 	
 	
 	
 	public Group_element(String name) {
 		this.groupName = name;
 	}
+	
+// GENERAL GROUP STUFF
+	public void addUser(String user) {
+		users.add(user);
+	}
+	
+	
+	public String getGroupName() {
+		return groupName;
+	}
+	
+	/*
+	public boolean containsUser(String user) {
+		if(users.contains(user)) 
+			return true;
+		else
+			return false;
+	}*/
+	
+	
+	public void addGroupMessage(String message, List<String> recipients, String sender) {
+		Message_server msg = new Message_server(message, recipients, sender);
+		storedGM.add(msg);
+	}
+	
+	
+	
 	
 	
 // LIST STUFF
@@ -40,6 +68,9 @@ public class Group_element {
 		}
 		return null;
 	}
+	
+	
+	
 	
 // POLL STUFF
 	public void addPoll(String name, String userID) {
@@ -69,23 +100,32 @@ public class Group_element {
 	}
 	
 	
-	
-	
-	public void addUser(String user) {
-		users.add(user);
+// MESSAGE STUFF
+	public void addMessage(String message, List<String> recip, String sender) {
+		if(users.contains(sender)) {
+			Message_server msg = new Message_server(message, recip, sender);
+			storedGM.add(msg);
+		}
 	}
 	
-	
-	public String getGroupName() {
-		return groupName;
+	public boolean groupMessageExists(String message) {
+		for(Message_server mess : storedGM) {
+			if(mess.getMessage() == message) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
-	/*
-	public boolean containsUser(String user) {
-		if(users.contains(user)) 
-			return true;
-		else
-			return false;
-	}*/
+	public Message_server getMessage(String name) {
+		for(Message_server mess : storedGM) {
+			if(mess.getMessage() == name){
+				return mess;
+			}
+		}
+		return null;
+	}
+	
+
 	
 }

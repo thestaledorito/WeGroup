@@ -11,19 +11,21 @@ public class Message_data extends Base_data
 		super();
 		m_type = Tcp_message_type.Message;
 		
-		m_recipiants = new Vector<String>();
+		m_recipients = new Vector<String>();
 		m_sender = "";
 		m_message = "";
 		m_have_attachment = false;
 		m_filename = "";
 		m_file_contents = "";
+		
+		m_private = false;
 	}
 	
 	// Required for Serializable
 	private static final long serialVersionUID = 21L;
 	
 	// Who is receiving this message
-	public List<String> m_recipiants;
+	public List<String> m_recipients;
 	
 	// Who sent the message in question
 	public String m_sender;
@@ -43,6 +45,9 @@ public class Message_data extends Base_data
 	// Want a byte array here. Not sure the Java class
 	public String m_file_contents;
 	
+	
+	// Private field. high if private message -Riker
+	public boolean m_private;
 	
 	// This should probably go into UI
 	public void Serialize_file(String filename)
@@ -66,7 +71,7 @@ public class Message_data extends Base_data
 		
 		rep += "\n  To:";
 		
-		Iterator<String> it = m_recipiants.iterator();
+		Iterator<String> it = m_recipients.iterator();
 		while(it.hasNext())
 		{
 			rep += "\n    " + it.next();
@@ -83,4 +88,23 @@ public class Message_data extends Base_data
 
 		return rep;
 	}
+	
+	
+	public String getSender() {
+		return m_sender;
+	}
+	
+	public String getMessage() {
+		return m_message;
+	}
+	
+	public List<String> getRecipients(){
+		return m_recipients;
+	}
+	
+	public boolean getPrivate() {
+		return m_private;
+	}
+	
+	
 }

@@ -7,8 +7,9 @@ public class Message_server
 
 	//String msg_id;
 	String message;
+	String sender;
 	List<String> recipients;
-	boolean pvt;
+	//boolean pvt;
 	
 	/**
 	 * Creates a message, with recipients and a flag for checking if private
@@ -16,19 +17,27 @@ public class Message_server
 	 * @param target	the recipients for the message. if 1 user, send in a list still
 	 * @param pvt	privateMessage flag. If True, the message is intended for that 1 user.
 	 */
-	public Message_server(String msg, List<String> target, Boolean pvt) {
+	public Message_server(String msg, List<String> target, String sender) {
 		this.message = msg;
 		this.recipients = target;
-		this.pvt = pvt;
+		this.sender = sender;
+		//this.pvt = pvt;
 	}
 	
 	/**
 	 * Checks if the message is private or not
 	 * @return	True if the message is private
 	 */
+	/*
 	public boolean isPvt() {
 		return pvt;
+	}*/
+	
+	
+	public String getSender() {
+		return sender;
 	}
+	
 	
 	/**
 	 * removes a user from the recipient list
@@ -45,6 +54,14 @@ public class Message_server
 	public String getMessage() {
 		return message;
 	}
+	
+	public boolean isPvtRecip(String recip) {
+		if(recipients.get(0) == recip) {
+			return true;
+		}
+		return false;
+	}
+	
 	
 	/**
 	 * Checks if the list of recipients has the user
