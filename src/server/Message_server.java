@@ -57,12 +57,13 @@ public class Message_server
 		return message;
 	}
 	
+	/*
 	public boolean isPvtRecip(String recip) {
 		if(recipients.get(0) == recip) {
 			return true;
 		}
 		return false;
-	}
+	}*/
 	
 	
 	/**

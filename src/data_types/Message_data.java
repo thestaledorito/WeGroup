@@ -98,12 +98,25 @@ public class Message_data extends Base_data
 		return m_message;
 	}
 	
-	public List<String> getRecipients(){
+	public List<String> getRecipients() {
 		return m_recipients;
 	}
 	
 	public boolean getPrivate() {
 		return m_private;
+	}
+	
+	
+	public void setSender(String sender) {
+		m_sender = sender;
+	}
+	
+	public void setMessage(String message) {
+		m_message = message;
+	}
+	
+	public void setPrivate(boolean pvt) {
+		m_private = pvt;
 	}
 	
 	

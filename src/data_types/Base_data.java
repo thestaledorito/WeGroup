@@ -8,6 +8,7 @@ public class Base_data implements java.io.Serializable
 	{
 		m_type = Tcp_message_type.Other;
 		m_user_id = "";
+		m_group_id = "";
 	}
 
 	// Required for Serializable
@@ -48,6 +49,18 @@ public class Base_data implements java.io.Serializable
 	
 	public String getm_Group_Id() {
 		return m_group_id;
+	}
+	
+	public void setm_Type(Tcp_message_type type) {
+		m_type = type;
+	}
+	
+	public void setm_User_Id(String user_id) {
+		m_user_id = user_id;
+	}
+	
+	public void setm_Group_Id(String group_id) {
+		m_group_id = group_id;
 	}
 	
 }

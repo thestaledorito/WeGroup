@@ -80,7 +80,10 @@ public class Database_manager
 					
 					manageList(title, contents, users, group, user);
 				}
+				break;
 				
+			case Update:
+				update(user, group);
 				break;
 				
 			default:		// OTHER/DEFAULT CASE
@@ -94,19 +97,54 @@ public class Database_manager
 	
 	
 // Riker's Stuff
-	/*
-	//TODO: implement
-	public void update(String user) {
-		// Check if user has messages to be sent. -Trevor
-			// Arraylists are handled slightly different than standard arrays.
-		for(int i=0; i < storedMessages.size(); i++){
-			checkMessage(storedMessages.get(i),user);
+	
+	public Base_data genericSendData(String type, String user, String group) {
+		Tcp_message_type dataType = Tcp_message_type.Other;
+		if(type == "message") {
+			dataType = Tcp_message_type.Message;
 		}
-		   
-		//Need some functionality to update Polls and Lists back to the user -Trevor    
-		    	// Worrying about that later -Riker
+		else if(type == "list") {
+			dataType = Tcp_message_type.List;
+		}
+		else if(type == "poll") {
+			dataType = Tcp_message_type.Poll;
+		}
+		
+		
+		Base_data toSend = new Base_data();
+		toSend.setm_Type(dataType);
+		toSend.setm_Group_Id(group);
+		toSend.setm_User_Id(user);
+		return toSend;
+		
 	}
-	*/
+	
+	public Message_data sendGroupMessage(Message_server messageData, String user, Group_element group) {
+		String message = "message";
+		Message_data data = (Message_data)genericSendData(message, user, group.getGroupName());
+		data.setPrivate(false);
+		data.setMessage(messageData.getMessage());
+		data.setSender(messageData.getSender());
+		return data;
+		
+	}
+	
+	
+	
+	public void update(String user, Group_element group) {
+		for(Message_server messageData : group.storedGM) {
+			if(messageData.userAsTarget(user)) {
+				Message_data sending = sendGroupMessage(messageData, user, group);
+			}
+		}
+		
+		
+	}
+	
+	
+	
+	
+	
 	
 	
 // THE FOLLOWING IS HANDLING FOR GROUPS
