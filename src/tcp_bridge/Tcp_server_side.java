@@ -8,25 +8,16 @@ import server.Database_manager;
 
 import data_types.*;
 
-//This will do any Client Specific actions we decide 
-//we need for the bridge
+// Server side of the TCP connection
+// Manages logins
 public class Tcp_server_side 
 {
 		
 	// Initialize the server
 	public void Init()
 	{
-		// Server will need to become one of its subclasses
-		m_server = new Tcp_bridge_server();
-		m_server.Init();
-		
-		System.out.println("opening server");
-		m_server.Open_server(1129); // This has a return
-		System.out.println("starting checking");
-		m_server.Start_checking_connected();
-		
-		//m_run = true;
-		//loop();
+		m_login_server = new Login_server();
+		m_login_server.Register_server_side(this);
 	}
 	
 	// Register a class to receive all the data that comes from the server
@@ -47,53 +38,8 @@ public class Tcp_server_side
 		
 	}
 	
-	// Do we need this?
-	private void loop()
-	{
-		if(m_run)
-		{
-			check_for_incoming_connection();
-			check_clients_alive();
-			check_client_messages();
-			// Call loop with a timer
-			// or just loop?
-			// is this going to be event based?
-			//    -- probably should be for server messages
-		}
-	}
 	
-	
-	// Called in a loop to see if server has a new client
-	// multiple connections?
-	private void check_for_incoming_connection()
-	{
-		
-	}
-	
-	private void check_clients_alive()
-	{
-		for(int i = 0; i < m_client_connections.size(); i++)
-		{
-			if(!m_client_connections.get(i).Is_connected())
-			{
-				// Close connection
-				// delete from list
-			}
-		}
-	}
-	
-	private void check_client_messages()
-	{
-		for(int i = 0; i < m_client_connections.size(); i++)
-		{
-			// Check for messages and pass to server
-			// emit a signal?
-		}
-	}
-	
-	// This is just for testing, will eventually want a subclass
-	private Tcp_bridge_server m_server;
-	
+	private Login_server m_login_server;
 	
 	private boolean m_run;
 	
