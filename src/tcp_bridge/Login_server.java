@@ -14,12 +14,6 @@ public class Login_server extends Tcp_bridge_server
 		Start_checking_connected();
 	}
 	
-	// Register server side so we can send port numbers
-	public void Register_server_side(Tcp_server_side server)
-	{
-		m_server_side = server;
-	}
-	
 	// Receive data. Looking for a login
 	protected void Distribute_data(Base_data data)
 	{
@@ -119,6 +113,4 @@ public class Login_server extends Tcp_bridge_server
 	private List<User_login> m_users;
 	
 	private int m_port_number;
-	
-	private Tcp_server_side m_server_side;
 }

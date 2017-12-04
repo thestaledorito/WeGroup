@@ -6,7 +6,8 @@ import java.net.*;
 import java.io.*;
 
 // This may become abstract as well and pass along
-// handeling Distribute_data to children
+// Handling Distribute_data to children
+// class should probably be virtual
 public class Tcp_bridge_server extends Tcp_bridge 
 {
 	// Initialize the server bridge
@@ -19,25 +20,16 @@ public class Tcp_bridge_server extends Tcp_bridge
 		m_accept_thread = null;
 	}
 	
+	// Register server side so we can send port numbers
+	public void Register_server_side(Tcp_server_side server)
+	{
+		m_server_side = server;
+	}
+	
 	// Send out the data we have received
 	protected void Distribute_data(Base_data data) 
 	{
-		System.out.println("Server received data:");
-		System.out.println(data.toString());
-		// TODO Pass up data to send to the server
-		
-		
-		// The following is just here for testing
-		Poll_data poll_data = new Poll_data();
-		poll_data.m_poll_question = "What is the anwser";
-		poll_data.m_poll_options.add("42");
-		poll_data.m_poll_options.add("not 42");
-		System.out.println(poll_data);
-		
-		if(!Send_data(poll_data))
-		{
-			System.out.println("poll data failed to send");
-		}
+		System.out.println("!!!THIS SHOULD NEVER BE CALLED!!!");
 	}
 	
 	// Open up port to receive client connection
@@ -159,4 +151,6 @@ public class Tcp_bridge_server extends Tcp_bridge
 	protected Thread m_accept_thread;
 	
 	protected boolean m_connected;
+	
+	protected Tcp_server_side m_server_side;
 }
