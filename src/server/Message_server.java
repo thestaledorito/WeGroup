@@ -9,7 +9,7 @@ public class Message_server
 	String message;
 	String sender;
 	List<String> recipients;
-	//boolean pvt;
+	boolean pvt;
 	
 	/**
 	 * Creates a message, with recipients and a flag for checking if private
@@ -21,7 +21,7 @@ public class Message_server
 		this.message = msg;
 		this.recipients = target;
 		this.sender = sender;
-		//this.pvt = pvt;
+		this.pvt = pvt;
 	}
 	
 	/**
@@ -57,13 +57,13 @@ public class Message_server
 		return message;
 	}
 	
-	/*
+	
 	public boolean isPvtRecip(String recip) {
 		if(recipients.get(0) == recip) {
 			return true;
 		}
 		return false;
-	}*/
+	}
 	
 	
 	/**
