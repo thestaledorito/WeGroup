@@ -63,6 +63,10 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 	private JMenuItem item = new JMenuItem();
 	private JMenuItem item2 = new JMenuItem();
 	private JMenuItem item3 = new JMenuItem();
+
+	private ArrayList<List_edit> m_lists;
+	private ArrayList<Pchat> m_chats;
+	//private ArrayList<Poll_
 	
 	public Main_page() 
 	{
@@ -185,8 +189,10 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 				{
 					name = "john";
 					messages.setText(""); //clears out the message area	
-					Message_data.inputSender(name);
-					Message_data.inputSender(data);
+					Message_data message_data = new Message_data();
+					message_data.m_sender = name;
+					message_data.m_message = data;
+
 					data = "\n" + data + "\n";
 					groupfield.append(data);
 					//test Gatherer.pchatmsg(send); //sends the data to the class that handles sending it off the tcp_client	
@@ -372,9 +378,18 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 						Pchat.msgrec(messData);
 					}	
 				}
-			break;
+				break;
+
+			case List:
+				List_data listData;
+				if(data instanceof List_data)
+				{
+					listData = (List_data)data;
+
+				}
+
 			default:
-				JOptionPane.showMessageDialog(null, "Missing a title");
+				JOptionPane.showMessageDialog(null, "Invalid data type");
 		}
 	}
 	

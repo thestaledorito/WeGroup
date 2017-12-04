@@ -5,8 +5,7 @@ import java.awt.event.*;
 import java.awt.Window.*;
 import javax.swing.*;
 
-import data_types.Login_data;
-import data_types.Login_response_data;
+import data_types.*;
 
 public class Login extends JPanel implements  ActionListener
 {
@@ -81,9 +80,11 @@ public class Login extends JPanel implements  ActionListener
 			usrname = username.getText().trim();
 			if(!data.equals("") & !grpname.equals("") & !usrname.equals("")) //verify their is anything to send
 			{
-				Login_data.inputgrp(grpname);
-				Login_data.inputusr(usrname);
-				Login_data.inputpass(data);
+				Login_data login_data = new Login_data();
+				login_data.m_user_name = usrname;
+				login_data.m_group_name = grpname;
+				login_data.m_password = data;
+
 				groupname.setText(""); //clears out the field area
 				username.setText("");
 				pwd.setText("");

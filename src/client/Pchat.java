@@ -86,10 +86,12 @@ public class Pchat extends JPanel implements  ActionListener
 					send.add(name);
 					send.add(data);
 					*/data = name + ": " + data;
-					Message_data.inputSender(name);
-					Message_data.inputSender(data);
-					Message_data.inputprivate(true);
-					Message_data.recipient(target);
+					Message_data message_data = new Message_data();
+					message_data.m_sender = name;
+					message_data.m_message = data;
+					message_data.m_private = true;
+					message_data.m_recipients.add(target);
+	
 					message.setText(""); //clears out the message area	
 					data = "\n" + data + "\n";
 					groupfield.append(data);

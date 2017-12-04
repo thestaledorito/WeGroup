@@ -5,6 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
 import javax.swing.event.*;
+import data_types.*;
 
 public class List_edit extends JPanel implements  ActionListener, ListSelectionListener
 {
@@ -180,15 +181,15 @@ public class List_edit extends JPanel implements  ActionListener, ListSelectionL
 		deletef.setText(list.getSelectedValue());
 	}
 	
-	public void recdata(ArrayList<String> data)
+	public void recdata(List_data data)
 	{
-		int index = data.size() -1; 
-		titlef.setText(data.get(index));
-		data.remove(index);
+		int index = data.m_contents.size() -1; 
+		titlef.setText(data.m_contents.get(index));
+		data.m_contents.remove(index);
 		for(int i=0; i < index; i++)
 		{
-			listmod.addElement(data.get(i));
-			list2.add(data.get(i));
+			listmod.addElement(data.m_contents.get(i));
+			list2.add(data.m_contents.get(i));
 			list.setSelectedIndex(i);
 			list.ensureIndexIsVisible(i);
 		}

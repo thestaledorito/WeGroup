@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+import data_types.*;
+
 public class Poll_vote extends JPanel implements  ActionListener
 {
 	private static final long serialVersionUID = 4L;
@@ -66,12 +68,11 @@ public class Poll_vote extends JPanel implements  ActionListener
 		}
 	}
 	
-	public void pollvote(ArrayList<String> data)
+	public void pollvote(Poll_data data)
 	{
-		int index = data.size() - 1;
-		for(int i=0; i<index; i++)
+		for(int i=0; i<data.m_poll_options.size(); i++)
 		{
-			boxmod.addElement(data.get(i));
+			boxmod.addElement(data.m_poll_options.get(i));
 		}
 	}
 	

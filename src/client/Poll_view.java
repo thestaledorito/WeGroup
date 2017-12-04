@@ -5,6 +5,8 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.table.*;
 
+import data_types.*;
+
 public class Poll_view extends JPanel implements  ActionListener
 {
 	private static final long serialVersionUID = 7L;

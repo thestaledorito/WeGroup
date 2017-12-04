@@ -115,6 +115,7 @@ public class Database_manager
 		toSend.setm_Type(dataType);
 		toSend.setm_Group_Id(group);
 		toSend.setm_User_Id(user);
+		
 		return toSend;
 		
 	}
