@@ -55,6 +55,8 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 	private JTextArea messages = new JTextArea();
 	private final JButton btnSend = new JButton("Send");
 	private final JButton btnEmote = new JButton("emote");
+	private final JButton btnCreateList = new JButton("Create list");
+	private final JButton btnCreatePoll = new JButton("create poll");
 	private JPopupMenu menu = new JPopupMenu();
 	private JMenuItem item = new JMenuItem();
 	private JMenuItem item2 = new JMenuItem();
@@ -67,16 +69,17 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 		
 		add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{216, 351, 69, 0};
-		gbl_panel.rowHeights = new int[]{308, 58, 0, 0};
-		gbl_panel.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel.columnWidths = new int[]{120, 139, 351, 69, 0};
+		gbl_panel.rowHeights = new int[]{308, 58, 0, 0, 0};
+		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
 		
 		GridBagConstraints gbc_tabbedPane = new GridBagConstraints();
+		gbc_tabbedPane.gridwidth = 2;
 		gbc_tabbedPane.gridheight = 3;
-		gbc_tabbedPane.insets = new Insets(0, 0, 0, 5);
+		gbc_tabbedPane.insets = new Insets(0, 0, 5, 5);
 		gbc_tabbedPane.fill = GridBagConstraints.BOTH;
 		gbc_tabbedPane.gridx = 0;
 		gbc_tabbedPane.gridy = 0;
@@ -96,7 +99,7 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 		gbc_scrollPane.gridwidth = 2;
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane.gridx = 1;
+		gbc_scrollPane.gridx = 2;
 		gbc_scrollPane.gridy = 0;
 		panel.add(scrollPane, gbc_scrollPane);
 		
@@ -106,9 +109,9 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 		
 		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
 		gbc_scrollPane_1.gridheight = 2;
-		gbc_scrollPane_1.insets = new Insets(0, 0, 0, 5);
+		gbc_scrollPane_1.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane_1.gridx = 1;
+		gbc_scrollPane_1.gridx = 2;
 		gbc_scrollPane_1.gridy = 1;
 		panel.add(scrollPane_1, gbc_scrollPane_1);
 		
@@ -117,13 +120,14 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 		
 		GridBagConstraints gbc_btnEmote = new GridBagConstraints();
 		gbc_btnEmote.insets = new Insets(0, 0, 5, 0);
-		gbc_btnEmote.gridx = 2;
+		gbc_btnEmote.gridx = 3;
 		gbc_btnEmote.gridy = 1;
 		panel.add(btnEmote, gbc_btnEmote);
 		btnEmote.addActionListener(this);
 		
 		GridBagConstraints gbc_btnSend = new GridBagConstraints();
-		gbc_btnSend.gridx = 2;
+		gbc_btnSend.insets = new Insets(0, 0, 5, 0);
+		gbc_btnSend.gridx = 3;
 		gbc_btnSend.gridy = 2;
 		panel.add(btnSend, gbc_btnSend);
 		btnSend.addActionListener(this);
@@ -143,10 +147,24 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 		polls.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		polls.setSelectedIndex(0);
 		polls.setVisibleRowCount(10);
+		
+		
 		polls.addListSelectionListener(this);
 		pollmod.addElement("Johnny");
 		
-	
+		GridBagConstraints gbc_btnCreateList = new GridBagConstraints();
+		gbc_btnCreateList.insets = new Insets(0, 0, 0, 5);
+		gbc_btnCreateList.gridx = 0;
+		gbc_btnCreateList.gridy = 3;
+		panel.add(btnCreateList, gbc_btnCreateList);
+		btnCreateList.addActionListener(this);
+		
+		GridBagConstraints gbc_btnCreatePoll = new GridBagConstraints();
+		gbc_btnCreatePoll.insets = new Insets(0, 0, 0, 5);
+		gbc_btnCreatePoll.gridx = 1;
+		gbc_btnCreatePoll.gridy = 3;
+		panel.add(btnCreatePoll, gbc_btnCreatePoll);
+		btnCreatePoll.addActionListener(this);
 	}
 	
 	public void actionPerformed(ActionEvent evt)
@@ -172,16 +190,6 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 				Pchat.main(setup);
 				menu.setVisible(false);
 			}
-			else if (lists.isFocusOwner())
-			{
-				List_create.main(setup);
-				menu.setVisible(false);
-			}
-			else if (polls.isFocusOwner())
-			{
-				Poll_create.main(setup);
-				menu.setVisible(false);
-			}
 		}
 		else if (evt.getSource() == item2)
 		{
@@ -203,6 +211,16 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 				Poll_vote.main(setup);
 				menu.setVisible(false);
 			}
+		}
+		else if (evt.getSource() == btnCreateList)
+		{
+			List_create.main(setup);
+			menu.setVisible(false);
+		}
+		else if (evt.getSource() == btnCreatePoll)
+		{
+			Poll_create.main(setup);
+			menu.setVisible(false);
 		}
 		else if (evt.getSource() == btnEmote)
 		{
@@ -231,10 +249,8 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 		}
 		else if(lists.isFocusOwner() == true)
 		{
-			item = new JMenuItem("create list");
 			item2 = new JMenuItem("open list");
 			index = lists.getSelectedIndex();
-			item.addActionListener(this);
 			item2.addActionListener(this);
 			menu.add(item);
 			menu.add(item2);
@@ -250,11 +266,9 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 		}
 		else if(polls.isFocusOwner() == true)
 		{
-			item = new JMenuItem("create poll");
 			item2 = new JMenuItem("open poll");
 			item3 = new JMenuItem("vote poll");
 			index = lists.getSelectedIndex();
-			item.addActionListener(this);
 			item2.addActionListener(this);
 			item3.addActionListener(this);
 			menu.add(item);
@@ -324,6 +338,7 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 	
 	// Class to send TCP
 	protected Tcp_client_side m_tcp;
+	
 	
 	public static void main (String[] args)
 	{
