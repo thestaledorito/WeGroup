@@ -147,11 +147,16 @@ public class Database_manager
 		List_data listData = new List_data();
 		listData.setm_Group_Id(group.getGroupName());
 		listData.setm_User_Id(user);
+		listData.setTitle(listData.getID());
+		listData.setContent(listData.getContent());
 		
+		m_tcp.Send_data(listData);
 	}
 	
 	public void sendPoll(Poll_server pollData, String user, Group_element group) {
-		
+		Poll_data pollData = new Poll_data();
+		pollData.setm_Group_Id(group.getGroupName());
+		pollData.setm_User_Id(user);
 	}
 	
 	
