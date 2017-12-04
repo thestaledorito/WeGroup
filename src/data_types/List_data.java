@@ -70,4 +70,17 @@ public class List_data extends Base_data
 	public List<String> getm_List_Users(){
 		return m_users;
 	}
+	
+	public void setTitle(String title) {
+		m_title = title;
+	}
+	
+	public void setUsers(List<String> users) {
+		m_users = users;
+	}
+	
+	public void setContents(List<String> contents) {
+		m_contents = contents;
+	}
+	
 }
