@@ -106,6 +106,11 @@ public class Tcp_client_side extends Tcp_bridge
 	{
 		System.out.println("Client received data:");
 		System.out.println(data.toString());
+		
+		// TODO: client needs to listen for login response
+		// and change port on success. Should still report
+		// status to UI
+		
 		m_callback_class.Data_received(data);
 	}
 	

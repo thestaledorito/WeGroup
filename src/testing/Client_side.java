@@ -25,7 +25,6 @@ public class Client_side
 		Client_receiver receiver = new Client_receiver();
 		receiver.Init();
 		
-		
 
 		//Message_data mess = populate_message();
 		//System.out.println(mess.toString());
