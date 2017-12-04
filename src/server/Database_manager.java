@@ -98,6 +98,9 @@ public class Database_manager
 	
 // Riker's Stuff
 	
+	
+	
+	/*
 	public Base_data genericSendData(String type, String user, String group) {
 		Tcp_message_type dataType = Tcp_message_type.Other;
 		if(type == "message") {
@@ -119,13 +122,35 @@ public class Database_manager
 		
 	}
 	
-	public Message_data sendGroupMessage(Message_server messageData, String user, Group_element group) {
-		String message = "message";
-		Message_data data = (Message_data)genericSendData(message, user, group.getGroupName());
-		data.setPrivate(false);
-		data.setMessage(messageData.getMessage());
-		data.setSender(messageData.getSender());
-		return data;
+	*/
+	
+	
+	
+	
+	public void sendGroupMessage(Message_server messageData, String user, Group_element group) {
+		//String message = "message";
+		//Message_data data = (Message_data)genericSendData(message, user, group.getGroupName());
+		
+		Message_data messData = new Message_data();
+		messData.setm_Group_Id(group.getGroupName());
+		messData.setm_User_Id(user);
+		messData.setPrivate(false);
+		messData.setMessage(messageData.getMessage());
+		messData.setSender(messageData.getSender());
+		
+		
+		m_tcp.Send_data(messData);
+	}
+	
+	
+	public void sendList(List_server listData, String user, Group_element group) {
+		List_data listData = new List_data();
+		listData.setm_Group_Id(group.getGroupName());
+		listData.setm_User_Id(user);
+		
+	}
+	
+	public void sendPoll(Poll_server pollData, String user, Group_element group) {
 		
 	}
 	
@@ -134,7 +159,7 @@ public class Database_manager
 	public void update(String user, Group_element group) {
 		for(Message_server messageData : group.storedGM) {
 			if(messageData.userAsTarget(user)) {
-				Message_data sending = sendGroupMessage(messageData, user, group);
+				sendGroupMessage(messageData, user, group);
 			}
 		}
 		
