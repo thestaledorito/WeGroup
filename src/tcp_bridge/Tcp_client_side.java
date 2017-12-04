@@ -19,19 +19,19 @@ public class Tcp_client_side extends Tcp_bridge
 		System.out.println("opening connection");
 		if(open_connection("192.168.1.5", 1129))
 		{
-			System.out.println("connection opened");
+			//System.out.println("connection opened");
 			
 			Start_checking_data();
-			System.out.println("starting to listen for data");
+			//System.out.println("starting to listen for data");
 			
-			Message_data data = new Message_data();
-			data.m_message = "hello world";
-			System.out.println(data);
+			//Message_data data = new Message_data();
+			//data.m_message = "hello world";
+			//System.out.println(data);
 			
-			if(!Send_data(data))
-			{
-				System.out.println("data failed to send");
-			}
+			//if(!Send_data(data))
+			//{
+				//System.out.println("data failed to send");
+			//}
 		}
 		else
 		{
@@ -107,9 +107,23 @@ public class Tcp_client_side extends Tcp_bridge
 		System.out.println("Client received data:");
 		System.out.println(data.toString());
 		
-		// TODO: client needs to listen for login response
-		// and change port on success. Should still report
-		// status to UI
+		if(data.m_type == Tcp_message_type.Login_response
+				&& data instanceof Login_response_data)
+		{
+			Login_response_data response = (Login_response_data)data;
+			if(response.m_accpted && response.m_port_number != 0)
+			{
+				// Have return here we could use
+				close_connection();
+				
+				if(open_connection("192.168.1.5", response.m_port_number))
+				{	
+					Start_checking_data();
+				}
+			}
+			
+			// TODO: What to do in fail case?
+		}
 		
 		m_callback_class.Data_received(data);
 	}
