@@ -37,8 +37,9 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 {
 	private static final long serialVersionUID = 9L;
 	private static JFrame frame = new JFrame("WeGroup");
-	private String name;
-	public String target;
+	private static String name;
+	private static String group;
+	public  static String target;
 	private int index;
 	private String[] setup;
 	private DefaultListModel<String> membermod = new DefaultListModel<String>();
@@ -57,6 +58,7 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 	private final JButton btnEmote = new JButton("emote");
 	private final JButton btnCreateList = new JButton("Create list");
 	private final JButton btnCreatePoll = new JButton("create poll");
+	private final JButton btnAttach = new JButton("attach");
 	private JPopupMenu menu = new JPopupMenu();
 	private JMenuItem item = new JMenuItem();
 	private JMenuItem item2 = new JMenuItem();
@@ -70,15 +72,15 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 		add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{120, 139, 351, 69, 0};
-		gbl_panel.rowHeights = new int[]{308, 58, 0, 0, 0};
+		gbl_panel.rowHeights = new int[]{308, 58, 0, 0, 0, 0};
 		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
 		
 		GridBagConstraints gbc_tabbedPane = new GridBagConstraints();
 		gbc_tabbedPane.gridwidth = 2;
-		gbc_tabbedPane.gridheight = 3;
+		gbc_tabbedPane.gridheight = 4;
 		gbc_tabbedPane.insets = new Insets(0, 0, 5, 5);
 		gbc_tabbedPane.fill = GridBagConstraints.BOTH;
 		gbc_tabbedPane.gridx = 0;
@@ -108,7 +110,7 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 		
 		
 		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
-		gbc_scrollPane_1.gridheight = 2;
+		gbc_scrollPane_1.gridheight = 3;
 		gbc_scrollPane_1.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane_1.gridx = 2;
@@ -152,17 +154,24 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 		polls.addListSelectionListener(this);
 		pollmod.addElement("Johnny");
 		
+		GridBagConstraints gbc_btnAttach = new GridBagConstraints();
+		gbc_btnAttach.insets = new Insets(0, 0, 5, 0);
+		gbc_btnAttach.gridx = 3;
+		gbc_btnAttach.gridy = 3;
+		panel.add(btnAttach, gbc_btnAttach);
+		btnAttach.addActionListener(this);
+		
 		GridBagConstraints gbc_btnCreateList = new GridBagConstraints();
 		gbc_btnCreateList.insets = new Insets(0, 0, 0, 5);
 		gbc_btnCreateList.gridx = 0;
-		gbc_btnCreateList.gridy = 3;
+		gbc_btnCreateList.gridy = 4;
 		panel.add(btnCreateList, gbc_btnCreateList);
 		btnCreateList.addActionListener(this);
 		
 		GridBagConstraints gbc_btnCreatePoll = new GridBagConstraints();
 		gbc_btnCreatePoll.insets = new Insets(0, 0, 0, 5);
 		gbc_btnCreatePoll.gridx = 1;
-		gbc_btnCreatePoll.gridy = 3;
+		gbc_btnCreatePoll.gridy = 4;
 		panel.add(btnCreatePoll, gbc_btnCreatePoll);
 		btnCreatePoll.addActionListener(this);
 	}
@@ -221,6 +230,10 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 		{
 			Poll_create.main(setup);
 			menu.setVisible(false);
+		}
+		else if (evt.getSource() == btnAttach)
+		{
+			
 		}
 		else if (evt.getSource() == btnEmote)
 		{
@@ -285,11 +298,12 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 			menu.setVisible(true);
 		}
 	}
-	public String thetarget() {
+	public static String thetarget() {
 		return target;
 	}
 	private static void GUI()
 	{
+		frame.setTitle("WeGroup: " + group + "(" + name +")");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		frame.getContentPane().add(new Main_page());
@@ -300,6 +314,36 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 		//frame.setResizable(false);
 		frame.setVisible(true);
 	}
+	/* just need to add the input data type
+	//populate the polls tab with the polls
+	public static void thepolls() 
+	{
+		index = 
+		for(int i=0; i<index; i++)
+		{
+			pollmod.addElement();
+		}
+	}
+	
+	//populate the lists tab with the lists available to client
+	public static void thelists()
+	{
+		index = 
+		for(int i=0; i<index; i++)
+		{
+			listmod.addElement();
+		}
+	}
+	
+	//populate the members tab with the members of the group
+	public static void theusers()
+	{
+		index = 
+		for(int i=0; i<index; i++)
+		{
+			membermod.addElement();
+		}
+	}*/
 	
 	// Initialize this class
 	public void Init()
@@ -313,10 +357,8 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 	public void Data_received(Base_data data)
 	{
 		Tcp_message_type type = data.getm_Type();
-		String user = data.getm_User_Id();
-		String groupName = data.getm_Group_Id();
-		frame.setTitle("WeGroup: " + groupName + "(" + user +")");
-		
+		//String user = data.getm_User_Id();
+		//String groupName = data.getm_Group_Id();
 		switch (type) 
 		{
 			case Message:	// MESSAGE CASE
@@ -340,8 +382,11 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 	protected Tcp_client_side m_tcp;
 	
 	
+	
 	public static void main (String[] args)
 	{
+		//name = args[1];
+		//group = args[0]; remove comments when intending to run from login
 		javax.swing.SwingUtilities.invokeLater(new Runnable()
 		{
 			public void run() 

@@ -5,13 +5,18 @@ import java.awt.event.*;
 import java.awt.Window.*;
 import javax.swing.*;
 
+import data_types.Login_data;
+import data_types.Login_response_data;
+
 public class Login extends JPanel implements  ActionListener
 {
 	private static final long serialVersionUID = 1L;
-	private final static String newline = "\n";
+	private String[] setup;
 	private JTextField groupname;
 	private JTextField username;
 	private JTextField pwd;
+	public static String grpname;
+	public static String usrname;
 	private JButton btnOk = new JButton("OK");
 	private JButton btnCancel = new JButton("Cancel");
 	
@@ -71,13 +76,21 @@ public class Login extends JPanel implements  ActionListener
 	{
 		if(evt.getSource() == btnOk)
 		{
-			String data=groupname.getText().trim() + " " + username.getText().trim() + " " + pwd.getText().trim(); //read contents of text area  into data
-			if(!data.equals("")) //verify their is anything to send
+			String data= pwd.getText().trim();
+			grpname = groupname.getText().trim();
+			usrname = username.getText().trim();
+			if(!data.equals("") & !grpname.equals("") & !usrname.equals("")) //verify their is anything to send
 			{
-			//Tcp_client_side.auth(data); //This would send the data to the appropriate method for authenticating client	
-			groupname.setText(""); //clears out the field area
-			username.setText("");
-			pwd.setText("");
+				Login_data.inputgrp(grpname);
+				Login_data.inputusr(usrname);
+				Login_data.inputpass(data);
+				groupname.setText(""); //clears out the field area
+				username.setText("");
+				pwd.setText("");
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(null, "Missing Login information");
 			}
 		}
 		else if (evt.getSource() == btnCancel)
@@ -85,6 +98,23 @@ public class Login extends JPanel implements  ActionListener
 			System.exit(0);
 		}
 	}
+	
+	public void recauth(Login_response_data data) 
+	{
+		if(data.m_accpted) 
+		{
+			setup[0] = grpname;
+			setup[1] = usrname;
+			Main_page.main(setup);
+		}
+	}
+	/*
+	public String getgroup() {
+		return grpname;
+	}
+	public String getUsr() {
+		return usrname;
+	}*/
 	
 	private static void GUI()
 	{

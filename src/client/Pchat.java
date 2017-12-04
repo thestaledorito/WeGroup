@@ -8,7 +8,7 @@ import server.Group_element;
 
 public class Pchat extends JPanel implements  ActionListener
 {
-	private static String name = Login.usrname; //will grab name of user from login at startup
+	private static String name = Main_page.thetarget(); //will grab name of user from main_page
 	private static String target;
 	private static JFrame frame = new JFrame("WeGroup");
 	private static final long serialVersionUID = 1L;
@@ -17,6 +17,7 @@ public class Pchat extends JPanel implements  ActionListener
 	private static JTextArea groupfield = new JTextArea();
 	private JButton btnSend = new JButton("Send");
 	private JButton btnemote = new JButton("Emote");
+	private final JButton btnAttach = new JButton("Attach");
 	
 	public Pchat() 
 	{
@@ -26,9 +27,9 @@ public class Pchat extends JPanel implements  ActionListener
 		add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{501, 0, 0};
-		gbl_panel.rowHeights = new int[]{0, 189, 21, 51, 0};
+		gbl_panel.rowHeights = new int[]{0, 189, 21, 51, 0, 0};
 		gbl_panel.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{1.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{1.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
 		
@@ -51,6 +52,7 @@ public class Pchat extends JPanel implements  ActionListener
 		
 		
 		GridBagConstraints gbc_message = new GridBagConstraints();
+		gbc_message.gridheight = 2;
 		gbc_message.insets = new Insets(0, 0, 0, 5);
 		gbc_message.fill = GridBagConstraints.BOTH;
 		gbc_message.gridx = 0;
@@ -59,11 +61,18 @@ public class Pchat extends JPanel implements  ActionListener
 		
 		
 		GridBagConstraints gbc_btnSend = new GridBagConstraints();
+		gbc_btnSend.insets = new Insets(0, 0, 5, 0);
 		gbc_btnSend.fill = GridBagConstraints.BOTH;
 		gbc_btnSend.gridx = 1;
 		gbc_btnSend.gridy = 3;
 		panel.add(btnSend, gbc_btnSend);
 		btnSend.addActionListener(this);
+		
+		GridBagConstraints gbc_btnAttach = new GridBagConstraints();
+		gbc_btnAttach.gridx = 1;
+		gbc_btnAttach.gridy = 4;
+		panel.add(btnAttach, gbc_btnAttach);
+		btnAttach.addActionListener(this);
 		
 	}
 	public void actionPerformed(ActionEvent evt)
@@ -86,6 +95,14 @@ public class Pchat extends JPanel implements  ActionListener
 					groupfield.append(data);
 					//test Gatherer.pchatmsg(send); //sends the data to the class that handles sending it off the tcp_client	
 				}
+		}
+		else if (evt.getSource() == btnAttach)
+		{
+			
+		}
+		else if (evt.getSource() == btnemote)
+		{
+			
 		}
 	}
 	
