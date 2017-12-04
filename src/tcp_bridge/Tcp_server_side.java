@@ -41,6 +41,12 @@ public class Tcp_server_side
 		
 	}
 	
+	// Get new login from login server
+	public void New_connection(String user_name, String group_name, int port)
+	{
+		
+	}
+	
 	// Do we need this?
 	private void loop()
 	{

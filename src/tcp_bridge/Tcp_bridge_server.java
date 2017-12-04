@@ -60,6 +60,24 @@ public class Tcp_bridge_server extends Tcp_bridge
 		return true;
 	}
 	
+	// Close the server
+	public boolean Close_server()
+	{
+		if(!close_connection())
+			return false;
+		
+		try
+		{
+			m_server.close();
+			return true;
+		}
+		catch(IOException e)
+		{
+			System.out.println("server failed to close");
+			return false;
+		}
+	}
+	
 	// Starts our timer to check if we are connected
 	public void Start_checking_connected()
 	{
