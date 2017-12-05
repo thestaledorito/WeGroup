@@ -77,4 +77,20 @@ public class Poll_data extends Base_data
 	public List<Integer> getm_Poll_Votes(){
 		return m_poll_votes;
 	}
+	
+	public void setPoll_Question(String question) {
+		m_poll_question = question;
+	}
+	
+	public void setPoll_Creator(String creator) {
+		m_creator = creator;
+	}
+	
+	public void setPoll_Options(List<String> options) {
+		m_poll_options = options;
+	}
+	
+	public void setPoll_Votes(List<String> votes) {
+		m_poll_votes = votes;
+	}
 }

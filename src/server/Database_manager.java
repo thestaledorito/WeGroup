@@ -129,9 +129,7 @@ public class Database_manager
 	
 	
 	public void sendGroupMessage(Message_server messageData, String user, Group_element group) {
-		//String message = "message";
-		//Message_data data = (Message_data)genericSendData(message, user, group.getGroupName());
-		
+
 		Message_data messData = new Message_data();
 		messData.setm_Group_Id(group.getGroupName());
 		messData.setm_User_Id(user);
@@ -139,14 +137,24 @@ public class Database_manager
 		messData.setMessage(messageData.getMessage());
 		messData.setSender(messageData.getSender());
 		
+		m_tcp.Send_data(messData);
+	}
+	
+	public void sendPvtMessage(Message_server messageData, String user, Group_element group) {
+		
+		Message_data messData = new Message_data();
+		messData.setm_Group_Id(group.getGroupName());
+		messData.setm_User_Id(user);
+		messData.setPrivate(true);
+		messData.setMessage(messageData.getMessage());
+		messData.setSender(messageData.getSender());
 		
 		m_tcp.Send_data(messData);
 	}
 	
 	
+	
 	public void sendList(List_server listServData, String user, Group_element group) {
-		
-		
 		
 		List_data listData = new List_data();
 		listData.setm_Group_Id(group.getGroupName());		//Base_data
@@ -157,24 +165,22 @@ public class Database_manager
 		
 		m_tcp.Send_data(listData);
 		
-		
-		
-		
-		
 	}
+	
 	
 	public void sendPoll(Poll_server pollServData, String user, Group_element group) {
 		
+		Poll_data pollData = new Poll_data();
+		pollData.setm_Group_Id(group.getGroupName());
+		pollData.setm_User_Id(user);
 		
+		pollData.setPoll_Question(pollData.getID());
+		polldata.setPoll_Creator(pollData.getCreator());
+		pollData.setPoll_Options(pollData.getOptions());
+		pollData.setPoll_Votes(pollData.getVotes());
 		
-		// NO BUILDY BUILD
-		
-		//Poll_data pollData = new Poll_data();
-		//pollData.setm_Group_Id(group.getGroupName());
-		//pollData.setm_User_Id(user);
-		
-		
-		
+		m_tcp.Send_data(pollData);
+			
 	}
 	
 	
