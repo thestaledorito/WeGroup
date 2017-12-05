@@ -96,6 +96,11 @@ public class Poll_server
 		return poll_id;
 	}
 	
+	public String getCreator() {
+		return creatorId;
+	}
+	
+	
 	
 	/**
 	 * Gets the list of all the elements of the poll. 
@@ -106,6 +111,20 @@ public class Poll_server
 		return poll_contents;
 	}
 
+	public List<String> getOptions(){
+		List<String> options;
+		for(Poll_element op : poll_contents) {
+			options.add(op.getItem());
+		}
+		return options;
+	}
+	
+	public List<Integer> getVotes(){
+		List<Integer> votes;
+		for(Poll_element vt : poll_contents) {
+			votes.add(vt.getVotes())
+		}
+	}
 
 
 
