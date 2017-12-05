@@ -17,7 +17,7 @@ public class Tcp_client_side extends Tcp_bridge
 		super.Init();
 
 		System.out.println("opening connection");
-		if(open_connection("192.168.1.5", 1129))
+		if(open_connection(m_server_ip, 1129))
 		{
 			//System.out.println("connection opened");
 			
@@ -116,7 +116,7 @@ public class Tcp_client_side extends Tcp_bridge
 				// Have return here we could use
 				close_connection();
 				
-				if(open_connection("192.168.1.5", response.m_port_number))
+				if(open_connection(m_server_ip, response.m_port_number))
 				{	
 					Start_checking_data();
 				}
@@ -130,5 +130,7 @@ public class Tcp_client_side extends Tcp_bridge
 	
 	// Sends messages to this class with Data_received(Base_data data)
 	private Login m_callback_class;
+	
+	private String m_server_ip = "155.42.112.53";
 }
  
