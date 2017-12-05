@@ -144,22 +144,18 @@ public class Database_manager
 	}
 	
 	
-	public void sendList(List_server listData, String user, Group_element group) {
+	public void sendList(List_server listServData, String user, Group_element group) {
 		
 		
 		
+		List_data listData = new List_data();
+		listData.setm_Group_Id(group.getGroupName());		//Base_data
+		listData.setm_User_Id(user);						//Base_data
 		
-		// THIS MAKES IT NOT BUILD
+		listData.setTitle(listServData.getID());				//List_data
+		listData.setContent(listServData.getContent());			//List_data
 		
-		
-		
-		///List_data listData = new List_data();
-		//listData.setm_Group_Id(group.getGroupName());
-		//listData.setm_User_Id(user);
-		//listData.setTitle(listData.getID());
-		//listData.setContent(listData.getContent());
-		
-		//m_tcp.Send_data(listData);
+		m_tcp.Send_data(listData);
 		
 		
 		
@@ -167,7 +163,7 @@ public class Database_manager
 		
 	}
 	
-	public void sendPoll(Poll_server pollData, String user, Group_element group) {
+	public void sendPoll(Poll_server pollServData, String user, Group_element group) {
 		
 		
 		
