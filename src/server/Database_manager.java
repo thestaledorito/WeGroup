@@ -35,7 +35,7 @@ public class Database_manager
 		}
 		
 		if(group == null) {
-			addGroup(group);
+			addGroup(groupName);
 		}
 		
 		switch (type) {
@@ -172,8 +172,8 @@ public class Database_manager
 		}
 		
 		for(Message_server pvtMessData : storedPrivateMessages) {	// Private Message
-			if(pvtMessdata.userAsTarget(user)) {					// If the user is the target...
-				sendPvtMessage(pvtMessData, user, group)			// Send the message
+			if(pvtMessData.userAsTarget(user)) {					// If the user is the target...
+				sendPvtMessage(pvtMessData, user, group);			// Send the message
 			}
 		}
 		
@@ -338,11 +338,11 @@ public class Database_manager
 			try {
 				
 				// For every group, and every user IN group, update that user.
-				for(Group_element grp : storedGroups) {
-					for(String user : grp.users) {
-						update(user, grp);
-					}
-				}
+				//for(Group_element grp : storedGroups) {
+					//for(String user : grp.users) {
+						//update(user, grp);
+					//}
+				//}
 				
 				
 				Thread.sleep(5000);		// NOT THE BEST WAY TO DO A TIMER LOOP
