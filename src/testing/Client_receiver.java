@@ -1,9 +1,9 @@
 package testing;
 
-import client.Main_page;
+import client.Login;
 import data_types.*;
 
-public class Client_receiver extends Main_page 
+public class Client_receiver extends Login
 {
 	
 	public void Data_received(Base_data data)

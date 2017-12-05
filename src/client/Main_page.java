@@ -351,14 +351,6 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 		}
 	}*/
 	
-	// Initialize this class
-	public void Init()
-	{
-		m_tcp = new Tcp_client_side();
-		m_tcp.Init();
-		m_tcp.Register_reciver(this);
-	}
-	
 	// Data received from TCP
 	public void Data_received(Base_data data)
 	{
@@ -375,7 +367,7 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 					boolean pvtMsg = messData.getPrivate();
 					if (pvtMsg)
 					{
-						Pchat.msgrec(messData);
+						//Pchat.msgrec(messData);
 					}	
 				}
 				break;
@@ -392,16 +384,19 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 				JOptionPane.showMessageDialog(null, "Invalid data type");
 		}
 	}
+
+	public void set_tcp(Tcp_client_side tcp)
+	{
+		m_tcp = tcp;
+	}
 	
 	// Class to send TCP
 	protected Tcp_client_side m_tcp;
 	
-	
-	
-	public static void main (String[] args)
+	public void setup_ui(String in_name, String in_group)
 	{
-		//name = args[1];
-		//group = args[0]; remove comments when intending to run from login
+		name = in_name;
+		group = in_group;
 		javax.swing.SwingUtilities.invokeLater(new Runnable()
 		{
 			public void run() 
@@ -413,5 +408,11 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 				GUI();
 			}
 		});
+	}
+	
+	public static void main (String[] args)
+	{
+		Main_page main_page = new Main_page();
+		main_page.setup_ui(args[1], args[0]);
 	}
 }

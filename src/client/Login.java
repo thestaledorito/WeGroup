@@ -6,6 +6,7 @@ import java.awt.Window.*;
 import javax.swing.*;
 
 import data_types.*;
+import tcp_bridge.*;
 
 public class Login extends JPanel implements  ActionListener
 {
@@ -18,9 +19,13 @@ public class Login extends JPanel implements  ActionListener
 	public static String usrname;
 	private JButton btnOk = new JButton("OK");
 	private JButton btnCancel = new JButton("Cancel");
+	private Main_page m_main_page = null;
+	protected Tcp_client_side m_tcp;
 	
 	public Login() 
 	{
+		Init();
+
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
 			
@@ -70,6 +75,14 @@ public class Login extends JPanel implements  ActionListener
 		btnCancel.addActionListener(this);
 	
 	}
+
+	// Initialize this class
+	public void Init()
+	{
+		m_tcp = new Tcp_client_side();
+		m_tcp.Init();
+		m_tcp.Register_reciver(this);
+	}
 	
 	public void actionPerformed(ActionEvent evt)
 	{
@@ -85,6 +98,8 @@ public class Login extends JPanel implements  ActionListener
 				login_data.m_group_name = grpname;
 				login_data.m_password = data;
 
+				m_tcp.Send_data(login_data);
+
 				groupname.setText(""); //clears out the field area
 				username.setText("");
 				pwd.setText("");
@@ -99,14 +114,31 @@ public class Login extends JPanel implements  ActionListener
 			System.exit(0);
 		}
 	}
+
+	public void Data_received(Base_data data)
+	{
+		if(m_main_page != null)
+		{
+			m_main_page.Data_received(data);
+		}
+		else
+		{
+			if(data.m_type == Tcp_message_type.Login_response 
+				&& data instanceof Login_response_data)
+			{
+				Login_response_data login_data = (Login_response_data)data;
+				recauth(login_data);
+			}
+		}
+	}
 	
 	public void recauth(Login_response_data data) 
 	{
 		if(data.m_accpted) 
 		{
-			setup[0] = grpname;
-			setup[1] = usrname;
-			Main_page.main(setup);
+			m_main_page = new Main_page();
+			m_main_page.setup_ui(usrname, grpname);
+			m_main_page.set_tcp(m_tcp);
 		}
 	}
 	/*

@@ -1,6 +1,6 @@
 package tcp_bridge;
 
-import client.Main_page;
+import client.Login;
 import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -96,7 +96,7 @@ public class Tcp_client_side extends Tcp_bridge
 	}
 
 	// Register a class to receive all the data that comes from the server
-	public void Register_reciver(Main_page callback)
+	public void Register_reciver(Login callback)
 	{
 		m_callback_class = callback;
 	}
@@ -129,6 +129,6 @@ public class Tcp_client_side extends Tcp_bridge
 	}
 	
 	// Sends messages to this class with Data_received(Base_data data)
-	private Main_page m_callback_class;
+	private Login m_callback_class;
 }
  

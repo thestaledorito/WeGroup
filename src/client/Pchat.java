@@ -75,6 +75,7 @@ public class Pchat extends JPanel implements  ActionListener
 		btnAttach.addActionListener(this);
 		
 	}
+
 	public void actionPerformed(ActionEvent evt)
 	{
 		if (evt.getSource() == btnSend)
@@ -108,13 +109,18 @@ public class Pchat extends JPanel implements  ActionListener
 		}
 	}
 	
-	public static void msgrec(Message_data receive)
+	public void msgrec(Message_data receive)
 	{
 		String user = receive.getSender();
 		String msg = receive.getMessage();
 		String data = user + ": " + msg;
 		groupfield.append(data);	
 		frame.setTitle(name + "(" + target + ")");
+	}
+
+	public String talking_to()
+	{
+		return target;
 	}
 	
 	private static void GUI()
