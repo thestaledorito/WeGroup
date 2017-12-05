@@ -33,7 +33,10 @@ public class Database_manager
 				group = name;
 			}
 		}
-
+		
+		if(group == null) {
+			addGroup(group);
+		}
 		
 		switch (type) {
 			case Message:	// MESSAGE CASE
@@ -44,6 +47,10 @@ public class Database_manager
 					String sender = messData.getSender();
 					String message = messData.getMessage();
 					List<String> recip = messData.getRecipients();
+					
+					for(String usr : recip) {
+						
+					}
 					
 					if(pvtMsg) {
 						//String message, List<String> target, String user
@@ -100,34 +107,6 @@ public class Database_manager
 	
 	
 	
-	/*
-	public Base_data genericSendData(String type, String user, String group) {
-		Tcp_message_type dataType = Tcp_message_type.Other;
-		if(type == "message") {
-			dataType = Tcp_message_type.Message;
-		}
-		else if(type == "list") {
-			dataType = Tcp_message_type.List;
-		}
-		else if(type == "poll") {
-			dataType = Tcp_message_type.Poll;
-		}
-		
-		
-		Base_data toSend = new Base_data();
-		toSend.setm_Type(dataType);
-		toSend.setm_Group_Id(group);
-		toSend.setm_User_Id(user);
-		
-		return toSend;
-		
-	}
-	
-	*/
-	
-	
-	
-	
 	public void sendGroupMessage(Message_server messageData, String user, Group_element group) {
 
 		Message_data messData = new Message_data();
@@ -171,13 +150,13 @@ public class Database_manager
 	public void sendPoll(Poll_server pollServData, String user, Group_element group) {
 		
 		Poll_data pollData = new Poll_data();
-		pollData.setm_Group_Id(group.getGroupName());
-		pollData.setm_User_Id(user);
+		pollData.setm_Group_Id(group.getGroupName());		//Base_data
+		pollData.setm_User_Id(user);						//Base_data
 		
-		pollData.setPoll_Question(pollData.getID());
-		polldata.setPoll_Creator(pollData.getCreator());
-		pollData.setPoll_Options(pollData.getOptions());
-		pollData.setPoll_Votes(pollData.getVotes());
+		pollData.setPoll_Question(pollServData.getID());			//List_data
+		polldata.setPoll_Creator(pollServData.getCreator());		//List_data
+		pollData.setPoll_Options(pollServData.getOptions());		//List_data
+		pollData.setPoll_Votes(pollServData.getVotes());			//List_data
 		
 		m_tcp.Send_data(pollData);
 			
@@ -186,9 +165,15 @@ public class Database_manager
 	
 	
 	public void update(String user, Group_element group) {
-		for(Message_server messageData : group.storedGM) {
-			if(messageData.userAsTarget(user)) {
-				sendGroupMessage(messageData, user, group);
+		for(Message_server messageData : group.storedGM) {			// Group Message
+			if(messageData.userAsTarget(user)) {					// If the user is a target...
+				sendGroupMessage(messageData, user, group);			// Send the message
+			}
+		}
+		
+		for(Message_server pvtMessData : storedPrivateMessages) {	// Private Message
+			if(pvtMessdata.userAsTarget(user)) {					// If the user is the target...
+				sendPvtMessage(pvtMessData, user, group)			// Send the message
 			}
 		}
 		
@@ -211,8 +196,9 @@ public class Database_manager
 	}
 	
 	public void addUserToGroup(String user, Group_element group) {
-		group.addUser(user);
-		
+		if(!group.users.contains(user)) {
+			group.addUser(user);
+		}
 	}
 	
 
@@ -350,6 +336,15 @@ public class Database_manager
 		while (true) {
 			printsomething();
 			try {
+				
+				// For every group, and every user IN group, update that user.
+				for(Group_element grp : storedGroups) {
+					for(String user : grp.users) {
+						update(user, grp);
+					}
+				}
+				
+				
 				Thread.sleep(5000);		// NOT THE BEST WAY TO DO A TIMER LOOP
 			} catch (InterruptedException e) {
 				e.printStackTrace();
