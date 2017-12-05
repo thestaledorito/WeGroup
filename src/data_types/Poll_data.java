@@ -90,7 +90,7 @@ public class Poll_data extends Base_data
 		m_poll_options = options;
 	}
 	
-	public void setPoll_Votes(List<String> votes) {
+	public void setPoll_Votes(List<Integer> votes) {
 		m_poll_votes = votes;
 	}
 }

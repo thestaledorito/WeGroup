@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import data_types.*;
-import import tcp_bridge.*;
+import tcp_bridge.*;
 
 public class Creategrp extends JPanel implements  ActionListener
 {

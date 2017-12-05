@@ -16,7 +16,7 @@ public class Poll_server
 	String poll_id;
 	List<Poll_element> poll_contents;
 	List<String> votedUsers;
-	String createrId;
+	String creatorId;
 	
 	/**
 	 * Creates a Poll with a name, and creates an empty content list.
@@ -27,7 +27,7 @@ public class Poll_server
 		this.poll_id = name;
 		this.poll_contents = new ArrayList<Poll_element>();
 		this.votedUsers = new ArrayList<String>();
-		this.createrId = createrId;
+		this.creatorId = createrId;
 	}
 	
 	/**
@@ -43,7 +43,7 @@ public class Poll_server
 
 	public void remove_item(String item, String user)
 	{
-		if(user == createrId)
+		if(user == creatorId)
 		{
 			Poll_element element = new Poll_element(item);
 			this.poll_contents.remove(element);
@@ -112,7 +112,7 @@ public class Poll_server
 	}
 
 	public List<String> getOptions(){
-		List<String> options;
+		List<String> options = new ArrayList<String>();
 		for(Poll_element op : poll_contents) {
 			options.add(op.getItem());
 		}
@@ -120,10 +120,11 @@ public class Poll_server
 	}
 	
 	public List<Integer> getVotes(){
-		List<Integer> votes;
+		List<Integer> votes = new ArrayList<Integer>();
 		for(Poll_element vt : poll_contents) {
-			votes.add(vt.getVotes())
+			votes.add(vt.getVotes());
 		}
+		return votes;
 	}
 
 

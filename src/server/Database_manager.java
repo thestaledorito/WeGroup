@@ -160,8 +160,8 @@ public class Database_manager
 		listData.setm_Group_Id(group.getGroupName());		//Base_data
 		listData.setm_User_Id(user);						//Base_data
 		
-		listData.setTitle(listServData.getID());				//List_data
-		listData.setContent(listServData.getContent());			//List_data
+		listData.m_title = listServData.getID();				//List_data
+		listData.m_contents = listServData.getContent();			//List_data
 		
 		m_tcp.Send_data(listData);
 		
@@ -174,10 +174,10 @@ public class Database_manager
 		pollData.setm_Group_Id(group.getGroupName());
 		pollData.setm_User_Id(user);
 		
-		pollData.setPoll_Question(pollData.getID());
-		polldata.setPoll_Creator(pollData.getCreator());
-		pollData.setPoll_Options(pollData.getOptions());
-		pollData.setPoll_Votes(pollData.getVotes());
+		pollData.setPoll_Question(pollServData.getID());
+		pollData.setPoll_Creator(pollServData.getCreator());
+		pollData.setPoll_Options(pollServData.getOptions());
+		pollData.setPoll_Votes(pollServData.getVotes());
 		
 		m_tcp.Send_data(pollData);
 			
