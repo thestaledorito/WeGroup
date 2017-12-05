@@ -18,6 +18,7 @@ public class Sendto extends JPanel implements  ActionListener
 	private final JList<String> list = new JList<String>();
 	private final JButton btnCancel = new JButton("Cancel");
 	private final JButton btnOk = new JButton("OK");
+	JFrame frame = new JFrame("Send to");
 	
 	public Sendto() 
 	{
@@ -94,17 +95,7 @@ public class Sendto extends JPanel implements  ActionListener
 		}
 	}
 
-	private static void GUI()
-	{
-		JFrame frame = new JFrame("Send to");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().add(new Sendto());
-		frame.pack();
-		frame.setLocationByPlatform(true);
-		frame.setVisible(true);
-	}
-	
-	public static void main (ArrayList<String> data)
+	public void GUI(ArrayList<String> data)
 	{
 		javax.swing.SwingUtilities.invokeLater(new Runnable()
 		{
@@ -114,8 +105,13 @@ public class Sendto extends JPanel implements  ActionListener
 				{
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); //attempt to use system look for UI
 				} catch (Exception useDefault) {}
-				GUI();
+				frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				frame.getContentPane().add(new Sendto());
+				frame.pack();
+				frame.setLocationByPlatform(true);
+				frame.setVisible(true);
 			}
 		});
+		
 	}
 }

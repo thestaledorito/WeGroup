@@ -16,6 +16,7 @@ public class Poll_view extends JPanel implements  ActionListener
 	private final JLabel lblTitle = new JLabel("Title:");
 	private final JButton btnCancel = new JButton("Cancel");
 	private final JScrollPane scroll = new JScrollPane();
+	JFrame frame = new JFrame("View Poll");
 	private final JTable polled = new JTable(new DefaultTableModel(
 													new Object[][] {},
 													new String[] {"Option", "Total Votes"}));
@@ -63,7 +64,7 @@ public class Poll_view extends JPanel implements  ActionListener
 	{
 		if (evt.getSource() == btnCancel)
 		{	
-			System.exit(0);
+			frame.dispose();
 		}
 	}
 	/*public void pollres(Array result[])
@@ -73,17 +74,7 @@ public class Poll_view extends JPanel implements  ActionListener
 			tablemod.addRow(add object here);
 		}
 	}*/
-	private static void GUI()
-	{
-		JFrame frame = new JFrame("View Poll");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().add(new Poll_view());
-		frame.pack();
-		frame.setLocationByPlatform(true);
-		frame.setVisible(true);
-	}
-	
-	public static void main (String[] args)
+	public void GUI()
 	{
 		javax.swing.SwingUtilities.invokeLater(new Runnable()
 		{
@@ -93,8 +84,13 @@ public class Poll_view extends JPanel implements  ActionListener
 				{
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); //attempt to use system look for UI
 				} catch (Exception useDefault) {}
-				GUI();
+				frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				frame.getContentPane().add(new Poll_view());
+				frame.pack();
+				frame.setLocationByPlatform(true);
+				frame.setVisible(true);
 			}
 		});
 	}
+
 }

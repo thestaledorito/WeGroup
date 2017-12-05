@@ -21,6 +21,7 @@ public class List_create extends JPanel implements  ActionListener, ListSelectio
 	private final JButton btnCreate = new JButton("Create");
 	ArrayList<String> list2 = new ArrayList<String>();
 	private final JTextField additemf = new JTextField();
+	JFrame frame = new JFrame("List Creation");
 	
 	public List_create() 
 	{
@@ -128,7 +129,8 @@ public class List_create extends JPanel implements  ActionListener, ListSelectio
 			if(!titlef.getText().equals(""))
 			{
 				list2.add(titlef.getText());
-				Sendto.main(list2);
+				Sendto s_to = new Sendto();
+				s_to.GUI(list2);
 			}
 			else
 			{
@@ -137,7 +139,7 @@ public class List_create extends JPanel implements  ActionListener, ListSelectio
 		}
 		else if(evt.getSource() == btnCancel)
 		{
-			System.exit(0);
+			frame.dispose();
 		}
 	}
 	public void valueChanged(ListSelectionEvent e)
@@ -145,17 +147,7 @@ public class List_create extends JPanel implements  ActionListener, ListSelectio
 		//this method had nothing to do, but is required
 	}
 
-	private static void GUI()
-	{
-		JFrame frame = new JFrame("List Creation");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().add(new List_create());
-		frame.pack();
-		frame.setLocationByPlatform(true);
-		frame.setVisible(true);
-	}
-	
-	public static void main (String[] args)
+	public void GUI()
 	{
 		javax.swing.SwingUtilities.invokeLater(new Runnable()
 		{
@@ -165,8 +157,12 @@ public class List_create extends JPanel implements  ActionListener, ListSelectio
 				{
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); //attempt to use system look for UI
 				} catch (Exception useDefault) {}
-				GUI();
-			}
+				frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				frame.getContentPane().add(new List_create());
+				frame.pack();
+				frame.setLocationByPlatform(true);
+				frame.setVisible(true);
+			}	
 		});
 	}
 }

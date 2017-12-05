@@ -9,23 +9,24 @@ import data_types.*;
 
 public class List_edit extends JPanel implements  ActionListener, ListSelectionListener
 {
-	private static final long serialVersionUID = 6L;
-	private JPanel panel;
-	private int index;
-	private DefaultListModel<String> listmod = new DefaultListModel<String>();
-	private JScrollPane scroll1 = new JScrollPane();
-	private final JLabel lblAddItem = new JLabel("add item:");
-	private final JButton btnAdd = new JButton("add");
-	private final JTextField titlef = new JTextField();
-	private final JLabel lblTitle = new JLabel("Title:");
-	private final JList<String> list = new JList<String>(listmod);
-	private final JButton btnCancel = new JButton("Cancel");
-	private final JButton btnAccept = new JButton("Accept");
-	private final JLabel lbldeleteitem = new JLabel("Delete item:");
-	private final JTextField deletef = new JTextField();
-	private final JButton btnDelete = new JButton("Delete");
-	private final JTextField additemf = new JTextField();
+	static final long serialVersionUID = 6L;
+	JPanel panel;
+	int index;
+	 DefaultListModel<String> listmod = new DefaultListModel<String>();
+	 JScrollPane scroll1 = new JScrollPane();
+	 JLabel lblAddItem = new JLabel("add item:");
+	 JButton btnAdd = new JButton("add");
+	 JTextField titlef = new JTextField();
+	 JLabel lblTitle = new JLabel("Title:");
+	 JList<String> list = new JList<String>(listmod);
+	JButton btnCancel = new JButton("Cancel");
+	 JButton btnAccept = new JButton("Accept");
+	 JLabel lbldeleteitem = new JLabel("Delete item:");
+	 JTextField deletef = new JTextField();
+	 JButton btnDelete = new JButton("Delete");
+	 JTextField additemf = new JTextField();
 	ArrayList<String> list2 = new ArrayList<String>();
+	JFrame frame = new JFrame("Edit list");
 	
 	public List_edit() 
 	{
@@ -171,7 +172,7 @@ public class List_edit extends JPanel implements  ActionListener, ListSelectionL
 		}
 		else if (evt.getSource() == btnCancel)
 		{
-			System.exit(0);
+			frame.dispose();
 		}
 	}
 	public void valueChanged(ListSelectionEvent e)
@@ -195,17 +196,7 @@ public class List_edit extends JPanel implements  ActionListener, ListSelectionL
 		}
 	}
 
-	private static void GUI()
-	{
-		JFrame frame = new JFrame("Edit list");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().add(new List_edit());
-		frame.pack();
-		frame.setLocationByPlatform(true);
-		frame.setVisible(true);
-	}
-	
-	public static void main (String[] args)
+	public void GUI()
 	{
 		javax.swing.SwingUtilities.invokeLater(new Runnable()
 		{
@@ -215,8 +206,12 @@ public class List_edit extends JPanel implements  ActionListener, ListSelectionL
 				{
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); //attempt to use system look for UI
 				} catch (Exception useDefault) {}
-				GUI();
+				frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				frame.getContentPane().add(new List_edit());
+				frame.pack();
+				frame.setLocationByPlatform(true);
+				frame.setVisible(true);
 			}
-		});
+		});	
 	}
 }

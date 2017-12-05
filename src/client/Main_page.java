@@ -59,10 +59,10 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 	private final JButton btnCreateList = new JButton("Create list");
 	private final JButton btnCreatePoll = new JButton("create poll");
 	private final JButton btnAttach = new JButton("attach");
-	private JPopupMenu menu = new JPopupMenu();
-	private JMenuItem item = new JMenuItem();
-	private JMenuItem item2 = new JMenuItem();
-	private JMenuItem item3 = new JMenuItem();
+	JPopupMenu menu = new JPopupMenu();
+	JMenuItem item = new JMenuItem();
+	JMenuItem item2 = new JMenuItem();
+	JMenuItem item3 = new JMenuItem();
 
 	private ArrayList<List_edit> m_lists;
 	private ArrayList<Pchat> m_chats;
@@ -111,6 +111,7 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 		
 		
 		scrollPane.setViewportView(groupfield);
+		groupfield.setEditable(false);
 		
 		
 		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
@@ -202,40 +203,52 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 		{
 			if(members.isFocusOwner())
 			{	
-				Pchat.main(setup);
+				Pchat pchat = new Pchat();
+				pchat.GUI();
 				menu.setVisible(false);
+				menu.removeAll();
 			}
 		}
 		else if (evt.getSource() == item2)
 		{
 			if (lists.isFocusOwner())
 			{
-				List_edit.main(setup);
+				List_edit l_edit = new List_edit();
+				l_edit.GUI();
 				menu.setVisible(false);
+				menu.removeAll();
 			}
 			else if (polls.isFocusOwner())
 			{
-				Poll_view.main(setup);
+				Poll_view p_view = new Poll_view();
+				p_view.GUI();
 				menu.setVisible(false);
+				menu.removeAll();
 			}
 		}
 		else if (evt.getSource() == item3)
 		{
 			if (polls.isFocusOwner())
 			{
-				Poll_vote.main(setup);
+				Poll_vote p_vote = new Poll_vote();
+				p_vote.GUI();
 				menu.setVisible(false);
+				menu.removeAll();
 			}
 		}
 		else if (evt.getSource() == btnCreateList)
 		{
-			List_create.main(setup);
+			List_create l_create = new List_create();
+			l_create.GUI();
 			menu.setVisible(false);
+			menu.removeAll();
 		}
 		else if (evt.getSource() == btnCreatePoll)
 		{
-			Poll_create.main(setup);
+			Poll_create p_create = new Poll_create();
+			p_create.GUI();
 			menu.setVisible(false);
+			menu.removeAll();
 		}
 		else if (evt.getSource() == btnAttach)
 		{
@@ -251,6 +264,7 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 	{
 		if(members.isFocusOwner() == true)
 		{
+			menu.validate();
 			item = new JMenuItem("Private chat");
 			index = members.getSelectedIndex();
 			target = membermod.get(index);
@@ -263,15 +277,14 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 			int y = (int) dy;
 			int x = (int) dx;
 			menu.setLocation(x, y);
-			
 			menu.setVisible(true);
 		}
 		else if(lists.isFocusOwner() == true)
 		{
+			menu.validate();
 			item2 = new JMenuItem("open list");
 			index = lists.getSelectedIndex();
 			item2.addActionListener(this);
-			menu.add(item);
 			menu.add(item2);
 			
 			//get mouse location and set pop-up menu to location 
@@ -285,12 +298,12 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 		}
 		else if(polls.isFocusOwner() == true)
 		{
+			menu.validate();
 			item2 = new JMenuItem("open poll");
 			item3 = new JMenuItem("vote poll");
 			index = lists.getSelectedIndex();
 			item2.addActionListener(this);
 			item3.addActionListener(this);
-			menu.add(item);
 			menu.add(item2);
 			menu.add(item3);
 			
@@ -300,17 +313,16 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 			int y = (int) dy;
 			int x = (int) dx;
 			menu.setLocation(x, y);
-			
 			menu.setVisible(true);
 		}
 	}
 	public static String thetarget() {
 		return target;
 	}
-	private static void GUI()
+	public void GUI()
 	{
 		frame.setTitle("WeGroup: " + group + "(" + name +")");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		frame.getContentPane().add(new Main_page());
 		
@@ -393,10 +405,10 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 	// Class to send TCP
 	protected Tcp_client_side m_tcp;
 	
-	public void setup_ui(String in_name, String in_group)
+	public void setup_ui(/*String in_name, String in_group*/)
 	{
-		name = in_name;
-		group = in_group;
+		//name = in_name;
+		//group = in_group;
 		javax.swing.SwingUtilities.invokeLater(new Runnable()
 		{
 			public void run() 
@@ -413,6 +425,6 @@ public class Main_page extends JPanel implements  ActionListener, ListSelectionL
 	public static void main (String[] args)
 	{
 		Main_page main_page = new Main_page();
-		main_page.setup_ui(args[1], args[0]);
+		main_page.setup_ui(/*args[1], args[0]*/);
 	}
 }

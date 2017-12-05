@@ -21,6 +21,7 @@ public class Login extends JPanel implements  ActionListener
 	private JButton btnCancel = new JButton("Cancel");
 	private Main_page m_main_page = null;
 	protected Tcp_client_side m_tcp;
+	JFrame frame = new JFrame("WeGroup Login");
 	
 	public Login() 
 	{
@@ -111,7 +112,7 @@ public class Login extends JPanel implements  ActionListener
 		}
 		else if (evt.getSource() == btnCancel)
 		{
-			System.exit(0);
+			frame.dispose();
 		}
 	}
 
@@ -149,10 +150,10 @@ public class Login extends JPanel implements  ActionListener
 		return usrname;
 	}*/
 	
-	private static void GUI()
+	public void GUI()
 	{
-		JFrame frame = new JFrame("WeGroup Login");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		frame.getContentPane().add(new Login());
 		

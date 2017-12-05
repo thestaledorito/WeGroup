@@ -123,17 +123,7 @@ public class Pchat extends JPanel implements  ActionListener
 		return target;
 	}
 	
-	private static void GUI()
-	{
-		
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().add(new Pchat());
-		frame.pack();
-		frame.setLocationByPlatform(true);
-		frame.setVisible(true);
-	}
-	
-	public static void main (String[] args)
+	public void GUI()
 	{
 		javax.swing.SwingUtilities.invokeLater(new Runnable()
 		{
@@ -143,8 +133,17 @@ public class Pchat extends JPanel implements  ActionListener
 				{
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 				} catch (Exception useDefault) {}
-				GUI();
+				frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				frame.getContentPane().add(new Pchat());
+				frame.pack();
+				frame.setLocationByPlatform(true);
+				frame.setVisible(true);
 			}
 		});
+	}
+	
+	public static void main (String[] args)
+	{
+		
 	}
 }
