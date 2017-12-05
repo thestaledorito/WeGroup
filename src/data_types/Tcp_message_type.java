@@ -2,6 +2,7 @@ package data_types;
 
 public enum Tcp_message_type
 {
+	Add_group,
 	Login,
 	Login_response,
 	Update,

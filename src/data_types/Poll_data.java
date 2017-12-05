@@ -59,7 +59,9 @@ public class Poll_data extends Base_data
 		
 		return rep;
 	}
-	
+
+
+	// These should be removed
 	public String getm_Poll_Question() {
 		return m_poll_question;
 	}
