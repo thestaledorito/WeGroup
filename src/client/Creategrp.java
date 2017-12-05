@@ -3,6 +3,8 @@ package client;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import data_types.*;
+import import tcp_bridge.*;
 
 public class Creategrp extends JPanel implements  ActionListener
 {
@@ -18,9 +20,12 @@ public class Creategrp extends JPanel implements  ActionListener
 	private final JList<String> list = new JList<String>();
 	private final JButton btnCancel = new JButton("Cancel");
 	private final JButton btnCreate = new JButton("Create");
+	protected Tcp_client_side m_tcp;
 	
 	public Creategrp() 
 	{
+		Init();
+
 		textField_1.setColumns(10);
 		setLayout(new BorderLayout(0, 0));
 		
@@ -100,8 +105,20 @@ public class Creategrp extends JPanel implements  ActionListener
 	{
 		if (evt.getSource() == btnCreate)
 		{	
-			
+			Add_group_data group = new Add_group_data();
+			// group.m_group_name =    ;
+			// group.m_user_names.add(    );
+			// group.m_passwords.add(    );
+
+			m_tcp.Send_data(group);
 		}
+	}
+
+	// Initialize this class
+	public void Init()
+	{
+		m_tcp = new Tcp_client_side();
+		m_tcp.Init();
 	}
 
 	private static void GUI()
