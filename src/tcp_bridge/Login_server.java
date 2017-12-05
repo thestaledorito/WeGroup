@@ -40,6 +40,21 @@ public class Login_server extends Tcp_bridge_server
 				Send_data(response);
 			}
 		}
+		else if(data.m_type == Tcp_message_type.Add_group
+				&& data instanceof Add_group_data)
+		{
+			Add_group_data add_group = (Add_group_data)data;
+			
+			Iterator<String> it = add_group.m_user_names.iterator();
+			Iterator<String> pas_it = add_group.m_passwords.iterator();
+			while(it.hasNext())
+			{
+				if(pas_it.hasNext())
+				{
+					Add_user(it.next(), add_group.m_group_name, pas_it.next());
+				}
+			}
+		}
 	}
 	
 	// Add a new user with the user, group and password
